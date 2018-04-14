@@ -77,6 +77,7 @@ namespace ImageProcessor {
 			this->currentImage->Location = System::Drawing::Point(806, 79);
 			this->currentImage->Name = L"currentImage";
 			this->currentImage->Size = System::Drawing::Size(1671, 1108);
+			this->currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->currentImage->TabIndex = 1;
 			this->currentImage->TabStop = false;
 			// 
@@ -98,6 +99,8 @@ namespace ImageProcessor {
 		System::Windows::Forms::OpenFileDialog^ Open = gcnew System::Windows::Forms::OpenFileDialog();
 		Open->Title = "Open Image File";
 		Open->ShowDialog();
+		currentImage->ImageLocation = Open->FileName;
+		currentImage->MaximumSize = System::Drawing::Size(1671, 1108);
 	}
 	};
 }
