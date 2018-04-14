@@ -95,12 +95,7 @@ namespace ImageProcessor {
 
 		}
 #pragma endregion
-	private: System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e) {
-		System::Windows::Forms::OpenFileDialog^ Open = gcnew System::Windows::Forms::OpenFileDialog();
-		Open->Title = "Open Image File";
-		Open->ShowDialog();
-		currentImage->ImageLocation = Open->FileName;
-		currentImage->MaximumSize = System::Drawing::Size(1671, 1108);
-	}
+	private:
+		System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e);
 	};
 }
