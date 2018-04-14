@@ -1,3 +1,5 @@
+#include <iostream>
+#include <string>
 #pragma once
 
 namespace ImageProcessor {
@@ -34,7 +36,12 @@ namespace ImageProcessor {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  uploadImage;
+	private: System::Windows::Forms::PictureBox^  currentImage;
+	protected:
+
+
+
 	protected:
 
 	private:
@@ -50,33 +57,47 @@ namespace ImageProcessor {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->uploadImage = (gcnew System::Windows::Forms::Button());
+			this->currentImage = (gcnew System::Windows::Forms::PictureBox());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			this->SuspendLayout();
 			// 
-			// button1
+			// uploadImage
 			// 
-			this->button1->Location = System::Drawing::Point(470, 510);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(471, 68);
-			this->button1->TabIndex = 0;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			this->uploadImage->Location = System::Drawing::Point(1166, 1281);
+			this->uploadImage->Name = L"uploadImage";
+			this->uploadImage->Size = System::Drawing::Size(215, 83);
+			this->uploadImage->TabIndex = 0;
+			this->uploadImage->Text = L"Upload Image";
+			this->uploadImage->UseVisualStyleBackColor = true;
+			this->uploadImage->Click += gcnew System::EventHandler(this, &MyForm::uploadImage_Click);
+			// 
+			// currentImage
+			// 
+			this->currentImage->Location = System::Drawing::Point(806, 79);
+			this->currentImage->Name = L"currentImage";
+			this->currentImage->Size = System::Drawing::Size(1671, 1108);
+			this->currentImage->TabIndex = 1;
+			this->currentImage->TabStop = false;
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(2564, 1559);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->currentImage);
+			this->Controls->Add(this->uploadImage);
 			this->Name = L"MyForm";
-			this->Text = L" ";
+			this->Text = L"Image Processor";
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->EndInit();
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
-	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		Close();
+	private: System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e) {
+		System::Windows::Forms::OpenFileDialog^ Open = gcnew System::Windows::Forms::OpenFileDialog();
+		Open->Title = "Open Image File";
+		Open->ShowDialog();
 	}
 	};
 }
