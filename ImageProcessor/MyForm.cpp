@@ -5,6 +5,8 @@
 using namespace System;
 using namespace System::Windows::Forms;
 
+//85, 880
+
 [STAThreadAttribute]
 void Main(array<String^>^ args) {
 	Application::EnableVisualStyles();
@@ -12,11 +14,10 @@ void Main(array<String^>^ args) {
 	ImageProcessor::MyForm form;
 	form.StartPosition = FormStartPosition::CenterScreen;
 	form.WindowState = FormWindowState::Maximized;
+	form.FormBorderStyle = FormBorderStyle::FixedSingle;
+	form.MaximizeBox = false;
+	form.MinimizeBox = false;
 	Application::Run(%form);
-}
-
-System::Void ImageProcessor::MyForm::updatePictureBox(System::Drawing::Bitmap^ newBitmap) {
-	currentImage->Image = newBitmap;
 }
 
 System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -38,12 +39,24 @@ System::Void ImageProcessor::MyForm::saveImage_Click(System::Object^  sender, Sy
 
 }
 
-System::Void ImageProcessor::MyForm::rotateImage_Click(System::Object^  sender, System::EventArgs^  e) {
+System::Void ImageProcessor::MyForm::hideButtons() {
+	this->hMirror->Hide();
+	this->vMirror->Hide();
+	this->rotateC->Hide();
+	this->rotateCC->Hide();
+}
 
+System::Void ImageProcessor::MyForm::rotateImage_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (currentImage->Image) {
+		hideButtons();
+		this->rotateC->Show();
+		this->rotateCC->Show();
+	}
 }
 
 System::Void ImageProcessor::MyForm::mirrorImage_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
+		hideButtons();
 		this->hMirror->Show();
 		this->vMirror->Show();
 	}
