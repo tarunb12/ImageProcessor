@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #pragma once
 
 namespace ImageProcessor {
@@ -40,6 +38,8 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::PictureBox^  currentImage;
 	private: System::Windows::Forms::Button^  rotateImage;
 	private: System::Windows::Forms::Button^  mirrorImage;
+	private: System::Windows::Forms::Button^ hMirror;
+	private: System::Windows::Forms::Button^ vMirror;
 	private: System::Windows::Forms::Button^  cropImage;
 	private: System::Windows::Forms::Button^  resizeImage;
 	private: System::Windows::Forms::Button^  saveImage;
@@ -47,6 +47,7 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Button^  grayscaleImage;
 	private: System::Windows::Forms::Button^  imageBrightness;
 	private: System::Windows::Forms::Button^  imageContrast;
+
 
 	protected:
 
@@ -72,6 +73,8 @@ namespace ImageProcessor {
 			this->saveImage = (gcnew System::Windows::Forms::Button());
 			this->rotateImage = (gcnew System::Windows::Forms::Button());
 			this->mirrorImage = (gcnew System::Windows::Forms::Button());
+			this->hMirror = (gcnew System::Windows::Forms::Button());
+			this->vMirror = (gcnew System::Windows::Forms::Button());
 			this->cropImage = (gcnew System::Windows::Forms::Button());
 			this->resizeImage = (gcnew System::Windows::Forms::Button());
 			this->invertImage = (gcnew System::Windows::Forms::Button());
@@ -102,12 +105,13 @@ namespace ImageProcessor {
 			// 
 			// saveImage
 			// 
-			this->saveImage->Location = System::Drawing::Point(188, 1281);
+			this->saveImage->Location = System::Drawing::Point(293, 1281);
 			this->saveImage->Name = L"saveImage";
 			this->saveImage->Size = System::Drawing::Size(215, 83);
 			this->saveImage->TabIndex = 6;
 			this->saveImage->Text = L"Save Image";
 			this->saveImage->UseVisualStyleBackColor = true;
+			this->saveImage->Click += gcnew System::EventHandler(this, &MyForm::saveImage_Click);
 			// 
 			// rotateImage
 			// 
@@ -128,6 +132,29 @@ namespace ImageProcessor {
 			this->mirrorImage->Text = L"Mirror";
 			this->mirrorImage->UseVisualStyleBackColor = true;
 			this->mirrorImage->Click += gcnew System::EventHandler(this, &MyForm::mirrorImage_Click);
+			//
+			// hMirror
+			//
+			this->hMirror->Location = System::Drawing::Point(85, 880);
+			this->hMirror->Name = L"horizontalMirror";
+			this->hMirror->Size = System::Drawing::Size(259, 71);
+			this->hMirror->TabIndex = 0;
+			this->hMirror->Text = L"Horizontal Mirror";
+			this->hMirror->UseVisualStyleBackColor = true;
+			this->hMirror->Click += gcnew System::EventHandler(this, &MyForm::hMirror_Click);
+			this->hMirror->Hide();
+			//
+			// vMirror
+			//
+			this->vMirror->Location = System::Drawing::Point(439, 880);
+			this->vMirror->Name = L"verticalMirror";
+			this->vMirror->Size = System::Drawing::Size(259, 71);
+			this->vMirror->TabIndex = 0;
+			this->vMirror->Text = L"Vertical Mirror";
+			this->vMirror->UseVisualStyleBackColor = true;
+			this->vMirror->Click += gcnew System::EventHandler(this, &MyForm::vMirror_Click);
+			this->vMirror->Hide();
+
 			// 
 			// cropImage
 			// 
@@ -202,11 +229,11 @@ namespace ImageProcessor {
 			this->Controls->Add(this->resizeImage);
 			this->Controls->Add(this->cropImage);
 			this->Controls->Add(this->mirrorImage);
+			this->Controls->Add(this->hMirror);
+			this->Controls->Add(this->vMirror);
 			this->Controls->Add(this->rotateImage);
 			this->Controls->Add(this->currentImage);
 			this->Controls->Add(this->uploadImage);
-			this->MaximumSize = System::Drawing::Size(2590, 1630);
-			this->MinimumSize = System::Drawing::Size(2558, 1518);
 			this->Name = L"MyForm";
 			this->Text = L"Image Processor";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->EndInit();
@@ -217,13 +244,16 @@ namespace ImageProcessor {
 	private:
 		System::Void updatePictureBox(Bitmap^ newBitMap);
 		System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void saveImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void rotateImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void mirrorImage_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void hMirror_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void vMirror_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void cropImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void resizeImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void invertImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void grayscaleImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void imageBrightness_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void imageContrast_Click(System::Object^  sender, System::EventArgs^  e);
-	};
+};
 }

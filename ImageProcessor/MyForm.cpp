@@ -1,4 +1,7 @@
+#include <iostream>
+
 #include "MyForm.h"
+#include "ImageOrientation.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -8,6 +11,8 @@ void Main(array<String^>^ args) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	ImageProcessor::MyForm form;
+	form.StartPosition = FormStartPosition::CenterScreen;
+	form.WindowState = FormWindowState::Maximized;
 	Application::Run(%form);
 }
 
@@ -30,11 +35,26 @@ System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, 
 	}
 }
 
+System::Void ImageProcessor::MyForm::saveImage_Click(System::Object^  sender, System::EventArgs^  e) {
+
+}
+
 System::Void ImageProcessor::MyForm::rotateImage_Click(System::Object^  sender, System::EventArgs^  e) {
 
 }
 
 System::Void ImageProcessor::MyForm::mirrorImage_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (currentImage->Image) {
+		this->hMirror->Show();
+		this->vMirror->Show();
+	}
+}
+
+System::Void ImageProcessor::MyForm::hMirror_Click(System::Object^  sender, System::EventArgs^  e) {
+
+}
+
+System::Void ImageProcessor::MyForm::vMirror_Click(System::Object^  sender, System::EventArgs^  e) {
 
 }
 

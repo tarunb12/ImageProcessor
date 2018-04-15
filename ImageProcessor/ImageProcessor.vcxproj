@@ -134,8 +134,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="ImageOrientation" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ImageOrientation.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
