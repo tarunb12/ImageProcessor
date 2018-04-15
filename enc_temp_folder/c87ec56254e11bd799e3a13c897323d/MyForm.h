@@ -242,26 +242,17 @@ namespace ImageProcessor {
 #pragma endregion
 	private:
 		System::Void updatePictureBox(Bitmap^ newBitMap);
-
 		System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void saveImage_Click(System::Object^  sender, System::EventArgs^  e);
-
 		System::Void rotateImage_Click(System::Object^  sender, System::EventArgs^  e);
-
 		System::Void mirrorImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void hMirror_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void vMirror_Click(System::Object^  sender, System::EventArgs^  e);
-
 		System::Void cropImage_Click(System::Object^  sender, System::EventArgs^  e);
-
 		System::Void resizeImage_Click(System::Object^  sender, System::EventArgs^  e);
-
 		System::Void invertImage_Click(System::Object^  sender, System::EventArgs^  e);
-
 		System::Void grayscaleImage_Click(System::Object^  sender, System::EventArgs^  e);
-
 		System::Void imageBrightness_Click(System::Object^  sender, System::EventArgs^  e);
-
 		System::Void imageContrast_Click(System::Object^  sender, System::EventArgs^  e);
 };
 }

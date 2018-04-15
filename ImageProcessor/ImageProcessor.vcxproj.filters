@@ -18,15 +18,12 @@
     <ClCompile Include="MyForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImageOrientation">
+    <ClCompile Include="ImageOrientation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageOrientation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

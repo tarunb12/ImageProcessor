@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "MyForm.h"
-#include "ImageOrientation.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -48,14 +47,6 @@ System::Void ImageProcessor::MyForm::mirrorImage_Click(System::Object^  sender, 
 		this->hMirror->Show();
 		this->vMirror->Show();
 	}
-}
-
-System::Void ImageProcessor::MyForm::hMirror_Click(System::Object^  sender, System::EventArgs^  e) {
-
-}
-
-System::Void ImageProcessor::MyForm::vMirror_Click(System::Object^  sender, System::EventArgs^  e) {
-
 }
 
 System::Void ImageProcessor::MyForm::cropImage_Click(System::Object^  sender, System::EventArgs^  e) {
