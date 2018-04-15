@@ -16,11 +16,22 @@ System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, 
 	Open->Title = "Open Image File";
 	Open->Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.PNG";
 	Open->FilterIndex = 1;
-	Open->ShowDialog();
+	currentImage->MaximumSize = System::Drawing::Size(1671, 1108);
 
+	if (Open->ShowDialog() == ::DialogResult::OK) {
+		Bitmap^ bitmap = gcnew Bitmap(System::Drawing::Bitmap::FromFile(Open->FileName));
+		currentImage->Image = bitmap;
+	}
+	
+	
+	
 	/*
 	Open->ShowDialog();
 	currentImage->ImageLocation = Open->FileName;
 	currentImage->MaximumSize = System::Drawing::Size(1671, 1108);
 	*/
+}
+
+System::Void ImageProcessor::MyForm::updatePictureBox(System::Drawing::Bitmap^ newBitmap) {
+	currentImage->Image = newBitmap;
 }

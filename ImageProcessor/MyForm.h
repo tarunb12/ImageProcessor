@@ -88,6 +88,8 @@ namespace ImageProcessor {
 			this->ClientSize = System::Drawing::Size(2564, 1559);
 			this->Controls->Add(this->currentImage);
 			this->Controls->Add(this->uploadImage);
+			this->MaximumSize = System::Drawing::Size(2590, 1630);
+			this->MinimumSize = System::Drawing::Size(2558, 1518);
 			this->Name = L"MyForm";
 			this->Text = L"Image Processor";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->EndInit();
@@ -97,5 +99,6 @@ namespace ImageProcessor {
 #pragma endregion
 	private:
 		System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void updatePictureBox(Bitmap^ newBitMap);
 	};
 }
