@@ -286,6 +286,7 @@ namespace ImageProcessor {
 		System::Void resizeImage_Click(System::Object^  sender, System::EventArgs^  e);
 
 		System::Void invertImage_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void invertCurrentImage();
 
 		System::Void grayscaleImage_Click(System::Object^  sender, System::EventArgs^  e);
 

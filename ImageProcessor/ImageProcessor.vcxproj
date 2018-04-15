@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="ImageOrientation.cpp" />
+    <ClCompile Include="Coloring.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">

@@ -78,6 +78,7 @@ System::Void ImageProcessor::MyForm::resizeImage_Click(System::Object^  sender, 
 System::Void ImageProcessor::MyForm::invertImage_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
+		invertCurrentImage();
 	}
 }
 
