@@ -17,6 +17,7 @@ void Main(array<String^>^ args) {
 	form.FormBorderStyle = FormBorderStyle::FixedSingle;
 	form.MaximizeBox = false;
 	form.MinimizeBox = false;
+	form.hideTempObjects();
 	Application::Run(%form);
 }
 
@@ -39,7 +40,7 @@ System::Void ImageProcessor::MyForm::saveImage_Click(System::Object^  sender, Sy
 
 }
 
-System::Void ImageProcessor::MyForm::hideButtons() {
+System::Void ImageProcessor::MyForm::hideTempObjects() {
 	this->hMirror->Hide();
 	this->vMirror->Hide();
 	this->rotateC->Hide();
@@ -48,7 +49,7 @@ System::Void ImageProcessor::MyForm::hideButtons() {
 
 System::Void ImageProcessor::MyForm::rotateImage_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
-		hideButtons();
+		hideTempObjects();
 		this->rotateC->Show();
 		this->rotateCC->Show();
 	}
@@ -56,32 +57,44 @@ System::Void ImageProcessor::MyForm::rotateImage_Click(System::Object^  sender, 
 
 System::Void ImageProcessor::MyForm::mirrorImage_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
-		hideButtons();
+		hideTempObjects();
 		this->hMirror->Show();
 		this->vMirror->Show();
 	}
 }
 
 System::Void ImageProcessor::MyForm::cropImage_Click(System::Object^  sender, System::EventArgs^  e) {
-
+	if (currentImage->Image) {
+		hideTempObjects();
+	}
 }
 
 System::Void ImageProcessor::MyForm::resizeImage_Click(System::Object^  sender, System::EventArgs^  e) {
-
+	if (currentImage->Image) {
+		hideTempObjects();
+	}
 }
 
 System::Void ImageProcessor::MyForm::invertImage_Click(System::Object^  sender, System::EventArgs^  e) {
-
+	if (currentImage->Image) {
+		hideTempObjects();
+	}
 }
 
 System::Void ImageProcessor::MyForm::grayscaleImage_Click(System::Object^  sender, System::EventArgs^  e) {
-
+	if (currentImage->Image) {
+		hideTempObjects();
+	}
 }
 
 System::Void ImageProcessor::MyForm::imageBrightness_Click(System::Object^  sender, System::EventArgs^  e) {
-
+	if (currentImage->Image) {
+		hideTempObjects();
+	}
 }
 
 System::Void ImageProcessor::MyForm::imageContrast_Click(System::Object^  sender, System::EventArgs^  e) {
-
+	if (currentImage->Image) {
+		hideTempObjects();
+	}
 }

@@ -37,11 +37,11 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Button^  uploadImage;
 	private: System::Windows::Forms::PictureBox^  currentImage;
 	private: System::Windows::Forms::Button^  rotateImage;
-	private: System::Windows::Forms::Button^ rotateC;
-	private: System::Windows::Forms::Button^ rotateCC;
+	private: System::Windows::Forms::Button^  rotateC;
+	private: System::Windows::Forms::Button^  rotateCC;
 	private: System::Windows::Forms::Button^  mirrorImage;
-	private: System::Windows::Forms::Button^ hMirror;
-	private: System::Windows::Forms::Button^ vMirror;
+	private: System::Windows::Forms::Button^  hMirror;
+	private: System::Windows::Forms::Button^  vMirror;
 	private: System::Windows::Forms::Button^  cropImage;
 	private: System::Windows::Forms::Button^  resizeImage;
 	private: System::Windows::Forms::Button^  saveImage;
@@ -265,11 +265,13 @@ namespace ImageProcessor {
 
 		}
 #pragma endregion
+
+	public:
+		System::Void hideTempObjects();
+
 	private:
 		System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void saveImage_Click(System::Object^  sender, System::EventArgs^  e);
-
-		System::Void hideButtons();
 
 		System::Void rotateImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void rotateC_Click(System::Object^  sender, System::EventArgs^  e);
