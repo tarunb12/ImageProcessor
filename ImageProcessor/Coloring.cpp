@@ -9,9 +9,9 @@ System::Void ImageProcessor::MyForm::invertCurrentImage() {
 	array<Byte>^ rgbValues = gcnew array<Byte>(bytes);
 	System::Runtime::InteropServices::Marshal::Copy(ptr, rgbValues, 0, bytes);
 	for (int i = 0; i < rgbValues->Length; i += 4) {
-		rgbValues[i] = (Byte)(255 - rgbValues[i]);
-		rgbValues[i + 1] = (Byte)(255 - rgbValues[i + 1]);
-		rgbValues[i + 2] = (Byte)(255 - rgbValues[i + 2]);
+		rgbValues[i] = 255 - rgbValues[i];
+		rgbValues[i + 1] = 255 - rgbValues[i + 1];
+		rgbValues[i + 2] = 255 - rgbValues[i + 2];
 	}
 	System::Runtime::InteropServices::Marshal::Copy(rgbValues, 0, ptr, bytes);
 	bitmap->UnlockBits(bitmapData);

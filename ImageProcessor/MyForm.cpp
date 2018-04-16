@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "MyForm.h"
 
 using namespace System;
@@ -13,16 +11,14 @@ void Main(array<String^>^ args) {
 	Application::SetCompatibleTextRenderingDefault(false);
 	ImageProcessor::MyForm form;
 	form.FormBorderStyle = FormBorderStyle::FixedSingle;
-	
 	form.Size = System::Drawing::Size(1000, 600);
 	form.MaximizeBox = false;
 	form.MinimizeBox = false;
-	form.hideTempObjects();
 	Application::Run(%form);
 }
 
 System::Void ImageProcessor::MyForm::MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
-
+	hideTempObjects();
 }
 
 System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -30,10 +26,8 @@ System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, 
 	Open->Title = "Open Image File";
 	Open->Filter = "Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
 	Open->FilterIndex = 1;
-	currentImage->SizeMode = PictureBoxSizeMode::Zoom;
 	currentImage->MaximumSize = System::Drawing::Size(1671, 1108);
 	Bitmap^ bitmap;
-
 	if (Open->ShowDialog() == ::DialogResult::OK) {
 		bitmap = gcnew Bitmap(System::Drawing::Bitmap::FromFile(Open->FileName));
 		currentImage->Image = bitmap;
@@ -41,12 +35,29 @@ System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, 
 }
 
 System::Void ImageProcessor::MyForm::saveImage_Click(System::Object^  sender, System::EventArgs^  e) {
-	System::Windows::Forms::SaveFileDialog^ Save = gcnew System::Windows::Forms::SaveFileDialog();
-	Save->Title = "Save Image";
-	Save->Filter = "Image Files(*.BMP;*.JPG;*.PNG*)|*.BMP;*.JPG;*.PNG";
-	Save->FilterIndex = 1;
-
-
+	System::Windows::Forms::SaveFileDialog^ SaveFile = gcnew System::Windows::Forms::SaveFileDialog();
+	SaveFile->Title = "Save Image";
+	SaveFile->Filter = "Image Files(*.JPG;*.PNG;*.BMP;)|*.JPG;*.PNG;*.BMP;";
+	SaveFile->FilterIndex = 1;
+	SaveFile->DefaultExt = "JPG";
+	SaveFile->RestoreDirectory = true;	
+	if (SaveFile->ShowDialog() == ::DialogResult::OK) {
+		System::Drawing::Imaging::ImageFormat^ format;
+		System::String^ systExt = System::IO::Path::GetExtension(SaveFile->FileName);
+		if (systExt == "JPG") {
+			format = System::Drawing::Imaging::ImageFormat::Jpeg;
+		}
+		else if (systExt == "PNG") {
+			format = System::Drawing::Imaging::ImageFormat::Png;
+		}
+		else if (systExt == "BMP") {
+			format = System::Drawing::Imaging::ImageFormat::Bmp;
+		}
+		else {
+			format = System::Drawing::Imaging::ImageFormat::Jpeg;
+		}
+		currentImage->Image->Save(SaveFile->FileName, format);
+	}
 }
 
 System::Void ImageProcessor::MyForm::hideTempObjects() {
