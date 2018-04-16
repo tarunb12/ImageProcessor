@@ -12,13 +12,17 @@ void Main(array<String^>^ args) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	ImageProcessor::MyForm form;
-	form.StartPosition = FormStartPosition::CenterScreen;
-	form.WindowState = FormWindowState::Maximized;
 	form.FormBorderStyle = FormBorderStyle::FixedSingle;
+	
+	form.Size = System::Drawing::Size(1000, 600);
 	form.MaximizeBox = false;
 	form.MinimizeBox = false;
 	form.hideTempObjects();
 	Application::Run(%form);
+}
+
+System::Void ImageProcessor::MyForm::MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
+
 }
 
 System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, System::EventArgs^  e) {

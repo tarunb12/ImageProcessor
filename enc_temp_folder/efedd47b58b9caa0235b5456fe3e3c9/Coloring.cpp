@@ -17,7 +17,3 @@ System::Void ImageProcessor::MyForm::invertCurrentImage() {
 	bitmap->UnlockBits(bitmapData);
 	currentImage->Image = bitmap;
 }
-
-System::Void ImageProcessor::MyForm::grayscaleCurrentImage() {
-
-}

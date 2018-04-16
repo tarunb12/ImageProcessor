@@ -290,7 +290,6 @@ namespace ImageProcessor {
 		System::Void invertCurrentImage();
 
 		System::Void grayscaleImage_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void grayscaleCurrentImage();
 
 		System::Void imageBrightness_Click(System::Object^  sender, System::EventArgs^  e);
 
