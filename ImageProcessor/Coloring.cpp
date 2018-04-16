@@ -8,7 +8,9 @@
 */
 
 System::Void ImageProcessor::MyForm::invertCurrentImage() { // unsafe?
+	this->undoChange->Show(); // resets undo
 	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current picturebox image
+	previousBitmap = gcnew Bitmap(currentImage->Image); // sets as previous bitmap image for undo
 	System::Drawing::Rectangle rect = Rectangle(0, 0, bitmap->Width, bitmap->Height); // new rectangle object w/ same image dimensions
 	System::Drawing::Imaging::BitmapData^ bitmapData = bitmap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, bitmap->PixelFormat); // locks bitmap
 	IntPtr ptr = bitmapData->Scan0; // idk scans bitmap data
@@ -26,7 +28,9 @@ System::Void ImageProcessor::MyForm::invertCurrentImage() { // unsafe?
 }
 
 System::Void ImageProcessor::MyForm::grayscaleCurrentImage() { // unsafe? grayscale by averaging r + g + b values
+	this->undoChange->Show(); // resets undo
 	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current picturebox image
+	previousBitmap = gcnew Bitmap(currentImage->Image); // sets as previous bitmap image for undo
 	System::Drawing::Rectangle rect = Rectangle(0, 0, bitmap->Width, bitmap->Height); // new rectangle object w/ same image dimensions
 	System::Drawing::Imaging::BitmapData^ bitmapData = bitmap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, bitmap->PixelFormat); // locks bitmap
 	IntPtr ptr = bitmapData->Scan0; // idk scans bitmap data

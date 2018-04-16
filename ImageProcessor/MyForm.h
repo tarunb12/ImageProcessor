@@ -49,6 +49,7 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Button^  grayscaleImage;
 	private: System::Windows::Forms::Button^  imageBrightness;
 	private: System::Windows::Forms::Button^  imageContrast;
+	private: System::Windows::Forms::Button^  undoChange;
 
 
 
@@ -86,6 +87,7 @@ namespace ImageProcessor {
 			this->grayscaleImage = (gcnew System::Windows::Forms::Button());
 			this->imageBrightness = (gcnew System::Windows::Forms::Button());
 			this->imageContrast = (gcnew System::Windows::Forms::Button());
+			this->undoChange = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -100,7 +102,7 @@ namespace ImageProcessor {
 			// 
 			// uploadImage
 			// 
-			this->uploadImage->Location = System::Drawing::Point(1165, 949);
+			this->uploadImage->Location = System::Drawing::Point(1180, 949);
 			this->uploadImage->Name = L"uploadImage";
 			this->uploadImage->Size = System::Drawing::Size(215, 83);
 			this->uploadImage->TabIndex = 1;
@@ -110,7 +112,7 @@ namespace ImageProcessor {
 			// 
 			// saveImage
 			// 
-			this->saveImage->Location = System::Drawing::Point(209, 949);
+			this->saveImage->Location = System::Drawing::Point(704, 949);
 			this->saveImage->Name = L"saveImage";
 			this->saveImage->Size = System::Drawing::Size(215, 83);
 			this->saveImage->TabIndex = 2;
@@ -238,11 +240,21 @@ namespace ImageProcessor {
 			this->imageContrast->UseVisualStyleBackColor = true;
 			this->imageContrast->Click += gcnew System::EventHandler(this, &MyForm::imageContrast_Click);
 			// 
+			// undoChange
+			// 
+			this->undoChange->Location = System::Drawing::Point(1656, 949);
+			this->undoChange->Name = L"undoChange";
+			this->undoChange->Size = System::Drawing::Size(215, 83);
+			this->undoChange->TabIndex = 14;
+			this->undoChange->Text = L"Undo";
+			this->undoChange->UseVisualStyleBackColor = true;
+			this->undoChange->Click += gcnew System::EventHandler(this, &MyForm::undoChange_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1987, 1091);
+			this->ClientSize = System::Drawing::Size(1949, 1091);
 			this->Controls->Add(this->imageContrast);
 			this->Controls->Add(this->imageBrightness);
 			this->Controls->Add(this->grayscaleImage);
@@ -258,6 +270,7 @@ namespace ImageProcessor {
 			this->Controls->Add(this->rotateCC);
 			this->Controls->Add(this->currentImage);
 			this->Controls->Add(this->uploadImage);
+			this->Controls->Add(this->undoChange);
 			this->Name = L"MyForm";
 			this->Text = L"Image Processor";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
@@ -270,6 +283,9 @@ namespace ImageProcessor {
 	private: // prototypes of all event handlers / image processing functions
 		System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void saveImage_Click(System::Object^  sender, System::EventArgs^  e);
+
+		System::Drawing::Bitmap^ previousBitmap;
+		System::Void undoChange_Click(System::Object^  sender, System::EventArgs^  e);
 
 		System::Void hideTempObjects();
 

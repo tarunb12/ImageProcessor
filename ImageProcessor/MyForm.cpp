@@ -76,6 +76,14 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all object not
 	this->rotateCC->Hide();
 }
 
+System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (currentImage->Image) {
+		hideTempObjects();
+		currentImage->Image = previousBitmap;
+		this->undoChange->Hide();
+	}
+}
+
 System::Void ImageProcessor::MyForm::rotateImage_Click(System::Object^  sender, System::EventArgs^  e) { // reveal rotate clockwise/counterclockwise buttons
 	if (currentImage->Image) {
 		hideTempObjects();
