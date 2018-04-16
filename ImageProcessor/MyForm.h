@@ -50,6 +50,8 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Button^  imageBrightness;
 	private: System::Windows::Forms::Button^  imageContrast;
 	private: System::Windows::Forms::Button^  undoChange;
+	private: System::Windows::Forms::Label^  uploadImageLabel;
+
 
 
 
@@ -88,6 +90,7 @@ namespace ImageProcessor {
 			this->imageBrightness = (gcnew System::Windows::Forms::Button());
 			this->imageContrast = (gcnew System::Windows::Forms::Button());
 			this->undoChange = (gcnew System::Windows::Forms::Button());
+			this->uploadImageLabel = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -95,7 +98,7 @@ namespace ImageProcessor {
 			// 
 			this->currentImage->Location = System::Drawing::Point(704, 80);
 			this->currentImage->Name = L"currentImage";
-			this->currentImage->Size = System::Drawing::Size(1162, 806);
+			this->currentImage->Size = System::Drawing::Size(1167, 806);
 			this->currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->currentImage->TabIndex = 0;
 			this->currentImage->TabStop = false;
@@ -109,6 +112,19 @@ namespace ImageProcessor {
 			this->uploadImage->Text = L"Upload Image";
 			this->uploadImage->UseVisualStyleBackColor = true;
 			this->uploadImage->Click += gcnew System::EventHandler(this, &MyForm::uploadImage_Click);
+			// 
+			// uploadImageLabel
+			// 
+			this->uploadImageLabel->AutoSize = true;
+			this->uploadImageLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->uploadImageLabel->ForeColor = System::Drawing::SystemColors::ControlDarkDark;
+			this->uploadImageLabel->Location = System::Drawing::Point(871, 414);
+			this->uploadImageLabel->Name = L"uploadImageLabel";
+			this->uploadImageLabel->Size = System::Drawing::Size(856, 108);
+			this->uploadImageLabel->TabIndex = 15;
+			this->uploadImageLabel->Text = L"Upload New Image";
+			this->uploadImageLabel->Click += gcnew System::EventHandler(this, &MyForm::uploadImageLabel_Click);
 			// 
 			// saveImage
 			// 
@@ -255,6 +271,7 @@ namespace ImageProcessor {
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1949, 1091);
+			this->Controls->Add(this->uploadImageLabel);
 			this->Controls->Add(this->imageContrast);
 			this->Controls->Add(this->imageBrightness);
 			this->Controls->Add(this->grayscaleImage);
@@ -276,40 +293,44 @@ namespace ImageProcessor {
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->EndInit();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
 
 	private: // prototypes of all event handlers / image processing functions
-		System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void saveImage_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e); // shows open file dialog on click
+		System::Void uploadImageLabel_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void saveImage_Click(System::Object^  sender, System::EventArgs^  e); // shows save file dialog on click
 
-		System::Drawing::Bitmap^ previousBitmap;
-		System::Void undoChange_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void hideTempObjects(); // hides objects
 
-		System::Void hideTempObjects();
+		System::Drawing::Bitmap^ previousBitmap; // previous bitmap for undo
+		System::Void undoChange_Click(System::Object^  sender, System::EventArgs^  e); // reverts a single change
 
-		System::Void rotateImage_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void rotateC_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void rotateCC_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void rotateImage_Click(System::Object^  sender, System::EventArgs^  e); // shows rotatec/rotatecc buttons
+		System::Void rotateC_Click(System::Object^  sender, System::EventArgs^  e); // rotates image clockwise
+		System::Void rotateCC_Click(System::Object^  sender, System::EventArgs^  e); // rotates image counterclockwise
 
-		System::Void mirrorImage_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void hMirror_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void vMirror_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void mirrorImage_Click(System::Object^  sender, System::EventArgs^  e); // shows hmirror/vmirror buttons
+		System::Void hMirror_Click(System::Object^  sender, System::EventArgs^  e); // mirrors image horizontally
+		System::Void vMirror_Click(System::Object^  sender, System::EventArgs^  e); // mirrors image vertically
 
-		System::Void cropImage_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void cropImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
 
-		System::Void resizeImage_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void resizeImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
 
-		System::Void invertImage_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void invertCurrentImage();
+		System::Void invertImage_Click(System::Object^  sender, System::EventArgs^  e); // inverts current image
+		System::Void invertCurrentImage(); // inversion function
 
-		System::Void grayscaleImage_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void grayscaleCurrentImage();
+		System::Void grayscaleImage_Click(System::Object^  sender, System::EventArgs^  e); // grayscales current image
+		System::Void grayscaleCurrentImage(); // grayscale function
 
-		System::Void imageBrightness_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void imageBrightness_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
 
-		System::Void imageContrast_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e);
+		System::Void imageContrast_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
+
+		System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e); // hide objects on form launch
+		
 };
 }
