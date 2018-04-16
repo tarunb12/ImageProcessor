@@ -24,7 +24,7 @@ void Main(array<String^>^ args) {
 System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, System::EventArgs^  e) {
 	System::Windows::Forms::OpenFileDialog^ Open = gcnew System::Windows::Forms::OpenFileDialog();
 	Open->Title = "Open Image File";
-	Open->Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.PNG";
+	Open->Filter = "Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
 	Open->FilterIndex = 1;
 	currentImage->SizeMode = PictureBoxSizeMode::Zoom;
 	currentImage->MaximumSize = System::Drawing::Size(1671, 1108);
@@ -37,6 +37,11 @@ System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, 
 }
 
 System::Void ImageProcessor::MyForm::saveImage_Click(System::Object^  sender, System::EventArgs^  e) {
+	System::Windows::Forms::SaveFileDialog^ Save = gcnew System::Windows::Forms::SaveFileDialog();
+	Save->Title = "Save Image";
+	Save->Filter = "Image Files(*.BMP;*.JPG;*.PNG*)|*.BMP;*.JPG;*.PNG";
+	Save->FilterIndex = 1;
+
 
 }
 
