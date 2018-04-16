@@ -267,12 +267,11 @@ namespace ImageProcessor {
 		}
 #pragma endregion
 
-	public:
-		System::Void hideTempObjects();
-
-	private:
+	private: // prototypes of all event handlers / image processing functions
 		System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void saveImage_Click(System::Object^  sender, System::EventArgs^  e);
+
+		System::Void hideTempObjects();
 
 		System::Void rotateImage_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void rotateC_Click(System::Object^  sender, System::EventArgs^  e);
