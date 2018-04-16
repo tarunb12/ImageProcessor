@@ -55,27 +55,27 @@ System::Void ImageProcessor::MyForm::saveImage_Click(System::Object^  sender, Sy
 	if (SaveFile->FileName != "") { // checks if filename not empty
 		System::IO::FileStream^ filestream = safe_cast<System::IO::FileStream^>(SaveFile->OpenFile()); // filestream to save images
 		switch (SaveFile->FilterIndex) { // looks at filter index to determine selected file type
-			case 1:
+			case 1: // jpeg
 				currentImage->Image->Save(filestream, System::Drawing::Imaging::ImageFormat::Jpeg); // save image as jpeg
 				break;
 
-			case 2:
+			case 2: // png
 				currentImage->Image->Save(filestream, System::Drawing::Imaging::ImageFormat::Png); // save image as png
 				break;
 
-			case 3:
+			case 3: // gif
 				currentImage->Image->Save(filestream, System::Drawing::Imaging::ImageFormat::Gif); // save image as gif
 				break;
 
-			case 4:
+			case 4: // tiff
 				currentImage->Image->Save(filestream, System::Drawing::Imaging::ImageFormat::Tiff); // save image as tiff
 				break;
 
-			case 5:
+			case 5: // bitmap
 				currentImage->Image->Save(filestream, System::Drawing::Imaging::ImageFormat::Bmp); // save image as bitmap
 				break;
 
-			default:
+			default: // jpeg
 				currentImage->Image->Save(filestream, System::Drawing::Imaging::ImageFormat::Jpeg); // default to jpeg
 				break;
 		}

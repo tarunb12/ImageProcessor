@@ -1,5 +1,6 @@
 #include "MyForm.h";
 
+
 System::Void ImageProcessor::MyForm::hMirror_Click(System::Object^  sender, System::EventArgs^  e) { // horizontal mirror method
 	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // image before being changed
 	changes->push(bitmap); // push pre-change bitmap
