@@ -8,13 +8,13 @@
 */
 
 System::Void ImageProcessor::MyForm::invertCurrentImage() { // unsafe?
-	this->undoChange->Show(); // resets undo
-	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current picturebox image
-	changed->push(bitmap);
-	System::Drawing::Rectangle rect = Rectangle(0, 0, bitmap->Width, bitmap->Height); // new rectangle object w/ same image dimensions
-	System::Drawing::Imaging::BitmapData^ bitmapData = bitmap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, bitmap->PixelFormat); // locks bitmap
+	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // image before being changed
+	changed->push(bitmap); // push pre-change bitmap
+	System::Drawing::Bitmap^ changedBitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current picturebox image
+	System::Drawing::Rectangle rect = Rectangle(0, 0, changedBitmap->Width, changedBitmap->Height); // new rectangle object w/ same image dimensions
+	System::Drawing::Imaging::BitmapData^ bitmapData = changedBitmap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, changedBitmap->PixelFormat); // locks bitmap
 	IntPtr ptr = bitmapData->Scan0; // idk scans bitmap data
-	int bytes = Math::Abs(bitmapData->Stride) * bitmap->Height; // rgb values converted into byte value
+	int bytes = Math::Abs(bitmapData->Stride) * changedBitmap->Height; // rgb values converted into byte value
 	array<Byte>^ rgbValues = gcnew array<Byte>(bytes); // byte array to hold rgb values
 	System::Runtime::InteropServices::Marshal::Copy(ptr, rgbValues, 0, bytes); // copies values to rgb array
 	for (int i = 0; i < rgbValues->Length; i += 4) { // goes through each pixel in the image
@@ -23,18 +23,18 @@ System::Void ImageProcessor::MyForm::invertCurrentImage() { // unsafe?
 		rgbValues[i + 2] = 255 - rgbValues[i + 2]; // finds inverse of blue pixel
 	}
 	System::Runtime::InteropServices::Marshal::Copy(rgbValues, 0, ptr, bytes); // copies rgb values to bitmap data
-	bitmap->UnlockBits(bitmapData); // transfers bitmap data back to bitmap & unlocks bitmap
-	currentImage->Image = bitmap; // current picturebox image set to bitmap
+	changedBitmap->UnlockBits(bitmapData); // transfers bitmap data back to bitmap & unlocks bitmap
+	currentImage->Image = changedBitmap; // current picturebox image set to bitmap
 }
 
 System::Void ImageProcessor::MyForm::grayscaleCurrentImage() { // unsafe? grayscale by averaging r + g + b values
-	this->undoChange->Show(); // resets undo
-	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current picturebox image
-	changed->push(bitmap);
-	System::Drawing::Rectangle rect = Rectangle(0, 0, bitmap->Width, bitmap->Height); // new rectangle object w/ same image dimensions
-	System::Drawing::Imaging::BitmapData^ bitmapData = bitmap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, bitmap->PixelFormat); // locks bitmap
+	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // image before being changed
+	changed->push(bitmap); // push pre-change bitmap
+	System::Drawing::Bitmap^ changedBitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current picturebox image
+	System::Drawing::Rectangle rect = Rectangle(0, 0, changedBitmap->Width, changedBitmap->Height); // new rectangle object w/ same image dimensions
+	System::Drawing::Imaging::BitmapData^ bitmapData = changedBitmap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, changedBitmap->PixelFormat); // locks bitmap
 	IntPtr ptr = bitmapData->Scan0; // idk scans bitmap data
-	int bytes = Math::Abs(bitmapData->Stride) * bitmap->Height; // rgb values converted into byte value
+	int bytes = Math::Abs(bitmapData->Stride) * changedBitmap->Height; // rgb values converted into byte value
 	array<Byte>^ rgbValues = gcnew array<Byte>(bytes); // array of bytes rep
 	System::Runtime::InteropServices::Marshal::Copy(ptr, rgbValues, 0, bytes); // copies values to rgb array
 	for (int i = 0; i < rgbValues->Length; i += 4) {
@@ -47,6 +47,6 @@ System::Void ImageProcessor::MyForm::grayscaleCurrentImage() { // unsafe? graysc
 		rgbValues[i + 2] = average; // blue pixel set to average
 	}
 	System::Runtime::InteropServices::Marshal::Copy(rgbValues, 0, ptr, bytes); // copies rgb values to bitmap data
-	bitmap->UnlockBits(bitmapData); // transfers bitmap data back to bitmap & unlocks bitmap
-	currentImage->Image = bitmap; // current picturebox image set to new bitmap
+	changedBitmap->UnlockBits(bitmapData); // transfers bitmap data back to bitmap & unlocks bitmap
+	currentImage->Image = changedBitmap; // current picturebox image set to new bitmap
 }

@@ -12,6 +12,7 @@ System::Void Stacker::push(System::Drawing::Bitmap^ bitmapIn) {
 	bm->bitmap = bitmapIn;
 	if (stackPtr == nullptr) {
 		stackPtr = bm;
+		stackPtr->prev = nullptr;
 	}
 	else {
 		bm->prev = stackPtr;
@@ -30,6 +31,7 @@ System::Drawing::Bitmap^ Stacker::pop() {
 		stackPtr = stackPtr->prev;
 		bm->prev = nullptr;
 		bitmapOut = bm->bitmap;
+		delete bm;
 	}
 	return bitmapOut;
 }
