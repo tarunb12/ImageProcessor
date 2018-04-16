@@ -3,8 +3,6 @@
 using namespace System;
 using namespace System::Windows::Forms;
 
-//85, 880
-
 [STAThreadAttribute]
 void Main(array<String^>^ args) {
 	Application::EnableVisualStyles();
@@ -32,7 +30,7 @@ System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, 
 		bitmap = gcnew Bitmap(System::Drawing::Bitmap::FromFile(Open->FileName)); // new bitmap from filename (filename is full path, ex. C:\User\Pictures\Image)
 		currentImage->Image = bitmap; // sets current image in picture box to the above bitmap
 	}
-	this->uploadImageLabel->Hide();
+	this->uploadImageLabel->Hide(); // hides initial "Upload New Image Label"
 }
 
 System::Void ImageProcessor::MyForm::uploadImageLabel_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -46,7 +44,7 @@ System::Void ImageProcessor::MyForm::uploadImageLabel_Click(System::Object^  sen
 		bitmap = gcnew Bitmap(System::Drawing::Bitmap::FromFile(Open->FileName)); // new bitmap from filename (filename is full path, ex. C:\User\Pictures\Image)
 		currentImage->Image = bitmap; // sets current image in picture box to the above bitmap
 	}
-	this->uploadImageLabel->Hide();
+	this->uploadImageLabel->Hide(); // hides initial "Upload New Image Label"
 }
 
 System::Void ImageProcessor::MyForm::saveImage_Click(System::Object^  sender, System::EventArgs^  e) { // save image clicked
@@ -89,6 +87,7 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all object not
 	this->vMirror->Hide();
 	this->rotateC->Hide();
 	this->rotateCC->Hide();
+	this->undoChange->Hide();
 }
 
 System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {

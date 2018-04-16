@@ -300,7 +300,7 @@ namespace ImageProcessor {
 
 	private: // prototypes of all event handlers / image processing functions
 		System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e); // shows open file dialog on click
-		System::Void uploadImageLabel_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void uploadImageLabel_Click(System::Object^  sender, System::EventArgs^  e); // shows open file dialog on click
 		System::Void saveImage_Click(System::Object^  sender, System::EventArgs^  e); // shows save file dialog on click
 
 		System::Void hideTempObjects(); // hides objects
