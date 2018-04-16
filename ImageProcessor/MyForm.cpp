@@ -29,8 +29,8 @@ System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, 
 	if (Open->ShowDialog() == ::DialogResult::OK) { // checks if "Open" clicked on valid image
 		bitmap = gcnew Bitmap(System::Drawing::Bitmap::FromFile(Open->FileName)); // new bitmap from filename (filename is full path, ex. C:\User\Pictures\Image)
 		currentImage->Image = bitmap; // sets current image in picture box to the above bitmap
+		this->uploadImageLabel->Hide(); // hides initial "Upload New Image Label"
 	}
-	this->uploadImageLabel->Hide(); // hides initial "Upload New Image Label"
 }
 
 System::Void ImageProcessor::MyForm::uploadImageLabel_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -87,13 +87,15 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all object not
 	this->vMirror->Hide();
 	this->rotateC->Hide();
 	this->rotateCC->Hide();
+	this->brightnessSlider->Hide();
+	this->contrastSlider->Hide();
 }
 
 System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
-		if (changed->peek()) {
-			currentImage->Image = changed->pop();
+		if (changes->peek()) {
+			currentImage->Image = changes->pop();
 		}
 	}
 }
@@ -143,11 +145,13 @@ System::Void ImageProcessor::MyForm::grayscaleImage_Click(System::Object^  sende
 System::Void ImageProcessor::MyForm::imageBrightness_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
+		this->brightnessSlider->Show();
 	}
 }
 
 System::Void ImageProcessor::MyForm::imageContrast_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
+		this->contrastSlider->Show();
 	}
 }

@@ -7,9 +7,9 @@
 	last value represents alpha, represent transparency of the pixel, min value 0 (transparent), max value 1 (opaque)
 */
 
-System::Void ImageProcessor::MyForm::invertCurrentImage() { // unsafe?
+System::Void ImageProcessor::MyForm::invertCurrentImage() { // unsafe? invert by subtracting r/g/b value from 255
 	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // image before being changed
-	changed->push(bitmap); // push pre-change bitmap
+	changes->push(bitmap); // push pre-change bitmap
 	System::Drawing::Bitmap^ changedBitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current picturebox image
 	System::Drawing::Rectangle rect = Rectangle(0, 0, changedBitmap->Width, changedBitmap->Height); // new rectangle object w/ same image dimensions
 	System::Drawing::Imaging::BitmapData^ bitmapData = changedBitmap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, changedBitmap->PixelFormat); // locks bitmap
@@ -17,7 +17,7 @@ System::Void ImageProcessor::MyForm::invertCurrentImage() { // unsafe?
 	int bytes = Math::Abs(bitmapData->Stride) * changedBitmap->Height; // rgb values converted into byte value
 	array<Byte>^ rgbValues = gcnew array<Byte>(bytes); // byte array to hold rgb values
 	System::Runtime::InteropServices::Marshal::Copy(ptr, rgbValues, 0, bytes); // copies values to rgb array
-	for (int i = 0; i < rgbValues->Length; i += 4) { // goes through each pixel in the image
+	for (int i = 0; i < rgbValues->Length; i += 4) { // inversion rgb alg
 		rgbValues[i] = 255 - rgbValues[i]; // finds inverse of red pixel
 		rgbValues[i + 1] = 255 - rgbValues[i + 1]; // finds inverse of green pixel
 		rgbValues[i + 2] = 255 - rgbValues[i + 2]; // finds inverse of blue pixel
@@ -29,7 +29,7 @@ System::Void ImageProcessor::MyForm::invertCurrentImage() { // unsafe?
 
 System::Void ImageProcessor::MyForm::grayscaleCurrentImage() { // unsafe? grayscale by averaging r + g + b values
 	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // image before being changed
-	changed->push(bitmap); // push pre-change bitmap
+	changes->push(bitmap); // push pre-change bitmap
 	System::Drawing::Bitmap^ changedBitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current picturebox image
 	System::Drawing::Rectangle rect = Rectangle(0, 0, changedBitmap->Width, changedBitmap->Height); // new rectangle object w/ same image dimensions
 	System::Drawing::Imaging::BitmapData^ bitmapData = changedBitmap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, changedBitmap->PixelFormat); // locks bitmap
@@ -37,7 +37,7 @@ System::Void ImageProcessor::MyForm::grayscaleCurrentImage() { // unsafe? graysc
 	int bytes = Math::Abs(bitmapData->Stride) * changedBitmap->Height; // rgb values converted into byte value
 	array<Byte>^ rgbValues = gcnew array<Byte>(bytes); // array of bytes rep
 	System::Runtime::InteropServices::Marshal::Copy(ptr, rgbValues, 0, bytes); // copies values to rgb array
-	for (int i = 0; i < rgbValues->Length; i += 4) {
+	for (int i = 0; i < rgbValues->Length; i += 4) { // grayscale rgb alg
 		Byte r = rgbValues[i]; // value of red / 255
 		Byte g = rgbValues[i + 1]; // value of green / 255
 		Byte b = rgbValues[i + 2]; // value of blue / 255

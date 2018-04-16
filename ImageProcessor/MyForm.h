@@ -53,6 +53,10 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Button^  imageContrast;
 	private: System::Windows::Forms::Button^  undoChange;
 	private: System::Windows::Forms::Label^  uploadImageLabel;
+	private: System::Windows::Forms::TrackBar^  brightnessSlider;
+	private: System::Windows::Forms::TrackBar^  contrastSlider;
+
+
 
 
 
@@ -92,7 +96,11 @@ namespace ImageProcessor {
 			this->imageContrast = (gcnew System::Windows::Forms::Button());
 			this->undoChange = (gcnew System::Windows::Forms::Button());
 			this->uploadImageLabel = (gcnew System::Windows::Forms::Label());
+			this->brightnessSlider = (gcnew System::Windows::Forms::TrackBar());
+			this->contrastSlider = (gcnew System::Windows::Forms::TrackBar());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// currentImage
@@ -113,19 +121,6 @@ namespace ImageProcessor {
 			this->uploadImage->Text = L"Upload Image";
 			this->uploadImage->UseVisualStyleBackColor = true;
 			this->uploadImage->Click += gcnew System::EventHandler(this, &MyForm::uploadImage_Click);
-			// 
-			// uploadImageLabel
-			// 
-			this->uploadImageLabel->AutoSize = true;
-			this->uploadImageLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->uploadImageLabel->ForeColor = System::Drawing::SystemColors::ControlDarkDark;
-			this->uploadImageLabel->Location = System::Drawing::Point(871, 414);
-			this->uploadImageLabel->Name = L"uploadImageLabel";
-			this->uploadImageLabel->Size = System::Drawing::Size(856, 108);
-			this->uploadImageLabel->TabIndex = 15;
-			this->uploadImageLabel->Text = L"Upload New Image";
-			this->uploadImageLabel->Click += gcnew System::EventHandler(this, &MyForm::uploadImageLabel_Click);
 			// 
 			// saveImage
 			// 
@@ -149,7 +144,7 @@ namespace ImageProcessor {
 			// 
 			// rotateC
 			// 
-			this->rotateC->Location = System::Drawing::Point(98, 705);
+			this->rotateC->Location = System::Drawing::Point(99, 949);
 			this->rotateC->Name = L"rotateC";
 			this->rotateC->Size = System::Drawing::Size(220, 71);
 			this->rotateC->TabIndex = 4;
@@ -159,7 +154,7 @@ namespace ImageProcessor {
 			// 
 			// rotateCC
 			// 
-			this->rotateCC->Location = System::Drawing::Point(382, 705);
+			this->rotateCC->Location = System::Drawing::Point(383, 949);
 			this->rotateCC->Name = L"rotateCC";
 			this->rotateCC->Size = System::Drawing::Size(220, 71);
 			this->rotateCC->TabIndex = 5;
@@ -179,7 +174,7 @@ namespace ImageProcessor {
 			// 
 			// hMirror
 			// 
-			this->hMirror->Location = System::Drawing::Point(98, 705);
+			this->hMirror->Location = System::Drawing::Point(99, 949);
 			this->hMirror->Name = L"hMirror";
 			this->hMirror->Size = System::Drawing::Size(220, 71);
 			this->hMirror->TabIndex = 7;
@@ -189,7 +184,7 @@ namespace ImageProcessor {
 			// 
 			// vMirror
 			// 
-			this->vMirror->Location = System::Drawing::Point(382, 705);
+			this->vMirror->Location = System::Drawing::Point(383, 949);
 			this->vMirror->Name = L"vMirror";
 			this->vMirror->Size = System::Drawing::Size(220, 71);
 			this->vMirror->TabIndex = 8;
@@ -267,11 +262,40 @@ namespace ImageProcessor {
 			this->undoChange->UseVisualStyleBackColor = true;
 			this->undoChange->Click += gcnew System::EventHandler(this, &MyForm::undoChange_Click);
 			// 
+			// uploadImageLabel
+			// 
+			this->uploadImageLabel->AutoSize = true;
+			this->uploadImageLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 36, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->uploadImageLabel->ForeColor = System::Drawing::SystemColors::ControlDarkDark;
+			this->uploadImageLabel->Location = System::Drawing::Point(871, 414);
+			this->uploadImageLabel->Name = L"uploadImageLabel";
+			this->uploadImageLabel->Size = System::Drawing::Size(856, 108);
+			this->uploadImageLabel->TabIndex = 15;
+			this->uploadImageLabel->Text = L"Upload New Image";
+			this->uploadImageLabel->Click += gcnew System::EventHandler(this, &MyForm::uploadImageLabel_Click);
+			// 
+			// brightnessSlider
+			// 
+			this->brightnessSlider->Location = System::Drawing::Point(99, 942);
+			this->brightnessSlider->Name = L"brightnessSlider";
+			this->brightnessSlider->Size = System::Drawing::Size(504, 90);
+			this->brightnessSlider->TabIndex = 16;
+			// 
+			// contrastSlider
+			// 
+			this->contrastSlider->Location = System::Drawing::Point(99, 942);
+			this->contrastSlider->Name = L"contrastSlider";
+			this->contrastSlider->Size = System::Drawing::Size(504, 90);
+			this->contrastSlider->TabIndex = 17;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1949, 1091);
+			this->Controls->Add(this->contrastSlider);
+			this->Controls->Add(this->brightnessSlider);
 			this->Controls->Add(this->uploadImageLabel);
 			this->Controls->Add(this->imageContrast);
 			this->Controls->Add(this->imageBrightness);
@@ -293,6 +317,8 @@ namespace ImageProcessor {
 			this->Text = L"Image Processor";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -306,7 +332,7 @@ namespace ImageProcessor {
 
 		System::Void hideTempObjects(); // hides objects
 
-		Stacker^ changed = gcnew Stacker();
+		Stacker^ changes = gcnew Stacker();
 		System::Void undoChange_Click(System::Object^  sender, System::EventArgs^  e); // reverts a single change
 
 		System::Void rotateImage_Click(System::Object^  sender, System::EventArgs^  e); // shows rotatec/rotatecc buttons
