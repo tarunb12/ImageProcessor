@@ -1,4 +1,4 @@
-#include "Stacker.h"
+#include "BitmapStack.h"
 
 #pragma once
 
@@ -332,7 +332,7 @@ namespace ImageProcessor {
 
 		System::Void hideTempObjects(); // hides objects
 
-		Stacker^ changes = gcnew Stacker();
+		BitmapStack^ changes = gcnew BitmapStack(); // Stack object, holds previous versions of the current image
 		System::Void undoChange_Click(System::Object^  sender, System::EventArgs^  e); // reverts a single change
 
 		System::Void rotateImage_Click(System::Object^  sender, System::EventArgs^  e); // shows rotatec/rotatecc buttons

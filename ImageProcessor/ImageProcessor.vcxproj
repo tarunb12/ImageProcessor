@@ -136,14 +136,13 @@
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="ImageOrientation.cpp" />
     <ClCompile Include="Coloring.cpp" />
-    <ClCompile Include="Stack.cpp" />
     <ClCompile Include="Stacker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Stacker.h" />
+    <ClInclude Include="BitmapStack.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">

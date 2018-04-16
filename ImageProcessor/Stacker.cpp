@@ -1,13 +1,13 @@
-#include "Stacker.h"
+#include "BitmapStack.h"
 
 using namespace System;
 using namespace System::Drawing;
 
-Stacker::Stacker() {
+BitmapStack::BitmapStack() {
 	stackPtr = nullptr;
 }
 
-System::Void Stacker::push(System::Drawing::Bitmap^ bitmapIn) {
+System::Void BitmapStack::push(System::Drawing::Bitmap^ bitmapIn) {
 	BITMAP^ bm = gcnew BITMAP;
 	bm->bitmap = bitmapIn;
 	if (stackPtr == nullptr) {
@@ -20,11 +20,11 @@ System::Void Stacker::push(System::Drawing::Bitmap^ bitmapIn) {
 	}
 }
 
-Stacker::BITMAP^ Stacker::peek() {
+BitmapStack::BITMAP^ BitmapStack::peek() {
 	return stackPtr;
 }
 
-System::Drawing::Bitmap^ Stacker::pop() {
+System::Drawing::Bitmap^ BitmapStack::pop() {
 	System::Drawing::Bitmap^ bitmapOut;
 	if (stackPtr != nullptr) {
 		BITMAP^ bm = stackPtr;

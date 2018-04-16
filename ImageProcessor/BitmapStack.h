@@ -1,5 +1,5 @@
 #pragma once
-ref class Stacker
+ref class BitmapStack
 {
 public:
 	ref struct BITMAP {
@@ -8,7 +8,7 @@ public:
 	};
 	BITMAP^ stackPtr;
 
-	Stacker();
+	BitmapStack();
 	System::Void push(System::Drawing::Bitmap^ bitmapIn);
 	BITMAP^ peek();
 	System::Drawing::Bitmap^ pop();

@@ -24,9 +24,6 @@
     <ClCompile Include="Coloring.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Stacker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -35,7 +32,7 @@
     <ClInclude Include="MyForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Stacker.h">
+    <ClInclude Include="BitmapStack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
