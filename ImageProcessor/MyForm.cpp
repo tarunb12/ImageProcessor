@@ -16,7 +16,7 @@ void Main(array<String^>^ args) {
 }
 
 System::Void ImageProcessor::MyForm::MyForm_Load(System::Object^  sender, System::EventArgs^  e) { // loads when form initially launches
-	hideTempObjects(); // hides temp objects on initial form launch
+	hideTempObjects(); // hides temp objects on initial form launch'
 }
 
 System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, System::EventArgs^  e) { // upload image clicked
@@ -87,14 +87,11 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all object not
 	this->vMirror->Hide();
 	this->rotateC->Hide();
 	this->rotateCC->Hide();
-	this->undoChange->Hide();
 }
 
 System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
-		currentImage->Image = previousBitmap;
-		this->undoChange->Hide();
 	}
 }
 
@@ -103,6 +100,7 @@ System::Void ImageProcessor::MyForm::rotateImage_Click(System::Object^  sender, 
 		hideTempObjects();
 		this->rotateC->Show();
 		this->rotateCC->Show();
+		this->undoChange->Show();
 	}
 }
 
@@ -111,24 +109,28 @@ System::Void ImageProcessor::MyForm::mirrorImage_Click(System::Object^  sender, 
 		hideTempObjects();
 		this->hMirror->Show();
 		this->vMirror->Show();
+		this->undoChange->Show();
 	}
 }
 
 System::Void ImageProcessor::MyForm::cropImage_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
+		this->undoChange->Show();
 	}
 }
 
 System::Void ImageProcessor::MyForm::resizeImage_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
+		this->undoChange->Show();
 	}
 }
 
 System::Void ImageProcessor::MyForm::invertImage_Click(System::Object^  sender, System::EventArgs^  e) { // calls invert image method (Coloring.cpp)
 	if (currentImage->Image) {
 		hideTempObjects();
+		this->undoChange->Show();
 		invertCurrentImage();
 	}
 }
@@ -136,6 +138,7 @@ System::Void ImageProcessor::MyForm::invertImage_Click(System::Object^  sender, 
 System::Void ImageProcessor::MyForm::grayscaleImage_Click(System::Object^  sender, System::EventArgs^  e) { // calls grayscale image method (Coloring.cpp)
 	if (currentImage->Image) {
 		hideTempObjects();
+		this->undoChange->Show();
 		grayscaleCurrentImage();
 	}
 }
@@ -143,11 +146,13 @@ System::Void ImageProcessor::MyForm::grayscaleImage_Click(System::Object^  sende
 System::Void ImageProcessor::MyForm::imageBrightness_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
+		this->undoChange->Show();
 	}
 }
 
 System::Void ImageProcessor::MyForm::imageContrast_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
+		this->undoChange->Show();
 	}
 }

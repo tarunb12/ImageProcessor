@@ -1,3 +1,5 @@
+#include "Stacker.h"
+
 #pragma once
 
 namespace ImageProcessor {
@@ -51,7 +53,6 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Button^  imageContrast;
 	private: System::Windows::Forms::Button^  undoChange;
 	private: System::Windows::Forms::Label^  uploadImageLabel;
-
 
 
 
@@ -305,7 +306,7 @@ namespace ImageProcessor {
 
 		System::Void hideTempObjects(); // hides objects
 
-		System::Drawing::Bitmap^ previousBitmap; // previous bitmap for undo
+		Stacker^ changed = gcnew Stacker();
 		System::Void undoChange_Click(System::Object^  sender, System::EventArgs^  e); // reverts a single change
 
 		System::Void rotateImage_Click(System::Object^  sender, System::EventArgs^  e); // shows rotatec/rotatecc buttons
@@ -334,3 +335,4 @@ namespace ImageProcessor {
 		
 };
 }
+
