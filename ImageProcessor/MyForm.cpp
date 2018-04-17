@@ -102,6 +102,22 @@ System::Void ImageProcessor::MyForm::saveImage_Click(System::Object^  sender, Sy
 	}
 }
 
+System::Void ImageProcessor::MyForm::currentImage_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (!currentImage->Image) {
+		System::Windows::Forms::OpenFileDialog^ Open = gcnew System::Windows::Forms::OpenFileDialog(); // new open file dialog object
+		Open->Title = "Open Image File"; // open file window name
+		Open->Filter = "Image Files(*.jpg;*.png;*.gif;*.tiff;*.bmp;)|*.jpg;*.png;*.gif;*.tiff;*.bmp"; // all valid file types
+		Open->FilterIndex = 1; // sets filter
+		currentImage->MaximumSize = System::Drawing::Size(1671, 1108); // max size of the  picture box
+		Bitmap^ bitmap; // bitmap object to put in picturebox
+		if (Open->ShowDialog() == ::DialogResult::OK) { // checks if "Open" clicked on valid image
+			bitmap = gcnew Bitmap(System::Drawing::Bitmap::FromFile(Open->FileName)); // new bitmap from filename (filename is full path, ex. C:\User\Pictures\Image)
+			currentImage->Image = bitmap; // sets current image in picture box to the above bitmap
+			this->uploadImageLabel->Hide(); // hides initial "Upload New Image Label"
+		}
+	}
+}
+
 System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects not displayed on initial launch
 	this->hMirror->Hide();
 	this->vMirror->Hide();

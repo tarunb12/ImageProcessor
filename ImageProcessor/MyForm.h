@@ -149,6 +149,7 @@ namespace ImageProcessor {
 			this->currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->currentImage->TabIndex = 0;
 			this->currentImage->TabStop = false;
+			this->currentImage->Click += gcnew System::EventHandler(this, &MyForm::currentImage_Click);
 			// 
 			// uploadImage
 			// 
@@ -564,6 +565,8 @@ namespace ImageProcessor {
 		System::Void uploadImage_Click(System::Object^  sender, System::EventArgs^  e); // shows open file dialog on click
 		System::Void uploadImageLabel_Click(System::Object^  sender, System::EventArgs^  e); // shows open file dialog on click
 		System::Void saveImage_Click(System::Object^  sender, System::EventArgs^  e); // shows save file dialog on click
+
+		System::Void currentImage_Click(System::Object^  sender, System::EventArgs^  e);
 
 		System::Void hideTempObjects(); // hides objects
 
