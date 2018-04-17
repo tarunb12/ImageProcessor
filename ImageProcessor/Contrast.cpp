@@ -13,15 +13,15 @@ System::Void ImageProcessor::MyForm::contrastSlider_MouseUp(System::Object^  sen
 }
 
 System::Void ImageProcessor::MyForm::contrastSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
-	int percentage = this->contrastSlider->Value;
+	int percentage = this->contrastSlider->Value / 2.55;
 	this->contrastValue->Text = System::Convert::ToString(percentage);
 }
 
 System::Void ImageProcessor::MyForm::contrastValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e) {
 	if (e->KeyCode == Keys::Enter) {
-		double contrastVal;
-		if (System::Double::TryParse(this->contrastValue->Text, contrastVal)) {
-			this->contrastSlider->Value = (int)contrastVal;
+		int contrastVal;
+		if (System::Int32::TryParse(this->contrastValue->Text, contrastVal)) {
+			this->contrastSlider->Value = contrastVal * 2.55;
 			contrastSlider_ValueChange();
 		}
 	}
@@ -33,7 +33,7 @@ System::Void ImageProcessor::MyForm::contrastTimer_Tick(System::Object^  sender,
 
 System::Void ImageProcessor::MyForm::contrastSlider_ValueChange() {
 	System::Drawing::Bitmap^ tempBitmap = changes->bitmapPeek();
-	float c = (float)(1.0f + (this->contrastSlider->Value / 100.0f));
+	float c = (float)(1.0f + (this->contrastSlider->Value / 255.0f));
 	float t = 0.5f * (1.0f - c);
 	System::Drawing::Bitmap^ newBitmap = gcnew Bitmap(tempBitmap->Width, tempBitmap->Height);
 

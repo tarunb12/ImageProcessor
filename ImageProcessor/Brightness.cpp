@@ -21,9 +21,9 @@ System::Void ImageProcessor::MyForm::brightnessSlider_ValueChanged(System::Objec
 
 System::Void ImageProcessor::MyForm::brightnessValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e) {
 	if (e->KeyCode == Keys::Enter) {
-		double brightnessVal;
-		if (System::Double::TryParse(this->brightnessValue->Text, brightnessVal)) {
-			this->brightnessSlider->Value = (int)((brightnessVal * 255) / 100);
+		int brightnessVal;
+		if (System::Int32::TryParse(this->brightnessValue->Text, brightnessVal)) {
+			this->brightnessSlider->Value = (brightnessVal * 255) / 100;
 			brightnessSlider_ValueChange();
 		}
 	}

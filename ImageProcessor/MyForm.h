@@ -324,8 +324,8 @@ namespace ImageProcessor {
 			// contrastSlider
 			// 
 			this->contrastSlider->Location = System::Drawing::Point(99, 942);
-			this->contrastSlider->Maximum = 100;
-			this->contrastSlider->Minimum = -100;
+			this->contrastSlider->Maximum = 255;
+			this->contrastSlider->Minimum = -255;
 			this->contrastSlider->Name = L"contrastSlider";
 			this->contrastSlider->Size = System::Drawing::Size(504, 90);
 			this->contrastSlider->TabIndex = 17;
@@ -507,6 +507,7 @@ namespace ImageProcessor {
 		System::Void contrastSlider_ValueChange(); // contrast function (color matrix manipulation)
 
 		System::Void imageHue_Click(System::Object^  sender, System::EventArgs^  e);
+
 		System::Void imageSaturation_Click(System::Object^  sender, System::EventArgs^  e);
 
 		System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e); // hide objects on form launch
