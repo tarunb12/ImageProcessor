@@ -353,7 +353,7 @@ namespace ImageProcessor {
 			// brightnessTimer
 			// 
 			this->brightnessTimer->Interval = 300;
-			this->brightnessTimer->Tick += gcnew System::EventHandler(this, &MyForm::contrastTimer_Tick);
+			this->brightnessTimer->Tick += gcnew System::EventHandler(this, &MyForm::brightnessTimer_Tick);
 			// 
 			// percentLabel
 			// 
@@ -415,6 +415,7 @@ namespace ImageProcessor {
 			// contrastTimer
 			// 
 			this->contrastTimer->Interval = 300;
+			this->brightnessTimer->Tick += gcnew System::EventHandler(this, &MyForm::contrastTimer_Tick);
 			// 
 			// MyForm
 			// 
