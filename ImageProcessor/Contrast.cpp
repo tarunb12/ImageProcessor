@@ -1,8 +1,7 @@
 #include "MyForm.h"
 
 System::Void ImageProcessor::MyForm::contrastSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-	this->contrastTimer->Enabled;
-
+	this->contrastTimer->Enabled = true;
 }
 
 System::Void ImageProcessor::MyForm::contrastSlider_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
@@ -34,8 +33,8 @@ System::Void ImageProcessor::MyForm::contrastTimer_Tick(System::Object^  sender,
 
 System::Void ImageProcessor::MyForm::contrastSlider_ValueChange() {
 	System::Drawing::Bitmap^ tempBitmap = changes->bitmapPeek();
-	float c = (float)(this->contrastSlider->Value * 0.01f);
-	float t = (1.0 - c) / 2.0;
+	float c = (float)(1.0f + (this->contrastSlider->Value / 100.0f));
+	float t = 0.5f * (1.0f - c);
 	System::Drawing::Bitmap^ newBitmap = gcnew Bitmap(tempBitmap->Width, tempBitmap->Height);
 
 	System::Drawing::Graphics^ newGraphics = System::Drawing::Graphics::FromImage(newBitmap);
@@ -73,14 +72,14 @@ System::Void ImageProcessor::MyForm::contrastSlider_ValueChange() {
 	colorMatrix->Matrix40 = t;
 	colorMatrix->Matrix41 = t;
 	colorMatrix->Matrix42 = t;
-	colorMatrix->Matrix43 = 0;
+	colorMatrix->Matrix43 = 1;
 	colorMatrix->Matrix44 = 1;
 
 	// [ c ] [ 0 ] [ 0 ] [ 0 ] [ 0 ]
 	// [ 0 ] [ c ] [ 0 ] [ 0 ] [ 0 ]
 	// [ 0 ] [ 0 ] [ c ] [ 0 ] [ 0 ]
 	// [ 0 ] [ 0 ] [ 0 ] [ 1 ] [ 0 ]
-	// [ t ] [ t ] [ t ] [ 0 ] [ 1 ]
+	// [ t ] [ t ] [ t ] [ 1 ] [ 1 ]
 	// Matrix which will manipulate the contrast of the image
 
 	System::Drawing::Imaging::ImageAttributes^ attributes = gcnew System::Drawing::Imaging::ImageAttributes();

@@ -504,7 +504,7 @@ namespace ImageProcessor {
 		System::Void contrastSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e);
 		System::Void contrastValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
 		System::Void contrastTimer_Tick(System::Object^  sender, System::EventArgs^  e);
-		System::Void contrastSlider_ValueChange();
+		System::Void contrastSlider_ValueChange(); // contrast function (color matrix manipulation)
 
 		System::Void imageHue_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void imageSaturation_Click(System::Object^  sender, System::EventArgs^  e);
