@@ -139,6 +139,8 @@
     <ClCompile Include="BitmapStack.cpp" />
     <ClCompile Include="Brightness.cpp" />
     <ClCompile Include="Contrast.cpp" />
+    <ClCompile Include="Hue.cpp" />
+    <ClCompile Include="Saturation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">

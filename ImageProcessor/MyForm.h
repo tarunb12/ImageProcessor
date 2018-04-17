@@ -60,6 +60,13 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::TextBox^  brightnessValue;
 	private: System::Windows::Forms::Timer^  brightnessTimer;
 	private: System::Windows::Forms::Label^  percentLabel;
+	private: System::Windows::Forms::Button^  imageHue;
+	private: System::Windows::Forms::Button^  imageSaturation;
+	private: System::Windows::Forms::TextBox^  contrastValue;
+	private: System::Windows::Forms::Label^  lowLabel;
+	private: System::Windows::Forms::Label^  highLabel;
+
+	private: System::Windows::Forms::Timer^  contrastTimer;
 	private: System::ComponentModel::IContainer^  components;
 
 
@@ -112,6 +119,12 @@ namespace ImageProcessor {
 			this->brightnessValue = (gcnew System::Windows::Forms::TextBox());
 			this->brightnessTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->percentLabel = (gcnew System::Windows::Forms::Label());
+			this->imageHue = (gcnew System::Windows::Forms::Button());
+			this->imageSaturation = (gcnew System::Windows::Forms::Button());
+			this->contrastValue = (gcnew System::Windows::Forms::TextBox());
+			this->lowLabel = (gcnew System::Windows::Forms::Label());
+			this->highLabel = (gcnew System::Windows::Forms::Label());
+			this->contrastTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -340,7 +353,7 @@ namespace ImageProcessor {
 			// brightnessTimer
 			// 
 			this->brightnessTimer->Interval = 300;
-			this->brightnessTimer->Tick += gcnew System::EventHandler(this, &MyForm::brightnessTimer_Tick);
+			this->brightnessTimer->Tick += gcnew System::EventHandler(this, &MyForm::contrastTimer_Tick);
 			// 
 			// percentLabel
 			// 
@@ -351,11 +364,68 @@ namespace ImageProcessor {
 			this->percentLabel->TabIndex = 22;
 			this->percentLabel->Text = L"%";
 			// 
+			// imageHue
+			// 
+			this->imageHue->Location = System::Drawing::Point(85, 640);
+			this->imageHue->Name = L"imageHue";
+			this->imageHue->Size = System::Drawing::Size(233, 71);
+			this->imageHue->TabIndex = 23;
+			this->imageHue->Text = L"Hue";
+			this->imageHue->UseVisualStyleBackColor = true;
+			this->imageHue->Click += gcnew System::EventHandler(this, &MyForm::imageHue_Click);
+			// 
+			// imageSaturation
+			// 
+			this->imageSaturation->Location = System::Drawing::Point(382, 640);
+			this->imageSaturation->Name = L"imageSaturation";
+			this->imageSaturation->Size = System::Drawing::Size(233, 71);
+			this->imageSaturation->TabIndex = 24;
+			this->imageSaturation->Text = L"Saturation";
+			this->imageSaturation->UseVisualStyleBackColor = true;
+			this->imageSaturation->Click += gcnew System::EventHandler(this, &MyForm::imageSaturation_Click);
+			// 
+			// contrastValue
+			// 
+			this->contrastValue->BackColor = System::Drawing::SystemColors::Control;
+			this->contrastValue->Location = System::Drawing::Point(314, 1001);
+			this->contrastValue->Name = L"contrastValue";
+			this->contrastValue->Size = System::Drawing::Size(50, 31);
+			this->contrastValue->TabIndex = 25;
+			this->contrastValue->Text = L"0";
+			this->contrastValue->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			// 
+			// lowLabel
+			// 
+			this->lowLabel->AutoSize = true;
+			this->lowLabel->Location = System::Drawing::Point(51, 972);
+			this->lowLabel->Name = L"lowLabel";
+			this->lowLabel->Size = System::Drawing::Size(51, 25);
+			this->lowLabel->TabIndex = 26;
+			this->lowLabel->Text = L"Low";
+			// 
+			// highLabel
+			// 
+			this->highLabel->AutoSize = true;
+			this->highLabel->Location = System::Drawing::Point(593, 972);
+			this->highLabel->Name = L"highLabel";
+			this->highLabel->Size = System::Drawing::Size(56, 25);
+			this->highLabel->TabIndex = 27;
+			this->highLabel->Text = L"High";
+			// 
+			// contrastTimer
+			// 
+			this->contrastTimer->Interval = 300;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1949, 1091);
+			this->Controls->Add(this->highLabel);
+			this->Controls->Add(this->lowLabel);
+			this->Controls->Add(this->contrastValue);
+			this->Controls->Add(this->imageSaturation);
+			this->Controls->Add(this->imageHue);
 			this->Controls->Add(this->percentLabel);
 			this->Controls->Add(this->brightnessValue);
 			this->Controls->Add(this->highBrightness);
@@ -414,21 +484,29 @@ namespace ImageProcessor {
 		System::Void resizeImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
 
 		System::Void invertImage_Click(System::Object^  sender, System::EventArgs^  e); // inverts current image
-		System::Void invertCurrentImage(); // inversion function
+		System::Void invertCurrentImage(); // inversion function (direct rgb manipulation)
 
 		System::Void grayscaleImage_Click(System::Object^  sender, System::EventArgs^  e); // grayscales current image
-		System::Void grayscaleCurrentImage(); // grayscale function
+		System::Void grayscaleCurrentImage(); // grayscale function (direct rgb manipulation)
 
-		System::Void imageBrightness_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
-		System::Void brightnessSlider_ValueChange();
-		System::Void brightnessSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e);
+		System::Void imageBrightness_Click(System::Object^  sender, System::EventArgs^  e); // slider with adjusting image brightness appears
 		System::Void brightnessSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 		System::Void brightnessSlider_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void brightnessSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e);
 		System::Void brightnessValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
 		System::Void brightnessTimer_Tick(System::Object^  sender, System::EventArgs^  e);
+		System::Void brightnessSlider_ValueChange(); // brightness function (color matrix manipulation)
 
 		System::Void imageContrast_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
+		System::Void contrastSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void contrastSlider_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 		System::Void contrastSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e);
+		System::Void contrastValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
+		System::Void contrastTimer_Tick(System::Object^  sender, System::EventArgs^  e);
+		System::Void contrastSlider_ValueChange();
+
+		System::Void imageHue_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void imageSaturation_Click(System::Object^  sender, System::EventArgs^  e);
 
 		System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e); // hide objects on form launch
 		

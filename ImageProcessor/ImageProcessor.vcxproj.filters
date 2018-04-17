@@ -33,6 +33,12 @@
     <ClCompile Include="Contrast.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Hue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Saturation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">

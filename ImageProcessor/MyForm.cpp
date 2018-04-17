@@ -17,9 +17,12 @@ void Main(array<String^>^ args) {
 
 System::Void ImageProcessor::MyForm::MyForm_Load(System::Object^  sender, System::EventArgs^  e) { // loads when form initially launches
 	hideTempObjects(); // hides temp objects on initial form launch
+
 	this->brightnessSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::brightnessSlider_MouseUp);
 	this->brightnessSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::brightnessSlider_MouseDown);
 	this->brightnessValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::brightnessValue_KeyDown);
+
+
 }
 
 System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, System::EventArgs^  e) { // upload image clicked
@@ -94,12 +97,18 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->vMirror->Hide();
 	this->rotateC->Hide();
 	this->rotateCC->Hide();
+
+	this->percentLabel->Hide();
+
 	this->brightnessSlider->Hide();
 	this->brightnessValue->Hide();
-	this->percentLabel->Hide();
 	this->lowBrightness->Hide();
 	this->highBrightness->Hide();
+
 	this->contrastSlider->Hide();
+	this->contrastValue->Hide();
+	this->lowLabel->Hide();
+	this->highLabel->Hide();
 }
 
 System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -170,6 +179,25 @@ System::Void ImageProcessor::MyForm::imageBrightness_Click(System::Object^  send
 System::Void ImageProcessor::MyForm::imageContrast_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
+		System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
+		changes->push(bitmap);
+		this->contrastSlider->Value = 0;
 		this->contrastSlider->Show();
+		this->contrastValue->Show();
+		this->percentLabel->Show();
+		this->lowLabel->Show();
+		this->highLabel->Show();
+	}
+}
+
+System::Void ImageProcessor::MyForm::imageHue_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (currentImage->Image) {
+		hideTempObjects();
+	}
+}
+
+System::Void ImageProcessor::MyForm::imageSaturation_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (currentImage->Image) {
+		hideTempObjects();
 	}
 }

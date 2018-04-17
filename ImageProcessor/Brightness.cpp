@@ -1,6 +1,6 @@
 #include "MyForm.h"
 
-// BE CAREFUL WITH REALLY HIGH RES PICS
+// BE CAREFUL WITH PRETTY HIGH RES PICS
 
 System::Void ImageProcessor::MyForm::brightnessSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 	this->brightnessTimer->Enabled = true;
