@@ -69,7 +69,7 @@ System::Void ImageProcessor::MyForm::brightnessSlider_ValueChange() {
 	colorMatrix->Matrix33 = 1;
 	colorMatrix->Matrix34 = 0;
 
-	// [ finalValue ] [ finalValue ] [ finalValue ] [ 1 ] [ 1 ]
+	// [ finalValue ] [ finalValue ] [ finalValue ] [ 0 ] [ 1 ]
 	colorMatrix->Matrix40 = finalValue;
 	colorMatrix->Matrix41 = finalValue;
 	colorMatrix->Matrix42 = finalValue;
@@ -80,7 +80,7 @@ System::Void ImageProcessor::MyForm::brightnessSlider_ValueChange() {
 	//     [ 0 ]		  [ 1 ]			[ 0 ]		[ 0 ] [ 0 ]
 	//     [ 0 ]		  [ 0 ]			[ 1 ]		[ 0 ] [ 0 ]
 	//	   [ 0 ]		  [ 0 ]			[ 0 ]		[ 1 ] [ 0 ]
-	// [ finalValue ] [ finalValue ] [ finalValue ] [ 1 ] [ 1 ]
+	// [ finalValue ] [ finalValue ] [ finalValue ] [ 0 ] [ 1 ]
 	// Matrix which will manipulate the brightness of the image
 
 	System::Drawing::Imaging::ImageAttributes^ attributes = gcnew System::Drawing::Imaging::ImageAttributes();
