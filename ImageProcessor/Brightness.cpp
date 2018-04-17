@@ -3,6 +3,8 @@
 // BE CAREFUL WITH PRETTY HIGH RES PICS
 
 System::Void ImageProcessor::MyForm::brightnessSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
+	changes->push(bitmap);
 	this->brightnessTimer->Enabled = true;
 }
 
@@ -33,6 +35,8 @@ System::Void ImageProcessor::MyForm::brightnessValue_KeyDown(System::Object^  se
 				this->brightnessSlider->Value = (brightnessVal * 255) / 100;
 			}
 			brightnessSlider_ValueChange();
+			System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
+			changes->push(bitmap);
 		}
 	}
 }

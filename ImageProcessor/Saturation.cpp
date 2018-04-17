@@ -1,6 +1,8 @@
 #include "MyForm.h"
 
 System::Void ImageProcessor::MyForm::saturationSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
+	changes->push(bitmap);
 	this->saturationTimer->Enabled = true;
 }
 
@@ -31,6 +33,8 @@ System::Void ImageProcessor::MyForm::saturationValue_KeyDown(System::Object^  se
 				this->saturationSlider->Value = (saturationVal * 255) / 100;
 			}
 			saturationSlider_ValueChange();
+			System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
+			changes->push(bitmap);
 		}
 	}
 }

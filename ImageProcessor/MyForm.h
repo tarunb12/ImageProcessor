@@ -54,25 +54,16 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Button^  undoChange;
 	private: System::Windows::Forms::Label^  uploadImageLabel;
 	private: System::Windows::Forms::TrackBar^  brightnessSlider;
-
 	private: System::Windows::Forms::TrackBar^  contrastSlider;
-
 	private: System::Windows::Forms::TextBox^  brightnessValue;
 	private: System::Windows::Forms::Timer^  brightnessTimer;
-
 	private: System::Windows::Forms::Button^  imageHue;
 	private: System::Windows::Forms::Button^  imageSaturation;
 	private: System::Windows::Forms::TextBox^  contrastValue;
-
-
-
 	private: System::Windows::Forms::Timer^  contrastTimer;
 	private: System::Windows::Forms::TrackBar^  saturationSlider;
 	private: System::Windows::Forms::TextBox^  saturationValue;
 	private: System::Windows::Forms::Timer^  saturationTimer;
-
-
-
 	private: System::Windows::Forms::TrackBar^  hueSlider;
 	private: System::Windows::Forms::Label^  percentLabel;
 	private: System::Windows::Forms::TextBox^  hueValue;
@@ -80,21 +71,13 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Label^  highLabel;
 	private: System::Windows::Forms::Label^  lowBrightness;
 	private: System::Windows::Forms::Label^  lowLabel;
-
-
-
-
+	private: System::Windows::Forms::Label^  lowHueDegrees;
+	private: System::Windows::Forms::Label^  highHueDegrees;
+	private: System::Windows::Forms::Timer^  hueTimer;
+	private: System::Windows::Forms::Label^  degreeLabel;
 	private: System::ComponentModel::IContainer^  components;
 
-
-
-
-
-
-
 	protected:
-
-
 
 	protected:
 
@@ -147,6 +130,10 @@ namespace ImageProcessor {
 			this->highLabel = (gcnew System::Windows::Forms::Label());
 			this->lowBrightness = (gcnew System::Windows::Forms::Label());
 			this->lowLabel = (gcnew System::Windows::Forms::Label());
+			this->lowHueDegrees = (gcnew System::Windows::Forms::Label());
+			this->highHueDegrees = (gcnew System::Windows::Forms::Label());
+			this->hueTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->degreeLabel = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -424,8 +411,7 @@ namespace ImageProcessor {
 			// hueSlider
 			// 
 			this->hueSlider->Location = System::Drawing::Point(99, 942);
-			this->hueSlider->Maximum = 255;
-			this->hueSlider->Minimum = -255;
+			this->hueSlider->Maximum = 360;
 			this->hueSlider->Name = L"hueSlider";
 			this->hueSlider->Size = System::Drawing::Size(504, 90);
 			this->hueSlider->TabIndex = 36;
@@ -486,11 +472,46 @@ namespace ImageProcessor {
 			this->lowLabel->TabIndex = 42;
 			this->lowLabel->Text = L"Low";
 			// 
+			// lowHueDegrees
+			// 
+			this->lowHueDegrees->AutoSize = true;
+			this->lowHueDegrees->Location = System::Drawing::Point(70, 972);
+			this->lowHueDegrees->Name = L"lowHueDegrees";
+			this->lowHueDegrees->Size = System::Drawing::Size(32, 25);
+			this->lowHueDegrees->TabIndex = 43;
+			this->lowHueDegrees->Text = L"0°";
+			// 
+			// highHueDegrees
+			// 
+			this->highHueDegrees->AutoSize = true;
+			this->highHueDegrees->Location = System::Drawing::Point(593, 972);
+			this->highHueDegrees->Name = L"highHueDegrees";
+			this->highHueDegrees->Size = System::Drawing::Size(56, 25);
+			this->highHueDegrees->TabIndex = 44;
+			this->highHueDegrees->Text = L"360°";
+			// 
+			// hueTimer
+			// 
+			this->hueTimer->Interval = 300;
+			this->hueTimer->Tick += gcnew System::EventHandler(this, &MyForm::hueTimer_Tick);
+			// 
+			// degreeLabel
+			// 
+			this->degreeLabel->AutoSize = true;
+			this->degreeLabel->Location = System::Drawing::Point(370, 995);
+			this->degreeLabel->Name = L"degreeLabel";
+			this->degreeLabel->Size = System::Drawing::Size(20, 25);
+			this->degreeLabel->TabIndex = 45;
+			this->degreeLabel->Text = L"°";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1949, 1091);
+			this->Controls->Add(this->degreeLabel);
+			this->Controls->Add(this->highHueDegrees);
+			this->Controls->Add(this->lowHueDegrees);
 			this->Controls->Add(this->lowLabel);
 			this->Controls->Add(this->lowBrightness);
 			this->Controls->Add(this->highLabel);
@@ -582,6 +603,12 @@ namespace ImageProcessor {
 		System::Void contrastSlider_ValueChange(); // contrast function (color matrix manipulation)
 		
 		System::Void imageHue_Click(System::Object^  sender, System::EventArgs^  e); // Not yet implemented
+		System::Void hueSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void hueSlider_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void hueSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e);
+		System::Void hueValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
+		System::Void hueTimer_Tick(System::Object^  sender, System::EventArgs^  e);
+		System::Void hueSlider_ValueChange();
 
 		System::Void imageSaturation_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void saturationSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
@@ -592,7 +619,5 @@ namespace ImageProcessor {
 		System::Void saturationSlider_ValueChange(); // saturation function (color matrix manipulation)
 
 		System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e); // hide objects on form launch
-		
 };
 }
-

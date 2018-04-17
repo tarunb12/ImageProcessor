@@ -105,10 +105,13 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->rotateCC->Hide();
 
 	this->percentLabel->Hide();
+	this->degreeLabel->Hide();
 	this->lowBrightness->Hide();
 	this->highBrightness->Hide();
 	this->lowLabel->Hide();
 	this->highLabel->Hide();
+	this->lowHueDegrees->Hide();
+	this->highHueDegrees->Hide();
 
 	this->brightnessSlider->Hide();
 	this->brightnessValue->Hide();
@@ -177,8 +180,6 @@ System::Void ImageProcessor::MyForm::grayscaleImage_Click(System::Object^  sende
 System::Void ImageProcessor::MyForm::imageBrightness_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
-		System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
-		changes->push(bitmap);
 		this->brightnessSlider->Value = 0;
 		this->brightnessSlider->Show();
 		this->brightnessValue->Show();
@@ -191,8 +192,6 @@ System::Void ImageProcessor::MyForm::imageBrightness_Click(System::Object^  send
 System::Void ImageProcessor::MyForm::imageContrast_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
-		System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
-		changes->push(bitmap);
 		this->contrastSlider->Value = 0;
 		this->contrastSlider->Show();
 		this->contrastValue->Show();
@@ -205,14 +204,18 @@ System::Void ImageProcessor::MyForm::imageContrast_Click(System::Object^  sender
 System::Void ImageProcessor::MyForm::imageHue_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
+		this->hueSlider->Value = 0;
+		this->hueSlider->Show();
+		this->hueValue->Show();
+		this->degreeLabel->Show();
+		this->lowHueDegrees->Show();
+		this->highHueDegrees->Show();
 	}
 }
 
 System::Void ImageProcessor::MyForm::imageSaturation_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
-		System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
-		changes->push(bitmap);
 		this->saturationSlider->Value = 0;
 		this->saturationSlider->Show();
 		this->saturationValue->Show();
