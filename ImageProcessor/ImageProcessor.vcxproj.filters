@@ -24,7 +24,13 @@
     <ClCompile Include="Coloring.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stacker.cpp">
+    <ClCompile Include="BitmapStack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Brightness.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Contrast.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

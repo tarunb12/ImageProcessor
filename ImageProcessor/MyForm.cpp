@@ -16,7 +16,10 @@ void Main(array<String^>^ args) {
 }
 
 System::Void ImageProcessor::MyForm::MyForm_Load(System::Object^  sender, System::EventArgs^  e) { // loads when form initially launches
-	hideTempObjects(); // hides temp objects on initial form launch'
+	hideTempObjects(); // hides temp objects on initial form launch
+	this->brightnessSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::brightnessSlider_MouseUp);
+	this->brightnessSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::brightnessSlider_MouseDown);
+	this->brightnessValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::brightnessValue_KeyDown);
 }
 
 System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, System::EventArgs^  e) { // upload image clicked
@@ -29,7 +32,11 @@ System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, 
 	if (Open->ShowDialog() == ::DialogResult::OK) { // checks if "Open" clicked on valid image
 		bitmap = gcnew Bitmap(System::Drawing::Bitmap::FromFile(Open->FileName)); // new bitmap from filename (filename is full path, ex. C:\User\Pictures\Image)
 		currentImage->Image = bitmap; // sets current image in picture box to the above bitmap
-		this->uploadImageLabel->Hide(); // hides initial "Upload New Image Label"
+		this->uploadImageLabel->Hide(); // hides initial "Upload New Image" Label
+	}
+	hideTempObjects();
+	while (changes->peek() != nullptr) {
+		changes->pop();
 	}
 }
 
@@ -43,8 +50,8 @@ System::Void ImageProcessor::MyForm::uploadImageLabel_Click(System::Object^  sen
 	if (Open->ShowDialog() == ::DialogResult::OK) { // checks if "Open" clicked on valid image
 		bitmap = gcnew Bitmap(System::Drawing::Bitmap::FromFile(Open->FileName)); // new bitmap from filename (filename is full path, ex. C:\User\Pictures\Image)
 		currentImage->Image = bitmap; // sets current image in picture box to the above bitmap
+		this->uploadImageLabel->Hide(); // hides initial "Upload New Image Label"
 	}
-	this->uploadImageLabel->Hide(); // hides initial "Upload New Image Label"
 }
 
 System::Void ImageProcessor::MyForm::saveImage_Click(System::Object^  sender, System::EventArgs^  e) { // save image clicked
@@ -76,18 +83,22 @@ System::Void ImageProcessor::MyForm::saveImage_Click(System::Object^  sender, Sy
 				break;
 
 			default: // jpeg
-				currentImage->Image->Save(filestream, System::Drawing::Imaging::ImageFormat::Jpeg); // default to jpeg
+				currentImage->Image->Save(filestream, System::Drawing::Imaging::ImageFormat::Jpeg); // idk when this would happen
 				break;
 		}
 	}
 }
 
-System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all object not displayed on initial launch
+System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects not displayed on initial launch
 	this->hMirror->Hide();
 	this->vMirror->Hide();
 	this->rotateC->Hide();
 	this->rotateCC->Hide();
 	this->brightnessSlider->Hide();
+	this->brightnessValue->Hide();
+	this->percentLabel->Hide();
+	this->lowBrightness->Hide();
+	this->highBrightness->Hide();
 	this->contrastSlider->Hide();
 }
 
@@ -145,7 +156,14 @@ System::Void ImageProcessor::MyForm::grayscaleImage_Click(System::Object^  sende
 System::Void ImageProcessor::MyForm::imageBrightness_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
+		System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
+		changes->push(bitmap);
+		this->brightnessSlider->Value = 0;
 		this->brightnessSlider->Show();
+		this->brightnessValue->Show();
+		this->percentLabel->Show();
+		this->lowBrightness->Show();
+		this->highBrightness->Show();
 	}
 }
 

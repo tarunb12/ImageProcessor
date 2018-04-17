@@ -136,7 +136,9 @@
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="ImageOrientation.cpp" />
     <ClCompile Include="Coloring.cpp" />
-    <ClCompile Include="Stacker.cpp" />
+    <ClCompile Include="BitmapStack.cpp" />
+    <ClCompile Include="Brightness.cpp" />
+    <ClCompile Include="Contrast.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">

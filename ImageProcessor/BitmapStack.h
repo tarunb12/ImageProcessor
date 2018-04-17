@@ -11,5 +11,6 @@ public:
 	BitmapStack(); // default constructor
 	System::Void push(System::Drawing::Bitmap^ bitmapIn); // pushes previous bitmap to the top of the stack
 	BITMAP^ peek(); // checks if stackptr points to anything
+	System::Drawing::Bitmap^ bitmapPeek();
 	System::Drawing::Bitmap^ pop(); // returns and deletes the bitmap at the top of the stack
 };

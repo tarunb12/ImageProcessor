@@ -24,6 +24,10 @@ BitmapStack::BITMAP^ BitmapStack::peek() {
 	return stackPtr;
 }
 
+System::Drawing::Bitmap^ BitmapStack::bitmapPeek() {
+	return stackPtr->bitmap;
+}
+
 System::Drawing::Bitmap^ BitmapStack::pop() {
 	System::Drawing::Bitmap^ bitmapOut;
 	if (stackPtr != nullptr) {
