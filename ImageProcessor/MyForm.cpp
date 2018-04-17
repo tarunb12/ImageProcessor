@@ -46,10 +46,10 @@ System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, 
 		bitmap = gcnew Bitmap(System::Drawing::Bitmap::FromFile(Open->FileName)); // new bitmap from filename (filename is full path, ex. C:\User\Pictures\Image)
 		currentImage->Image = bitmap; // sets current image in picture box to the above bitmap
 		this->uploadImageLabel->Hide(); // hides initial "Upload New Image" Label
-	}
-	hideTempObjects();
-	while (changes->peek() != nullptr) {
-		changes->pop();
+		hideTempObjects();
+		while (changes->peek() != nullptr) {
+			changes->pop();
+		}
 	}
 }
 
@@ -132,7 +132,6 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 
 System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
-		hideTempObjects();
 		if (changes->peek()) {
 			currentImage->Image = changes->pop();
 		}

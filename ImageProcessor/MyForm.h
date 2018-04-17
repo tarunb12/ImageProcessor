@@ -411,10 +411,12 @@ namespace ImageProcessor {
 			// hueSlider
 			// 
 			this->hueSlider->Location = System::Drawing::Point(99, 942);
+			this->hueSlider->Minimum = 0;
 			this->hueSlider->Maximum = 360;
 			this->hueSlider->Name = L"hueSlider";
 			this->hueSlider->Size = System::Drawing::Size(504, 90);
 			this->hueSlider->TabIndex = 36;
+			this->hueSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::hueSlider_ValueChanged);
 			// 
 			// percentLabel
 			// 

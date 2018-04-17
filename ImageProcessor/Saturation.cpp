@@ -23,6 +23,8 @@ System::Void ImageProcessor::MyForm::saturationValue_KeyDown(System::Object^  se
 	if (e->KeyCode == Keys::Enter) {
 		int saturationVal;
 		if (System::Int32::TryParse(this->saturationValue->Text, saturationVal)) {
+			System::Drawing::Bitmap^ prevBitmap = gcnew Bitmap(currentImage->Image);
+			changes->push(prevBitmap);
 			if (saturationVal > 100) {
 				this->saturationSlider->Value = 255;
 			}
@@ -33,8 +35,6 @@ System::Void ImageProcessor::MyForm::saturationValue_KeyDown(System::Object^  se
 				this->saturationSlider->Value = (saturationVal * 255) / 100;
 			}
 			saturationSlider_ValueChange();
-			System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
-			changes->push(bitmap);
 		}
 	}
 }

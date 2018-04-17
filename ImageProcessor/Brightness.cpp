@@ -25,6 +25,8 @@ System::Void ImageProcessor::MyForm::brightnessValue_KeyDown(System::Object^  se
 	if (e->KeyCode == Keys::Enter) {
 		int brightnessVal;
 		if (System::Int32::TryParse(this->brightnessValue->Text, brightnessVal)) {
+			System::Drawing::Bitmap^ prevBitmap = gcnew Bitmap(currentImage->Image);
+			changes->push(prevBitmap);
 			if (brightnessVal > 100) {
 				this->brightnessSlider->Value = 255;
 			}
@@ -35,8 +37,6 @@ System::Void ImageProcessor::MyForm::brightnessValue_KeyDown(System::Object^  se
 				this->brightnessSlider->Value = (brightnessVal * 255) / 100;
 			}
 			brightnessSlider_ValueChange();
-			System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
-			changes->push(bitmap);
 		}
 	}
 }

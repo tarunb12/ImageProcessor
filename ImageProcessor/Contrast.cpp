@@ -23,6 +23,8 @@ System::Void ImageProcessor::MyForm::contrastValue_KeyDown(System::Object^  send
 	if (e->KeyCode == Keys::Enter) {
 		double contrastVal;
 		if (System::Double::TryParse(this->contrastValue->Text, contrastVal)) {
+			System::Drawing::Bitmap^ prevBitmap = gcnew Bitmap(currentImage->Image);
+			changes->push(prevBitmap);
 			if (contrastVal > 100) {
 				this->contrastSlider->Value = 255;
 			}
@@ -33,8 +35,6 @@ System::Void ImageProcessor::MyForm::contrastValue_KeyDown(System::Object^  send
 				this->contrastSlider->Value = int(contrastVal * 255) / 100;
 			}
 			contrastSlider_ValueChange();
-			System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
-			changes->push(bitmap);
 		}
 	}
 }

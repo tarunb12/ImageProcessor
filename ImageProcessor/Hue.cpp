@@ -19,13 +19,14 @@ System::Void ImageProcessor::MyForm::hueSlider_MouseUp(System::Object^  sender, 
 System::Void ImageProcessor::MyForm::hueSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 	int degrees = this->hueSlider->Value;
 	this->hueValue->Text = System::Convert::ToString(degrees);
-	this->imageHue->Text = System::Convert::ToString(degrees);
 }
 
 System::Void ImageProcessor::MyForm::hueValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e) {
 	if (e->KeyCode == Keys::Enter) {
 		int hueVal;
 		if (System::Int32::TryParse(this->hueValue->Text, hueVal)) {
+			System::Drawing::Bitmap^ prevBitmap = gcnew Bitmap(currentImage->Image);
+			changes->push(prevBitmap);
 			if (hueVal > 360) {
 				while (hueVal > 360) {
 					hueVal -= 360;
@@ -41,8 +42,6 @@ System::Void ImageProcessor::MyForm::hueValue_KeyDown(System::Object^  sender, S
 			}
 			this->hueSlider->Value = hueVal;
 			hueSlider_ValueChange();
-			System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
-			changes->push(bitmap);
 		}
 	}
 }
