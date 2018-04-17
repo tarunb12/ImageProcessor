@@ -25,6 +25,10 @@ System::Void ImageProcessor::MyForm::MyForm_Load(System::Object^  sender, System
 	this->contrastSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::contrastSlider_MouseUp);
 	this->contrastSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::contrastSlider_MouseDown);
 	this->contrastValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::contrastValue_KeyDown);
+
+	this->saturationSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseUp);
+	this->saturationSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseDown);
+	this->saturationSlider->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::saturationValue_KeyDown);
 }
 
 System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, System::EventArgs^  e) { // upload image clicked
@@ -101,16 +105,22 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->rotateCC->Hide();
 
 	this->percentLabel->Hide();
+	this->lowBrightness->Hide();
+	this->highBrightness->Hide();
+	this->lowLabel->Hide();
+	this->highLabel->Hide();
 
 	this->brightnessSlider->Hide();
 	this->brightnessValue->Hide();
-	this->lowBrightness->Hide();
-	this->highBrightness->Hide();
 
 	this->contrastSlider->Hide();
 	this->contrastValue->Hide();
-	this->lowLabel->Hide();
-	this->highLabel->Hide();
+
+	this->saturationSlider->Hide();
+	this->saturationValue->Hide();
+
+	this->hueSlider->Hide();
+	this->hueValue->Hide();
 }
 
 System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -201,5 +211,13 @@ System::Void ImageProcessor::MyForm::imageHue_Click(System::Object^  sender, Sys
 System::Void ImageProcessor::MyForm::imageSaturation_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
+		System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
+		changes->push(bitmap);
+		this->saturationSlider->Value = 0;
+		this->saturationSlider->Show();
+		this->saturationValue->Show();
+		this->percentLabel->Show();
+		this->lowLabel->Show();
+		this->highLabel->Show();
 	}
 }

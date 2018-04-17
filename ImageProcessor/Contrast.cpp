@@ -13,15 +13,23 @@ System::Void ImageProcessor::MyForm::contrastSlider_MouseUp(System::Object^  sen
 }
 
 System::Void ImageProcessor::MyForm::contrastSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
-	int percentage = this->contrastSlider->Value / 2.55;
+	int percentage = (this->contrastSlider->Value * 100) / 255;
 	this->contrastValue->Text = System::Convert::ToString(percentage);
 }
 
 System::Void ImageProcessor::MyForm::contrastValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e) {
 	if (e->KeyCode == Keys::Enter) {
-		int contrastVal;
-		if (System::Int32::TryParse(this->contrastValue->Text, contrastVal)) {
-			this->contrastSlider->Value = contrastVal * 2.55;
+		double contrastVal;
+		if (System::Double::TryParse(this->contrastValue->Text, contrastVal)) {
+			if (contrastVal > 100) {
+				this->contrastSlider->Value = 255;
+			}
+			else if (contrastVal < -100) {
+				this->contrastSlider->Value = -255;
+			}
+			else {
+				this->contrastSlider->Value = int(contrastVal * 255) / 100;
+			}
 			contrastSlider_ValueChange();
 		}
 	}
@@ -36,7 +44,6 @@ System::Void ImageProcessor::MyForm::contrastSlider_ValueChange() {
 	float c = (float)(1.0f + (this->contrastSlider->Value / 255.0f));
 	float t = 0.5f * (1.0f - c);
 	System::Drawing::Bitmap^ newBitmap = gcnew Bitmap(tempBitmap->Width, tempBitmap->Height);
-
 	System::Drawing::Graphics^ newGraphics = System::Drawing::Graphics::FromImage(newBitmap);
 	System::Drawing::Imaging::ColorMatrix^ colorMatrix = gcnew System::Drawing::Imaging::ColorMatrix();
 
