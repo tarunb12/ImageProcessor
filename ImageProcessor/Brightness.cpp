@@ -35,7 +35,7 @@ System::Void ImageProcessor::MyForm::brightnessTimer_Tick(System::Object^  sende
 
 System::Void ImageProcessor::MyForm::brightnessSlider_ValueChange() {
 	System::Drawing::Bitmap^ tempBitmap = changes->bitmapPeek();
-	float finalValue = (float)this->brightnessSlider->Value / 255.0f;
+	float f = (float)this->brightnessSlider->Value / 255.0f;
 	System::Drawing::Bitmap^ newBitmap = gcnew Bitmap(tempBitmap->Width, tempBitmap->Height);
 
 	System::Drawing::Graphics^ newGraphics = System::Drawing::Graphics::FromImage(newBitmap);
@@ -69,18 +69,18 @@ System::Void ImageProcessor::MyForm::brightnessSlider_ValueChange() {
 	colorMatrix->Matrix33 = 1;
 	colorMatrix->Matrix34 = 0;
 
-	// [ finalValue ] [ finalValue ] [ finalValue ] [ 0 ] [ 1 ]
-	colorMatrix->Matrix40 = finalValue;
-	colorMatrix->Matrix41 = finalValue;
-	colorMatrix->Matrix42 = finalValue;
+	// [ f ] [ f ] [ f ] [ 0 ] [ 1 ]
+	colorMatrix->Matrix40 = f;
+	colorMatrix->Matrix41 = f;
+	colorMatrix->Matrix42 = f;
 	colorMatrix->Matrix43 = 0;
 	colorMatrix->Matrix44 = 1;
 
-	//     [ 1 ]		  [ 0 ]			[ 0 ]		[ 0 ] [ 0 ]
-	//     [ 0 ]		  [ 1 ]			[ 0 ]		[ 0 ] [ 0 ]
-	//     [ 0 ]		  [ 0 ]			[ 1 ]		[ 0 ] [ 0 ]
-	//	   [ 0 ]		  [ 0 ]			[ 0 ]		[ 1 ] [ 0 ]
-	// [ finalValue ] [ finalValue ] [ finalValue ] [ 0 ] [ 1 ]
+	// [ 1 ] [ 0 ] [ 0 ] [ 0 ] [ 0 ]
+	// [ 0 ] [ 1 ] [ 0 ] [ 0 ] [ 0 ]
+	// [ 0 ] [ 0 ] [ 1 ] [ 0 ] [ 0 ]
+	// [ 0 ] [ 0 ] [ 0 ] [ 1 ] [ 0 ]
+	// [ f ] [ f ] [ f ] [ 0 ] [ 1 ]
 	// Matrix which will manipulate the brightness of the image
 
 	System::Drawing::Imaging::ImageAttributes^ attributes = gcnew System::Drawing::Imaging::ImageAttributes();

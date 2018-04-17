@@ -324,8 +324,8 @@ namespace ImageProcessor {
 			// contrastSlider
 			// 
 			this->contrastSlider->Location = System::Drawing::Point(99, 942);
-			this->contrastSlider->Maximum = 255;
-			this->contrastSlider->Minimum = -255;
+			this->contrastSlider->Maximum = 100;
+			this->contrastSlider->Minimum = -100;
 			this->contrastSlider->Name = L"contrastSlider";
 			this->contrastSlider->Size = System::Drawing::Size(504, 90);
 			this->contrastSlider->TabIndex = 17;
@@ -415,7 +415,7 @@ namespace ImageProcessor {
 			// contrastTimer
 			// 
 			this->contrastTimer->Interval = 300;
-			this->brightnessTimer->Tick += gcnew System::EventHandler(this, &MyForm::contrastTimer_Tick);
+			this->contrastTimer->Tick += gcnew System::EventHandler(this, &MyForm::contrastTimer_Tick);
 			// 
 			// MyForm
 			// 
