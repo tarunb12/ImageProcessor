@@ -25,21 +25,22 @@ System::Void ImageProcessor::MyForm::hueValue_KeyDown(System::Object^  sender, S
 	if (e->KeyCode == Keys::Enter) {
 		int hueVal;
 		if (System::Int32::TryParse(this->hueValue->Text, hueVal)) {
+			int newVal = hueVal;
 			System::Drawing::Bitmap^ prevBitmap = gcnew Bitmap(currentImage->Image);
 			changes->push(prevBitmap);
 			if (hueVal > 360) {
-				while (hueVal > 360) {
-					hueVal -= 360;
+				while (newVal > 360) {
+					newVal -= 360;
 				}
-				this->hueValue->Text = System::Convert::ToString(hueVal);
+				hueVal = newVal;
 			}
-			else if (hueVal < 360) {
-				while (hueVal < 360) {
-					hueVal += 360;
+			else if (hueVal < 0) {
+				while (newVal < 0) {
+					newVal += 360;
 				}
-				hueVal -= 360;
-				this->hueValue->Text = System::Convert::ToString(hueVal);
+				hueVal = newVal;
 			}
+			this->hueValue->Text = System::Convert::ToString(hueVal);
 			this->hueSlider->Value = hueVal;
 			hueSlider_ValueChange();
 		}

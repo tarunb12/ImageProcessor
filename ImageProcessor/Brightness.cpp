@@ -1,7 +1,5 @@
 #include "MyForm.h"
 
-// BE CAREFUL WITH PRETTY HIGH RES PICS
-
 System::Void ImageProcessor::MyForm::brightnessSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
 	changes->push(bitmap);
@@ -47,7 +45,7 @@ System::Void ImageProcessor::MyForm::brightnessTimer_Tick(System::Object^  sende
 
 System::Void ImageProcessor::MyForm::brightnessSlider_ValueChange() {
 	System::Drawing::Bitmap^ tempBitmap = changes->bitmapPeek();
-	float f = (float)this->brightnessSlider->Value / 255.0f;
+	float b = (float)this->brightnessSlider->Value / 255.0f;
 	System::Drawing::Bitmap^ newBitmap = gcnew Bitmap(tempBitmap->Width, tempBitmap->Height);
 	System::Drawing::Graphics^ newGraphics = System::Drawing::Graphics::FromImage(newBitmap);
 	System::Drawing::Imaging::ColorMatrix^ colorMatrix = gcnew System::Drawing::Imaging::ColorMatrix();
@@ -81,9 +79,9 @@ System::Void ImageProcessor::MyForm::brightnessSlider_ValueChange() {
 	colorMatrix->Matrix34 = 0;
 
 	// [ f ] [ f ] [ f ] [ 0 ] [ 1 ]
-	colorMatrix->Matrix40 = f;
-	colorMatrix->Matrix41 = f;
-	colorMatrix->Matrix42 = f;
+	colorMatrix->Matrix40 = b;
+	colorMatrix->Matrix41 = b;
+	colorMatrix->Matrix42 = b;
 	colorMatrix->Matrix43 = 0;
 	colorMatrix->Matrix44 = 1;
 
@@ -91,7 +89,7 @@ System::Void ImageProcessor::MyForm::brightnessSlider_ValueChange() {
 	// [ 0 ] [ 1 ] [ 0 ] [ 0 ] [ 0 ]
 	// [ 0 ] [ 0 ] [ 1 ] [ 0 ] [ 0 ]
 	// [ 0 ] [ 0 ] [ 0 ] [ 1 ] [ 0 ]
-	// [ f ] [ f ] [ f ] [ 0 ] [ 1 ]
+	// [ b ] [ b ] [ b ] [ 0 ] [ 1 ]
 	// Matrix which will manipulate the brightness of the image
 
 	System::Drawing::Imaging::ImageAttributes^ attributes = gcnew System::Drawing::Imaging::ImageAttributes();
