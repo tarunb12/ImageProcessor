@@ -87,7 +87,7 @@ System::Void ImageProcessor::MyForm::brightnessSlider_ValueChange() {
 	// [ 0 ] [ 1 ] [ 0 ] [ 0 ] [ 0 ]
 	// [ 0 ] [ 0 ] [ 1 ] [ 0 ] [ 0 ]
 	// [ 0 ] [ 0 ] [ 0 ] [ 1 ] [ 0 ]
-	// [ f ] [ f ] [ f ] [ 1 ] [ 1 ]
+	// [ f ] [ f ] [ f ] [ 0 ] [ 1 ]
 	// Matrix which will manipulate the brightness of the image
 
 	System::Drawing::Imaging::ImageAttributes^ attributes = gcnew System::Drawing::Imaging::ImageAttributes();
