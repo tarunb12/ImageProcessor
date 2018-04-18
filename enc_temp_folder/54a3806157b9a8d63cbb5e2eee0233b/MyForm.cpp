@@ -68,14 +68,13 @@ System::Void ImageProcessor::MyForm::uploadImageLabel_Click(System::Object^  sen
 }
 
 System::Void ImageProcessor::MyForm::saveImage_Click(System::Object^  sender, System::EventArgs^  e) { // save image clicked
-	if (currentImage->Image) {
-		System::Windows::Forms::SaveFileDialog^ SaveFile = gcnew System::Windows::Forms::SaveFileDialog(); // save file dialog object
-		SaveFile->Title = "Save Image File"; // save file window name
-		SaveFile->Filter = "JPEG Image | *.jpg | PNG Image | *.png | GIF Image | *.gif | TIFF Image | *.tiff | Bitmap Image | *.bmp"; // all savable image types
-		SaveFile->ShowDialog(); // reveals save file dialog
-		if (SaveFile->FileName != "") { // checks if filename not empty
-			System::IO::FileStream^ filestream = safe_cast<System::IO::FileStream^>(SaveFile->OpenFile()); // filestream to save images
-			switch (SaveFile->FilterIndex) { // looks at filter index to determine selected file type
+	System::Windows::Forms::SaveFileDialog^ SaveFile = gcnew System::Windows::Forms::SaveFileDialog(); // save file dialog object
+	SaveFile->Title = "Save Image File"; // save file window name
+	SaveFile->Filter = "JPEG Image | *.jpg | PNG Image | *.png | GIF Image | *.gif | TIFF Image | *.tiff | Bitmap Image | *.bmp"; // all savable image types
+	SaveFile->ShowDialog(); // reveals save file dialog
+	if (SaveFile->FileName != "") { // checks if filename not empty
+		System::IO::FileStream^ filestream = safe_cast<System::IO::FileStream^>(SaveFile->OpenFile()); // filestream to save images
+		switch (SaveFile->FilterIndex) { // looks at filter index to determine selected file type
 			case 1: // jpeg
 				currentImage->Image->Save(filestream, System::Drawing::Imaging::ImageFormat::Jpeg); // save image as jpeg
 				break;
@@ -99,7 +98,6 @@ System::Void ImageProcessor::MyForm::saveImage_Click(System::Object^  sender, Sy
 			default: // jpeg
 				currentImage->Image->Save(filestream, System::Drawing::Imaging::ImageFormat::Jpeg); // idk when this would happen
 				break;
-			}
 		}
 	}
 }
