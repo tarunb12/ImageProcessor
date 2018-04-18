@@ -8,8 +8,6 @@
 */
 
 System::Void ImageProcessor::MyForm::invertCurrentImage() { // unsafe? invert by subtracting r/g/b value from 255
-	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // image before being changed
-	changes->push(bitmap); // push pre-change bitmap
 	System::Drawing::Bitmap^ changedBitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current picturebox image
 	System::Drawing::Rectangle rect = Rectangle(0, 0, changedBitmap->Width, changedBitmap->Height); // new rectangle object w/ same image dimensions
 	System::Drawing::Imaging::BitmapData^ bitmapData = changedBitmap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, changedBitmap->PixelFormat); // locks bitmap
@@ -28,8 +26,6 @@ System::Void ImageProcessor::MyForm::invertCurrentImage() { // unsafe? invert by
 }
 
 System::Void ImageProcessor::MyForm::grayscaleCurrentImage() { // unsafe? grayscale by averaging r + g + b values
-	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // image before being changed
-	changes->push(bitmap); // push pre-change bitmap
 	System::Drawing::Bitmap^ changedBitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current picturebox image
 	System::Drawing::Rectangle rect = Rectangle(0, 0, changedBitmap->Width, changedBitmap->Height); // new rectangle object w/ same image dimensions
 	System::Drawing::Imaging::BitmapData^ bitmapData = changedBitmap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, changedBitmap->PixelFormat); // locks bitmap

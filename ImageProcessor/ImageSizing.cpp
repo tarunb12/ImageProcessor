@@ -3,6 +3,8 @@
 System::Void ImageProcessor::MyForm::dimensionChange_Click(System::Object^  sender, System::EventArgs^  e) {
 	int oldWidth = currentImage->Image->Width;
 	int oldHeight = currentImage->Image->Height;
+	this->currentWidthValue->Text += System::Convert::ToString(oldWidth);
+	this->currentHeightValue->Text += System::Convert::ToString(oldHeight);
 
 	this->dimensionChange->Hide();
 	this->stretchShrink->Hide();
@@ -27,11 +29,11 @@ System::Void ImageProcessor::MyForm::applyDimensionChange_Click(System::Object^ 
 		this->applyDimensionChange->Show();
 		this->cancelDimensionChange->Show();
 
-
 		System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
+
 		System::Drawing::Rectangle rect = Rectangle(0, 0, newWidth, newHeight);
 		// change
-		System::Drawing::Bitmap^ newBitmap = gcnew Bitmap(bitmap->Width, bitmap->Height);
+		System::Drawing::Bitmap^ newBitmap = gcnew Bitmap(newWidth, newHeight);
 		// change
 		newBitmap->SetResolution(bitmap->HorizontalResolution, bitmap->VerticalResolution);
 		System::Drawing::Graphics^ newGraphics = System::Drawing::Graphics::FromImage(newBitmap);
@@ -47,11 +49,28 @@ System::Void ImageProcessor::MyForm::applyDimensionChange_Click(System::Object^ 
 		newWidth = -1;
 		newHeight = -1;
 
+		this->currentWidthValue->Hide();
+		this->currentHeightValue->Hide();
+		this->newWidthLabel->Hide();
+		this->newHeightLabel->Hide();
+		this->newWidthInput->Hide();
+		this->newHeightInput->Hide();
+		this->applyDimensionChange->Hide();
+		this->cancelDimensionChange->Hide();
+
+		currentImage->Image = newBitmap;
 	}
 }
 
 System::Void ImageProcessor::MyForm::cancelDimensionChange_Click(System::Object^  sender, System::EventArgs^  e) {
-
+	this->currentWidthValue->Hide();
+	this->currentHeightValue->Hide();
+	this->newWidthLabel->Hide();
+	this->newHeightLabel->Hide();
+	this->newWidthInput->Hide();
+	this->newHeightInput->Hide();
+	this->applyDimensionChange->Hide();
+	this->cancelDimensionChange->Hide();
 }
 
 System::Void ImageProcessor::MyForm::stretchShrink_Click(System::Object^  sender, System::EventArgs^  e) {
