@@ -37,6 +37,9 @@ System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, 
 		if (currentImage->Width > currentImage->Image->Width && currentImage->Height > currentImage->Image->Height) {
 			currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::CenterImage;
 		}
+		else {
+			this->currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+		}
 	}
 }
 
@@ -53,6 +56,9 @@ System::Void ImageProcessor::MyForm::uploadImageLabel_Click(System::Object^  sen
 		this->uploadImageLabel->Hide(); // hides initial "Upload New Image Label"
 		if (currentImage->Width > currentImage->Image->Width && currentImage->Height > currentImage->Image->Height) {
 			currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::CenterImage;
+		}
+		else {
+			this->currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 		}
 	}
 }
@@ -108,6 +114,9 @@ System::Void ImageProcessor::MyForm::currentImage_Click(System::Object^  sender,
 			this->uploadImageLabel->Hide(); // hides initial "Upload New Image Label"
 			if (currentImage->Width > currentImage->Image->Width && currentImage->Height > currentImage->Image->Height) {
 				currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::CenterImage;
+			}
+			else {
+				this->currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			}
 		}
 	}
@@ -192,7 +201,6 @@ System::Void ImageProcessor::MyForm::cropImage_Click(System::Object^  sender, Sy
 	if (currentImage->Image) {
 		saveCurrentImage();
 		hideTempObjects();
-		this->currentImage->Click += gcnew System::EventHandler(this, &MyForm::currentImageCrop_Click);
 		this->currentImage->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::currentImage_MouseDown);
 		this->currentImage->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::currentImage_MouseMove);
 		this->currentImage->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::currentImage_MouseUp);

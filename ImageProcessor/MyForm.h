@@ -196,7 +196,6 @@ namespace ImageProcessor {
 			this->currentImage->Location = System::Drawing::Point(704, 80);
 			this->currentImage->Name = L"currentImage";
 			this->currentImage->Size = System::Drawing::Size(1167, 806);
-			this->currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->currentImage->TabIndex = 0;
 			this->currentImage->TabStop = false;
 			this->currentImage->Click += gcnew System::EventHandler(this, &MyForm::currentImage_Click);
@@ -832,7 +831,6 @@ namespace ImageProcessor {
 		System::Void vMirror_Click(System::Object^  sender, System::EventArgs^  e); // mirrors image vertically
 
 		System::Void cropImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
-		System::Void currentImageCrop_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void currentImage_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 		System::Void currentImage_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 		System::Void currentImage_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
