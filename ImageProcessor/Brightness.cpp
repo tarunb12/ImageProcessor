@@ -72,7 +72,7 @@ System::Void ImageProcessor::MyForm::brightnessSlider_ValueChange() {
 	colorMatrix->Matrix33 = 1;
 	colorMatrix->Matrix34 = 0;
 
-	// [ f ] [ f ] [ f ] [ 0 ] [ 1 ]
+	// [ b ] [ b ] [ b ] [ 0 ] [ 1 ]
 	colorMatrix->Matrix40 = b;
 	colorMatrix->Matrix41 = b;
 	colorMatrix->Matrix42 = b;
