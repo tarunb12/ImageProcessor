@@ -144,6 +144,17 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 
 	this->hueSlider->Hide();
 	this->hueValue->Hide();
+
+	this->fillBoxStartX->Hide();
+	this->fillBoxStartY->Hide();
+	this->fillBoxEndX->Hide();
+	this->fillBoxEndY->Hide();
+	this->fillBoxLoad->Hide();
+	this->boxX1->Hide();
+	this->boxX2->Hide();
+	this->boxY1->Hide();
+	this->boxY2->Hide();
+	this->colorSelector->Hide();
 }
 
 System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -241,5 +252,56 @@ System::Void ImageProcessor::MyForm::imageSaturation_Click(System::Object^  send
 		this->percentLabel->Show();
 		this->lowLabel->Show();
 		this->highLabel->Show();
+	}
+}
+
+System::Void ImageProcessor::MyForm::fillBox_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (currentImage->Image) {
+		hideTempObjects();
+		this->fillBoxStartX->Show();
+		this->fillBoxStartY->Show();
+		this->fillBoxEndX->Show();
+		this->fillBoxEndY->Show();
+		this->fillBoxLoad->Show();
+		this->boxX1->Show();
+		this->boxX2->Show();
+		this->boxY1->Show();
+		this->boxY2->Show();
+		this->colorSelector->Show();
+
+		
+	}
+}
+
+System::Void ImageProcessor::MyForm::colorSelector_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (currentImage->Image) {
+		ColorDialog^ MyDialog = gcnew ColorDialog;
+		// Keeps the user from selecting a custom color.
+		MyDialog->AllowFullOpen = false;
+		// Allows the user to get help. (The default is false.)
+		MyDialog->ShowHelp = true;
+		// Sets the initial color select to the current text color.
+		MyDialog->Color = fillColor;
+
+		// Update the text box color if the user clicks OK 
+		if (MyDialog->ShowDialog() == ::System::Windows::Forms::DialogResult::OK)
+		{
+			fillColor = MyDialog->Color;
+		}
+	}
+}
+
+System::Void ImageProcessor::MyForm::fillBoxLoad_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (currentImage->Image) {
+
+		System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // image before being changed
+		changes->push(bitmap); // push pre-change bitmap
+		System::Drawing::Bitmap^ changedBitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current image
+		for (int y = static_cast<int>(fillBoxStartY->Value); y < static_cast<int>(fillBoxEndY->Value); y++) {
+			for (int x = static_cast<int>(fillBoxStartX->Value); x < static_cast<int>(fillBoxEndX->Value); x++) {
+				changedBitmap->SetPixel(static_cast<int>(x), static_cast<int>(y), fillColor); // change color of pixel 
+			}
+		}
+		currentImage->Image = changedBitmap; // current image set to new bitmap
 	}
 }
