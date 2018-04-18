@@ -75,8 +75,8 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Label^  highHueDegrees;
 	private: System::Windows::Forms::Timer^  hueTimer;
 	private: System::Windows::Forms::Label^  degreeLabel;
-	private: System::Windows::Forms::Button^  dimensionChange;
-	private: System::Windows::Forms::Button^  stretchShrink;
+
+
 	private: System::Windows::Forms::Label^  currentWidthValue;
 	private: System::Windows::Forms::Label^  currentHeightValue;
 
@@ -161,8 +161,6 @@ namespace ImageProcessor {
 			this->highHueDegrees = (gcnew System::Windows::Forms::Label());
 			this->hueTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->degreeLabel = (gcnew System::Windows::Forms::Label());
-			this->dimensionChange = (gcnew System::Windows::Forms::Button());
-			this->stretchShrink = (gcnew System::Windows::Forms::Button());
 			this->currentWidthValue = (gcnew System::Windows::Forms::Label());
 			this->currentHeightValue = (gcnew System::Windows::Forms::Label());
 			this->newWidthLabel = (gcnew System::Windows::Forms::Label());
@@ -375,6 +373,9 @@ namespace ImageProcessor {
 			this->brightnessSlider->Size = System::Drawing::Size(504, 90);
 			this->brightnessSlider->TabIndex = 16;
 			this->brightnessSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::brightnessSlider_ValueChanged);
+			this->brightnessSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::brightnessSlider_MouseUp);
+			this->brightnessSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::brightnessSlider_MouseDown);
+			this->brightnessValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::brightnessValue_KeyDown);
 			// 
 			// contrastSlider
 			// 
@@ -385,6 +386,9 @@ namespace ImageProcessor {
 			this->contrastSlider->Size = System::Drawing::Size(504, 90);
 			this->contrastSlider->TabIndex = 17;
 			this->contrastSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::contrastSlider_ValueChanged);
+			this->saturationSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseUp);
+			this->saturationSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseDown);
+			this->saturationValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::saturationValue_KeyDown);
 			// 
 			// brightnessValue
 			// 
@@ -445,6 +449,9 @@ namespace ImageProcessor {
 			this->saturationSlider->Size = System::Drawing::Size(504, 90);
 			this->saturationSlider->TabIndex = 28;
 			this->saturationSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::saturationSlider_ValueChanged);
+			this->saturationSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseUp);
+			this->saturationSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseDown);
+			this->saturationValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::saturationValue_KeyDown);
 			// 
 			// saturationValue
 			// 
@@ -469,6 +476,9 @@ namespace ImageProcessor {
 			this->hueSlider->Size = System::Drawing::Size(504, 90);
 			this->hueSlider->TabIndex = 36;
 			this->hueSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::hueSlider_ValueChanged);
+			this->hueSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::hueSlider_MouseUp);
+			this->hueSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::hueSlider_MouseDown);
+			this->hueValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::hueValue_KeyDown);
 			// 
 			// percentLabel
 			// 
@@ -559,26 +569,6 @@ namespace ImageProcessor {
 			this->degreeLabel->Size = System::Drawing::Size(28, 37);
 			this->degreeLabel->TabIndex = 45;
 			this->degreeLabel->Text = L"°";
-			// 
-			// dimensionChange
-			// 
-			this->dimensionChange->Location = System::Drawing::Point(99, 949);
-			this->dimensionChange->Name = L"dimensionChange";
-			this->dimensionChange->Size = System::Drawing::Size(220, 71);
-			this->dimensionChange->TabIndex = 46;
-			this->dimensionChange->Text = L"Change Dimensions";
-			this->dimensionChange->UseVisualStyleBackColor = true;
-			this->dimensionChange->Click += gcnew System::EventHandler(this, &MyForm::dimensionChange_Click);
-			// 
-			// stretchShrink
-			// 
-			this->stretchShrink->Location = System::Drawing::Point(383, 949);
-			this->stretchShrink->Name = L"stretchShrink";
-			this->stretchShrink->Size = System::Drawing::Size(220, 71);
-			this->stretchShrink->TabIndex = 47;
-			this->stretchShrink->Text = L"Stretch / Shrink";
-			this->stretchShrink->UseVisualStyleBackColor = true;
-			this->stretchShrink->Click += gcnew System::EventHandler(this, &MyForm::stretchShrink_Click);
 			// 
 			// currentWidthValue
 			// 
@@ -759,8 +749,6 @@ namespace ImageProcessor {
 			this->Controls->Add(this->newWidthLabel);
 			this->Controls->Add(this->currentHeightValue);
 			this->Controls->Add(this->currentWidthValue);
-			this->Controls->Add(this->stretchShrink);
-			this->Controls->Add(this->dimensionChange);
 			this->Controls->Add(this->degreeLabel);
 			this->Controls->Add(this->highHueDegrees);
 			this->Controls->Add(this->lowHueDegrees);
@@ -847,14 +835,14 @@ namespace ImageProcessor {
 		System::Void vMirror_Click(System::Object^  sender, System::EventArgs^  e); // mirrors image vertically
 
 		System::Void cropImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
+		System::Void currentImageCrop_Click(System::Object^  sender, System::EventArgs^  e);
 
 		int newWidth = -1;
 		int newHeight = -1;
 		System::Void resizeImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
-		System::Void dimensionChange_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void dimensionChange();
 		System::Void applyDimensionChange_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void cancelDimensionChange_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void stretchShrink_Click(System::Object^  sender, System::EventArgs^  e);
 
 		System::Void invertImage_Click(System::Object^  sender, System::EventArgs^  e); // inverts current image
 		System::Void invertCurrentImage(); // inversion function (direct rgb manipulation)

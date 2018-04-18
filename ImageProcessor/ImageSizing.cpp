@@ -1,13 +1,11 @@
 #include "MyForm.h"
 
-System::Void ImageProcessor::MyForm::dimensionChange_Click(System::Object^  sender, System::EventArgs^  e) {
-	int oldWidth = currentImage->Image->Width;
-	int oldHeight = currentImage->Image->Height;
+System::Void ImageProcessor::MyForm::dimensionChange() {
+	int oldWidth = currentImage->Width;
+	int oldHeight = currentImage->Height;
 	this->currentWidthValue->Text = "Current Width: " + System::Convert::ToString(oldWidth);
 	this->currentHeightValue->Text = "Current Height: " + System::Convert::ToString(oldHeight);
 
-	this->dimensionChange->Hide();
-	this->stretchShrink->Hide();
 	this->currentWidthValue->Show();
 	this->currentHeightValue->Show();
 	this->newWidthLabel->Show();
@@ -59,6 +57,8 @@ System::Void ImageProcessor::MyForm::applyDimensionChange_Click(System::Object^ 
 		this->cancelDimensionChange->Hide();
 
 		currentImage->Image = newBitmap;
+		this->currentImage->Width = currentImage->Image->Width;
+		this->currentImage->Height = currentImage->Image->Height;
 	}
 }
 
@@ -73,6 +73,6 @@ System::Void ImageProcessor::MyForm::cancelDimensionChange_Click(System::Object^
 	this->cancelDimensionChange->Hide();
 }
 
-System::Void ImageProcessor::MyForm::stretchShrink_Click(System::Object^  sender, System::EventArgs^  e) {
+System::Void ImageProcessor::MyForm::currentImageCrop_Click(System::Object^  sender, System::EventArgs^  e) {
 
 }

@@ -17,22 +17,6 @@ void Main(array<String^>^ args) {
 
 System::Void ImageProcessor::MyForm::MyForm_Load(System::Object^  sender, System::EventArgs^  e) { // loads when form initially launches
 	hideTempObjects(); // hides temp objects on initial form launch
-
-	this->brightnessSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::brightnessSlider_MouseUp);
-	this->brightnessSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::brightnessSlider_MouseDown);
-	this->brightnessValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::brightnessValue_KeyDown);
-
-	this->contrastSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::contrastSlider_MouseUp);
-	this->contrastSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::contrastSlider_MouseDown);
-	this->contrastValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::contrastValue_KeyDown);
-
-	this->saturationSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseUp);
-	this->saturationSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseDown);
-	this->saturationValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::saturationValue_KeyDown);
-
-	this->hueSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::hueSlider_MouseUp);
-	this->hueSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::hueSlider_MouseDown);
-	this->hueValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::hueValue_KeyDown);
 }
 
 System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, System::EventArgs^  e) { // upload image clicked
@@ -125,8 +109,6 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->vMirror->Hide();
 	this->rotateC->Hide();
 	this->rotateCC->Hide();
-	this->dimensionChange->Hide();
-	this->stretchShrink->Hide();
 	this->applyDimensionChange->Hide();
 	this->cancelDimensionChange->Hide();
 
@@ -201,6 +183,7 @@ System::Void ImageProcessor::MyForm::cropImage_Click(System::Object^  sender, Sy
 	if (currentImage->Image) {
 		saveCurrentImage();
 		hideTempObjects();
+		this->currentImage->Click += gcnew System::EventHandler(this, &MyForm::currentImageCrop_Click);
 	}
 }
 
@@ -208,8 +191,7 @@ System::Void ImageProcessor::MyForm::resizeImage_Click(System::Object^  sender, 
 	if (currentImage->Image) {
 		saveCurrentImage();
 		hideTempObjects();
-		this->dimensionChange->Show();
-		this->stretchShrink->Show();
+		dimensionChange();
 	}
 }
 
