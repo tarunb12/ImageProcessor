@@ -384,6 +384,8 @@ namespace ImageProcessor {
 			this->contrastSlider->Size = System::Drawing::Size(504, 90);
 			this->contrastSlider->TabIndex = 17;
 			this->contrastSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::contrastSlider_ValueChanged);
+			this->contrastSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::contrastSlider_MouseDown);
+			this->contrastSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::contrastSlider_MouseUp);
 			// 
 			// brightnessValue
 			// 
