@@ -1,8 +1,8 @@
 #include "MyForm.h"
 
 System::Void ImageProcessor::MyForm::dimensionChange() {
-	int oldWidth = currentImage->Width;
-	int oldHeight = currentImage->Height;
+	int oldWidth = currentImage->Image->Width;
+	int oldHeight = currentImage->Image->Height;
 	this->currentWidthValue->Text = "Current Width: " + System::Convert::ToString(oldWidth);
 	this->currentHeightValue->Text = "Current Height: " + System::Convert::ToString(oldHeight);
 
@@ -14,6 +14,9 @@ System::Void ImageProcessor::MyForm::dimensionChange() {
 	this->newHeightInput->Show();
 	this->applyDimensionChange->Show();
 	this->cancelDimensionChange->Show();
+
+	this->newWidthInput->Text = "";
+	this->newHeightInput->Text = "";
 }
 
 System::Void ImageProcessor::MyForm::applyDimensionChange_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -57,8 +60,6 @@ System::Void ImageProcessor::MyForm::applyDimensionChange_Click(System::Object^ 
 		this->cancelDimensionChange->Hide();
 
 		currentImage->Image = newBitmap;
-		this->currentImage->Width = currentImage->Image->Width;
-		this->currentImage->Height = currentImage->Image->Height;
 	}
 }
 
@@ -74,7 +75,7 @@ System::Void ImageProcessor::MyForm::cancelDimensionChange_Click(System::Object^
 }
 
 System::Void ImageProcessor::MyForm::currentImage_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-
+	mouseActive = true;
 }
 
 System::Void ImageProcessor::MyForm::currentImage_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {

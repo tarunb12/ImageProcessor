@@ -831,6 +831,11 @@ namespace ImageProcessor {
 		System::Void vMirror_Click(System::Object^  sender, System::EventArgs^  e); // mirrors image vertically
 
 		System::Void cropImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
+		bool mouseActive = false;
+		int startX;
+		int staryY;
+		int endX;
+		int endY;
 		System::Void currentImage_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 		System::Void currentImage_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 		System::Void currentImage_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
