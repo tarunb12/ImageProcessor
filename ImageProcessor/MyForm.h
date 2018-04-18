@@ -650,6 +650,7 @@ namespace ImageProcessor {
 			// fillBoxStartX
 			// 
 			this->fillBoxStartX->Location = System::Drawing::Point(185, 870);
+			this->fillBoxStartX->Minimum = 0;
 			this->fillBoxStartX->Name = L"fillBoxStartX";
 			this->fillBoxStartX->Size = System::Drawing::Size(100, 31);
 			this->fillBoxStartX->TabIndex = 47;
@@ -657,7 +658,7 @@ namespace ImageProcessor {
 			// fillBoxStartY
 			// 
 			this->fillBoxStartY->Location = System::Drawing::Point(185, 910);
-			this->fillBoxStartY->Maximum = this->currentImage->Height;
+			this->fillBoxStartY->Minimum = 0;
 			this->fillBoxStartY->Name = L"fillBoxStartY";
 			this->fillBoxStartY->Size = System::Drawing::Size(100, 31);
 			this->fillBoxStartY->TabIndex = 48;
@@ -665,7 +666,7 @@ namespace ImageProcessor {
 			// fillBoxEndX
 			// 
 			this->fillBoxEndX->Location = System::Drawing::Point(385, 870);
-			this->fillBoxEndX->Maximum = this->currentImage->Width;
+			this->fillBoxEndX->Minimum = 0;
 			this->fillBoxEndX->Name = L"fillBoxEndX";
 			this->fillBoxEndX->Size = System::Drawing::Size(100, 31);
 			this->fillBoxEndX->TabIndex = 49;
@@ -673,7 +674,7 @@ namespace ImageProcessor {
 			// fillBoxEndY
 			// 
 			this->fillBoxEndY->Location = System::Drawing::Point(385, 910);
-			this->fillBoxEndY->Maximum = this->currentImage->Height;
+			this->fillBoxEndY->Minimum = 0;
 			this->fillBoxEndY->Name = L"fillBoxEndY";
 			this->fillBoxEndY->Size = System::Drawing::Size(100, 31);
 			this->fillBoxEndY->TabIndex = 50;
