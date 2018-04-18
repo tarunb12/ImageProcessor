@@ -76,3 +76,15 @@ System::Void ImageProcessor::MyForm::cancelDimensionChange_Click(System::Object^
 System::Void ImageProcessor::MyForm::currentImageCrop_Click(System::Object^  sender, System::EventArgs^  e) {
 
 }
+
+System::Void ImageProcessor::MyForm::currentImage_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+
+}
+
+System::Void ImageProcessor::MyForm::currentImage_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+
+}
+
+System::Void ImageProcessor::MyForm::currentImage_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+
+}

@@ -34,6 +34,9 @@ System::Void ImageProcessor::MyForm::uploadImage_Click(System::Object^  sender, 
 		while (changes->peek() != nullptr) {
 			changes->pop();
 		}
+		if (currentImage->Width > currentImage->Image->Width && currentImage->Height > currentImage->Image->Height) {
+			currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::CenterImage;
+		}
 	}
 }
 
@@ -48,6 +51,9 @@ System::Void ImageProcessor::MyForm::uploadImageLabel_Click(System::Object^  sen
 		bitmap = gcnew Bitmap(System::Drawing::Bitmap::FromFile(Open->FileName)); // new bitmap from filename (filename is full path, ex. C:\User\Pictures\Image)
 		currentImage->Image = bitmap; // sets current image in picture box to the above bitmap
 		this->uploadImageLabel->Hide(); // hides initial "Upload New Image Label"
+		if (currentImage->Width > currentImage->Image->Width && currentImage->Height > currentImage->Image->Height) {
+			currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::CenterImage;
+		}
 	}
 }
 
@@ -100,6 +106,9 @@ System::Void ImageProcessor::MyForm::currentImage_Click(System::Object^  sender,
 			bitmap = gcnew Bitmap(System::Drawing::Bitmap::FromFile(Open->FileName)); // new bitmap from filename (filename is full path, ex. C:\User\Pictures\Image)
 			currentImage->Image = bitmap; // sets current image in picture box to the above bitmap
 			this->uploadImageLabel->Hide(); // hides initial "Upload New Image Label"
+			if (currentImage->Width > currentImage->Image->Width && currentImage->Height > currentImage->Image->Height) {
+				currentImage->SizeMode = System::Windows::Forms::PictureBoxSizeMode::CenterImage;
+			}
 		}
 	}
 }
@@ -184,6 +193,9 @@ System::Void ImageProcessor::MyForm::cropImage_Click(System::Object^  sender, Sy
 		saveCurrentImage();
 		hideTempObjects();
 		this->currentImage->Click += gcnew System::EventHandler(this, &MyForm::currentImageCrop_Click);
+		this->currentImage->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::currentImage_MouseDown);
+		this->currentImage->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::currentImage_MouseMove);
+		this->currentImage->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::currentImage_MouseUp);
 	}
 }
 

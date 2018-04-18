@@ -373,9 +373,8 @@ namespace ImageProcessor {
 			this->brightnessSlider->Size = System::Drawing::Size(504, 90);
 			this->brightnessSlider->TabIndex = 16;
 			this->brightnessSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::brightnessSlider_ValueChanged);
-			this->brightnessSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::brightnessSlider_MouseUp);
 			this->brightnessSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::brightnessSlider_MouseDown);
-			this->brightnessValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::brightnessValue_KeyDown);
+			this->brightnessSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::brightnessSlider_MouseUp);
 			// 
 			// contrastSlider
 			// 
@@ -386,9 +385,6 @@ namespace ImageProcessor {
 			this->contrastSlider->Size = System::Drawing::Size(504, 90);
 			this->contrastSlider->TabIndex = 17;
 			this->contrastSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::contrastSlider_ValueChanged);
-			this->saturationSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseUp);
-			this->saturationSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseDown);
-			this->saturationValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::saturationValue_KeyDown);
 			// 
 			// brightnessValue
 			// 
@@ -399,6 +395,7 @@ namespace ImageProcessor {
 			this->brightnessValue->TabIndex = 21;
 			this->brightnessValue->Text = L"0";
 			this->brightnessValue->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->brightnessValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::brightnessValue_KeyDown);
 			// 
 			// brightnessTimer
 			// 
@@ -449,9 +446,8 @@ namespace ImageProcessor {
 			this->saturationSlider->Size = System::Drawing::Size(504, 90);
 			this->saturationSlider->TabIndex = 28;
 			this->saturationSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::saturationSlider_ValueChanged);
-			this->saturationSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseUp);
 			this->saturationSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseDown);
-			this->saturationValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::saturationValue_KeyDown);
+			this->saturationSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::saturationSlider_MouseUp);
 			// 
 			// saturationValue
 			// 
@@ -462,6 +458,7 @@ namespace ImageProcessor {
 			this->saturationValue->TabIndex = 29;
 			this->saturationValue->Text = L"0";
 			this->saturationValue->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->saturationValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::saturationValue_KeyDown);
 			// 
 			// saturationTimer
 			// 
@@ -476,9 +473,8 @@ namespace ImageProcessor {
 			this->hueSlider->Size = System::Drawing::Size(504, 90);
 			this->hueSlider->TabIndex = 36;
 			this->hueSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::hueSlider_ValueChanged);
-			this->hueSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::hueSlider_MouseUp);
 			this->hueSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::hueSlider_MouseDown);
-			this->hueValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::hueValue_KeyDown);
+			this->hueSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::hueSlider_MouseUp);
 			// 
 			// percentLabel
 			// 
@@ -499,6 +495,7 @@ namespace ImageProcessor {
 			this->hueValue->TabIndex = 38;
 			this->hueValue->Text = L"0";
 			this->hueValue->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->hueValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::hueValue_KeyDown);
 			// 
 			// highBrightness
 			// 
@@ -836,6 +833,9 @@ namespace ImageProcessor {
 
 		System::Void cropImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
 		System::Void currentImageCrop_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void currentImage_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void currentImage_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void currentImage_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 
 		int newWidth = -1;
 		int newHeight = -1;
