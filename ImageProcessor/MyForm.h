@@ -92,7 +92,18 @@ namespace ImageProcessor {
 
 
 	private: System::ComponentModel::IContainer^  components;
-
+	private: System::Windows::Forms::Button^ fillBox;
+	private: System::Windows::Forms::NumericUpDown^ fillBoxStartX;		 
+	private: System::Windows::Forms::NumericUpDown^ fillBoxStartY;
+	private: System::Windows::Forms::NumericUpDown^ fillBoxEndX;
+	private: System::Windows::Forms::NumericUpDown^ fillBoxEndY;
+	private: System::Windows::Forms::Label^ boxX1;
+	private: System::Windows::Forms::Label^ boxX2;
+	private: System::Windows::Forms::Label^ boxY1;
+	private: System::Windows::Forms::Label^ boxY2;
+	private: System::Windows::Forms::Button^ fillBoxLoad;
+	private: System::Windows::Forms::Button^ colorSelector;
+	private: Color fillColor;
 	protected:
 
 	protected:
@@ -150,6 +161,7 @@ namespace ImageProcessor {
 			this->highHueDegrees = (gcnew System::Windows::Forms::Label());
 			this->hueTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->degreeLabel = (gcnew System::Windows::Forms::Label());
+<<<<<<< HEAD
 			this->dimensionChange = (gcnew System::Windows::Forms::Button());
 			this->stretchShrink = (gcnew System::Windows::Forms::Button());
 			this->currentWidthValue = (gcnew System::Windows::Forms::Label());
@@ -160,6 +172,19 @@ namespace ImageProcessor {
 			this->newHeightInput = (gcnew System::Windows::Forms::TextBox());
 			this->applyDimensionChange = (gcnew System::Windows::Forms::Button());
 			this->cancelDimensionChange = (gcnew System::Windows::Forms::Button());
+=======
+			this->fillBox = (gcnew System::Windows::Forms::Button());
+			this->fillBoxStartX = (gcnew System::Windows::Forms::NumericUpDown());
+			this->fillBoxStartY = (gcnew System::Windows::Forms::NumericUpDown());
+			this->fillBoxEndX = (gcnew System::Windows::Forms::NumericUpDown());
+			this->fillBoxEndY = (gcnew System::Windows::Forms::NumericUpDown());
+			this->boxX1 = (gcnew System::Windows::Forms::Label());
+			this->boxX2 = (gcnew System::Windows::Forms::Label());
+			this->boxY1 = (gcnew System::Windows::Forms::Label());
+			this->boxY2 = (gcnew System::Windows::Forms::Label());
+			this->colorSelector = (gcnew System::Windows::Forms::Button());
+			this->fillBoxLoad = (gcnew System::Windows::Forms::Button());
+>>>>>>> 6f4c8e83783d4a17af28267f2a561a6042f443df
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -533,6 +558,7 @@ namespace ImageProcessor {
 			this->degreeLabel->Size = System::Drawing::Size(28, 37);
 			this->degreeLabel->TabIndex = 45;
 			this->degreeLabel->Text = L"°";
+<<<<<<< HEAD
 			// 
 			// dimensionChange
 			// 
@@ -626,6 +652,103 @@ namespace ImageProcessor {
 			this->cancelDimensionChange->UseVisualStyleBackColor = true;
 			this->cancelDimensionChange->Click += gcnew System::EventHandler(this, &MyForm::cancelDimensionChange_Click);
 			// 
+=======
+			//
+			// fill box
+			// 
+			this->fillBox->Location = System::Drawing::Point(85, 780);
+			this->fillBox->Name = L"Fill Box";
+			this->fillBox->Size = System::Drawing::Size(233, 71);
+			this->fillBox->TabIndex = 46;
+			this->fillBox->Text = L"Fill Box";
+			this->fillBox->Click += gcnew System::EventHandler(this, &MyForm::fillBox_Click);
+			//
+			// fill box start x
+			//
+			this->fillBoxStartX->Location = System::Drawing::Point(185, 870);
+			this->fillBoxStartX->Name = L"fillBoxStartX";
+			this->fillBoxStartX->Size = System::Drawing::Size(100, 31);
+			this->fillBoxStartX->TabIndex = 47;
+			this->fillBoxStartX->Minimum = 0;
+			this->fillBoxEndX->Maximum = currentImage->Width;
+			//
+			// fill box start y
+			//
+			this->fillBoxStartY->Location = System::Drawing::Point(185, 910);
+			this->fillBoxStartY->Name = L"fillBoxStartY";
+			this->fillBoxStartY->Size = System::Drawing::Size(100, 31);
+			this->fillBoxStartY->TabIndex = 48;
+			this->fillBoxStartY->Maximum = currentImage->Height;
+			this->fillBoxStartX->Minimum = 0;
+			//
+			// fill box end x
+			//
+			this->fillBoxEndX->Location = System::Drawing::Point(385, 870);
+			this->fillBoxEndX->Name = L"fillBoxEndX";
+			this->fillBoxEndX->Size = System::Drawing::Size(100, 31);
+			this->fillBoxEndX->TabIndex = 49;
+			this->fillBoxEndX->Maximum = currentImage->Width;
+			this->fillBoxStartX->Minimum = 0;
+			//
+			// fill box end y
+			//
+			this->fillBoxEndY->Location = System::Drawing::Point(385, 910);
+			this->fillBoxEndY->Name = L"fillBoxEndY";
+			this->fillBoxEndY->Size = System::Drawing::Size(100, 31);
+			this->fillBoxEndY->TabIndex = 50;
+			this->fillBoxEndY->Maximum = currentImage->Height;
+			this->fillBoxStartX->Minimum = 0;
+			//
+			// box lables
+			//
+
+			this->boxX1->AutoSize = true;
+			this->boxX1->Location = System::Drawing::Point(295, 870);
+			this->boxX1->Name = L"boxX1";
+			this->boxX1->Size = System::Drawing::Size(20, 25);
+			this->boxX1->TabIndex = 51;
+			this->boxX1->Text = L"x1";
+
+			this->boxX2->AutoSize = true;
+			this->boxX2->Location = System::Drawing::Point(495, 870);
+			this->boxX2->Name = L"boxX2";
+			this->boxX2->Size = System::Drawing::Size(20, 25);
+			this->boxX2->TabIndex = 52;
+			this->boxX2->Text = L"x2";
+
+			this->boxY1->AutoSize = true;
+			this->boxY1->Location = System::Drawing::Point(295, 910);
+			this->boxY1->Name = L"boxY1";
+			this->boxY1->Size = System::Drawing::Size(20, 25);
+			this->boxY1->TabIndex = 53;
+			this->boxY1->Text = L"y1";
+
+			this->boxY2->AutoSize = true;
+			this->boxY2->Location = System::Drawing::Point(495, 910);
+			this->boxY2->Name = L"boxY2";
+			this->boxY2->Size = System::Drawing::Size(20, 25);
+			this->boxY2->TabIndex = 54;
+			this->boxY2->Text = L"y2";
+			//
+			// fill box load
+			// 
+			this->fillBoxLoad->Location = System::Drawing::Point(385, 950);
+			this->fillBoxLoad->Name = L"Fill Box Load";
+			this->fillBoxLoad->Size = System::Drawing::Size(233, 71);
+			this->fillBoxLoad->TabIndex = 55;
+			this->fillBoxLoad->Text = L"Fill";
+			this->fillBoxLoad->Click += gcnew System::EventHandler(this, &MyForm::fillBoxLoad_Click);
+			//
+			// color selector
+			// 
+			this->colorSelector->Location = System::Drawing::Point(135, 950);
+			this->colorSelector->Name = L"Select Color";
+			this->colorSelector->Size = System::Drawing::Size(233, 71);
+			this->colorSelector->TabIndex = 56;
+			this->colorSelector->Text = L"Select Color";
+			this->colorSelector->Click += gcnew System::EventHandler(this, &MyForm::colorSelector_Click);
+			//
+>>>>>>> 6f4c8e83783d4a17af28267f2a561a6042f443df
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
@@ -676,6 +799,17 @@ namespace ImageProcessor {
 			this->Controls->Add(this->currentImage);
 			this->Controls->Add(this->uploadImage);
 			this->Controls->Add(this->undoChange);
+			this->Controls->Add(this->fillBox);
+			this->Controls->Add(this->fillBoxStartX);
+			this->Controls->Add(this->fillBoxStartY);
+			this->Controls->Add(this->fillBoxEndX);
+			this->Controls->Add(this->fillBoxEndY);
+			this->Controls->Add(this->fillBoxLoad);
+			this->Controls->Add(this->boxX1);
+			this->Controls->Add(this->boxX2);
+			this->Controls->Add(this->boxY1);
+			this->Controls->Add(this->boxY2);
+			this->Controls->Add(this->colorSelector);
 			this->Name = L"MyForm";
 			this->Text = L"Image Processor";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
@@ -758,6 +892,10 @@ namespace ImageProcessor {
 		System::Void saturationValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
 		System::Void saturationTimer_Tick(System::Object^  sender, System::EventArgs^  e);
 		System::Void saturationSlider_ValueChange(); // saturation function (color matrix manipulation)
+
+		System::Void fillBox_Click(System::Object^ sender, System::EventArgs^ e); 
+		System::Void fillBoxLoad_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void colorSelector_Click(System::Object^ sender, System::EventArgs^ e);
 
 		System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e); // hide objects on form launch
 };
