@@ -153,10 +153,10 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->hueSlider->Hide();
 	this->hueValue->Hide();
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
 	this->newWidthInput->Hide();
 	this->newHeightInput->Hide();
-=======
+// =======
 	this->fillBoxStartX->Hide();
 	this->fillBoxStartY->Hide();
 	this->fillBoxEndX->Hide();
@@ -167,7 +167,7 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->boxY1->Hide();
 	this->boxY2->Hide();
 	this->colorSelector->Hide();
->>>>>>> 6f4c8e83783d4a17af28267f2a561a6042f443df
+// >>>>>>> 6f4c8e83783d4a17af28267f2a561a6042f443df
 }
 
 System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -280,11 +280,11 @@ System::Void ImageProcessor::MyForm::imageSaturation_Click(System::Object^  send
 	}
 }
 
-<<<<<<< HEAD
 System::Void ImageProcessor::MyForm::saveCurrentImage() {
 	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
 	changes->push(bitmap);
-=======
+}
+
 System::Void ImageProcessor::MyForm::fillBox_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (currentImage->Image) {
 		hideTempObjects();
@@ -334,5 +334,4 @@ System::Void ImageProcessor::MyForm::fillBoxLoad_Click(System::Object^ sender, S
 		}
 		currentImage->Image = changedBitmap; // current image set to new bitmap
 	}
->>>>>>> 6f4c8e83783d4a17af28267f2a561a6042f443df
 }

@@ -1,4 +1,4 @@
-#include "MyForm.h";
+#include "MyForm.h"
 
 System::Void ImageProcessor::MyForm::hMirror_Click(System::Object^  sender, System::EventArgs^  e) { // horizontal mirror method
 	System::Drawing::Bitmap^ changedBitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current image

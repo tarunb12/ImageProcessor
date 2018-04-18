@@ -161,7 +161,7 @@ namespace ImageProcessor {
 			this->highHueDegrees = (gcnew System::Windows::Forms::Label());
 			this->hueTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->degreeLabel = (gcnew System::Windows::Forms::Label());
-<<<<<<< HEAD
+// <<<<<<< HEAD
 			this->dimensionChange = (gcnew System::Windows::Forms::Button());
 			this->stretchShrink = (gcnew System::Windows::Forms::Button());
 			this->currentWidthValue = (gcnew System::Windows::Forms::Label());
@@ -172,7 +172,7 @@ namespace ImageProcessor {
 			this->newHeightInput = (gcnew System::Windows::Forms::TextBox());
 			this->applyDimensionChange = (gcnew System::Windows::Forms::Button());
 			this->cancelDimensionChange = (gcnew System::Windows::Forms::Button());
-=======
+// =======
 			this->fillBox = (gcnew System::Windows::Forms::Button());
 			this->fillBoxStartX = (gcnew System::Windows::Forms::NumericUpDown());
 			this->fillBoxStartY = (gcnew System::Windows::Forms::NumericUpDown());
@@ -184,7 +184,7 @@ namespace ImageProcessor {
 			this->boxY2 = (gcnew System::Windows::Forms::Label());
 			this->colorSelector = (gcnew System::Windows::Forms::Button());
 			this->fillBoxLoad = (gcnew System::Windows::Forms::Button());
->>>>>>> 6f4c8e83783d4a17af28267f2a561a6042f443df
+// >>>>>>> 6f4c8e83783d4a17af28267f2a561a6042f443df
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -558,7 +558,6 @@ namespace ImageProcessor {
 			this->degreeLabel->Size = System::Drawing::Size(28, 37);
 			this->degreeLabel->TabIndex = 45;
 			this->degreeLabel->Text = L"°";
-<<<<<<< HEAD
 			// 
 			// dimensionChange
 			// 
@@ -652,8 +651,6 @@ namespace ImageProcessor {
 			this->cancelDimensionChange->UseVisualStyleBackColor = true;
 			this->cancelDimensionChange->Click += gcnew System::EventHandler(this, &MyForm::cancelDimensionChange_Click);
 			// 
-=======
-			//
 			// fill box
 			// 
 			this->fillBox->Location = System::Drawing::Point(85, 780);
@@ -670,7 +667,7 @@ namespace ImageProcessor {
 			this->fillBoxStartX->Size = System::Drawing::Size(100, 31);
 			this->fillBoxStartX->TabIndex = 47;
 			this->fillBoxStartX->Minimum = 0;
-			this->fillBoxEndX->Maximum = currentImage->Width;
+			this->fillBoxEndX->Maximum = this->currentImage->Width;
 			//
 			// fill box start y
 			//
@@ -678,7 +675,7 @@ namespace ImageProcessor {
 			this->fillBoxStartY->Name = L"fillBoxStartY";
 			this->fillBoxStartY->Size = System::Drawing::Size(100, 31);
 			this->fillBoxStartY->TabIndex = 48;
-			this->fillBoxStartY->Maximum = currentImage->Height;
+			this->fillBoxStartY->Maximum = this->currentImage->Height;
 			this->fillBoxStartX->Minimum = 0;
 			//
 			// fill box end x
@@ -687,7 +684,7 @@ namespace ImageProcessor {
 			this->fillBoxEndX->Name = L"fillBoxEndX";
 			this->fillBoxEndX->Size = System::Drawing::Size(100, 31);
 			this->fillBoxEndX->TabIndex = 49;
-			this->fillBoxEndX->Maximum = currentImage->Width;
+			this->fillBoxEndX->Maximum = this->currentImage->Width;
 			this->fillBoxStartX->Minimum = 0;
 			//
 			// fill box end y
@@ -696,12 +693,11 @@ namespace ImageProcessor {
 			this->fillBoxEndY->Name = L"fillBoxEndY";
 			this->fillBoxEndY->Size = System::Drawing::Size(100, 31);
 			this->fillBoxEndY->TabIndex = 50;
-			this->fillBoxEndY->Maximum = currentImage->Height;
+			this->fillBoxEndY->Maximum = this->currentImage->Height;
 			this->fillBoxStartX->Minimum = 0;
 			//
 			// box lables
 			//
-
 			this->boxX1->AutoSize = true;
 			this->boxX1->Location = System::Drawing::Point(295, 870);
 			this->boxX1->Name = L"boxX1";
@@ -748,7 +744,6 @@ namespace ImageProcessor {
 			this->colorSelector->Text = L"Select Color";
 			this->colorSelector->Click += gcnew System::EventHandler(this, &MyForm::colorSelector_Click);
 			//
->>>>>>> 6f4c8e83783d4a17af28267f2a561a6042f443df
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
