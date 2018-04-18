@@ -76,6 +76,14 @@ System::Void ImageProcessor::MyForm::cancelDimensionChange_Click(System::Object^
 
 System::Void ImageProcessor::MyForm::currentImage_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 	mouseActive = true;
+
+	startX = e->X;
+	startY = e->Y;
+
+	endX = -1;
+	endY = -1;
+
+	rectArea = Rectangle(Point(startX, startY), System::Drawing::Size());
 }
 
 System::Void ImageProcessor::MyForm::currentImage_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
@@ -83,5 +91,14 @@ System::Void ImageProcessor::MyForm::currentImage_MouseMove(System::Object^  sen
 }
 
 System::Void ImageProcessor::MyForm::currentImage_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	mouseActive = false;
 
+	if (endX != -1) {
+		Point currentPoint = Point(e->X, e->Y);
+	}
+
+	startX = -1;
+	startY = -1;
+	endX = -1;
+	endY = -1;
 }
