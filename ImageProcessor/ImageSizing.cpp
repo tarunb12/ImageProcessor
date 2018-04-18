@@ -77,28 +77,62 @@ System::Void ImageProcessor::MyForm::cancelDimensionChange_Click(System::Object^
 System::Void ImageProcessor::MyForm::currentImage_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 	mouseActive = true;
 
-	startX = e->X;
-	startY = e->Y;
+	originalPoint.X = e->X;
+	originalPoint.Y = e->Y;
 
-	endX = -1;
-	endY = -1;
+	lastPoint.X = -1;
+	lastPoint.Y = -1;
 
-	rectArea = Rectangle(Point(startX, startY), System::Drawing::Size());
+	rectArea = Rectangle(Point(e->X, e->Y), System::Drawing::Size());
 }
 
 System::Void ImageProcessor::MyForm::currentImage_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	Point currentPoint = Point(e->X, e->Y);
 
+	if (mouseActive) {
+		lastPoint = currentPoint;
+		if (e->X > originalPoint.X && e->Y > originalPoint.Y) {
+			rectArea.Width = e->X - originalPoint.X;
+			rectArea.Height = e->X - originalPoint.Y;
+		}
+		else if (e->X < originalPoint.X && e->Y > originalPoint.Y) {
+			rectArea.Width = originalPoint.X - e->X;
+			rectArea.Height = e->X - originalPoint.Y;
+
+			rectArea.X = e->X;
+			rectArea.Y = originalPoint.Y;
+		}
+		else if (e->X < originalPoint.X && e->Y < originalPoint.Y) {
+			rectArea.Width = originalPoint.X - e->X;
+			rectArea.Height = originalPoint.Y - e->Y;
+
+			rectArea.X = e->X;
+			rectArea.Y = e->Y;
+		}
+		else if (e->X > originalPoint.X && e->Y < originalPoint.Y) {
+			rectArea.Width = e->X - originalPoint.X;
+			rectArea.Height = originalPoint.Y - e->Y;
+
+			rectArea.X = e->X;
+			rectArea.Y = originalPoint.Y;
+		}
+		else {
+
+		}
+	}
 }
 
 System::Void ImageProcessor::MyForm::currentImage_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 	mouseActive = false;
 
-	if (endX != -1) {
-		Point currentPoint = Point(e->X, e->Y);
+	if (mouseActive) {
+		if (lastPoint.X != -1) {
+			Point currentPoint = Point(e->X, e->Y);
+		}
 	}
 
-	startX = -1;
-	startY = -1;
-	endX = -1;
-	endY = -1;
+	originalPoint.X = -1;
+	originalPoint.Y = -1;
+	lastPoint.X = -1;
+	lastPoint.Y = -1;
 }
