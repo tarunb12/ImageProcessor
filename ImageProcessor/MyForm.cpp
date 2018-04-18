@@ -291,6 +291,10 @@ System::Void ImageProcessor::MyForm::saveCurrentImage() {
 System::Void ImageProcessor::MyForm::fillBox_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (currentImage->Image) {
 		hideTempObjects();
+		this->fillBoxEndX->Maximum = this->currentImage->Image->Width;
+		this->fillBoxEndY->Maximum = this->currentImage->Image->Height;
+		this->fillBoxStartX->Maximum = this->currentImage->Image->Width;
+		this->fillBoxStartY->Maximum = this->currentImage->Image->Height;
 		this->fillBoxStartX->Show();
 		this->fillBoxStartY->Show();
 		this->fillBoxEndX->Show();
