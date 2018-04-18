@@ -330,11 +330,13 @@ System::Void ImageProcessor::MyForm::fillBoxLoad_Click(System::Object^ sender, S
 		System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // image before being changed
 		changes->push(bitmap); // push pre-change bitmap
 		System::Drawing::Bitmap^ changedBitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current image
-		for (int y = static_cast<int>(fillBoxStartY->Value); y < static_cast<int>(fillBoxEndY->Value); y++) {
-			for (int x = static_cast<int>(fillBoxStartX->Value); x < static_cast<int>(fillBoxEndX->Value); x++) {
-				changedBitmap->SetPixel(static_cast<int>(x), static_cast<int>(y), fillColor); // change color of pixel 
-			}
-		}
+		Graphics^ bitmapGraphics = Graphics::FromImage(changedBitmap);
+		System::Drawing::Brush^ brush = (gcnew System::Drawing::SolidBrush(fillColor));
+		int width = static_cast<int>(fillBoxEndX->Value) - static_cast<int>(fillBoxStartX->Value);
+		int height = static_cast<int>(fillBoxEndY->Value) - static_cast<int>(fillBoxStartY->Value);
+		bitmapGraphics->FillRectangle(brush, static_cast<int>(fillBoxStartX->Value), static_cast<int>(fillBoxStartY->Value), width, height);
+		bitmapGraphics->~Graphics();
 		currentImage->Image = changedBitmap; // current image set to new bitmap
+
 	}
 }
