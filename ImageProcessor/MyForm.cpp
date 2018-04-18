@@ -153,10 +153,9 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->hueSlider->Hide();
 	this->hueValue->Hide();
 
-// <<<<<<< HEAD
 	this->newWidthInput->Hide();
 	this->newHeightInput->Hide();
-// =======
+
 	this->fillBoxStartX->Hide();
 	this->fillBoxStartY->Hide();
 	this->fillBoxEndX->Hide();
@@ -167,11 +166,11 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->boxY1->Hide();
 	this->boxY2->Hide();
 	this->colorSelector->Hide();
-// >>>>>>> 6f4c8e83783d4a17af28267f2a561a6042f443df
 }
 
 System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
+		hideTempObjects();
 		if (changes->peek()) {
 			currentImage->Image = changes->pop();
 		}
