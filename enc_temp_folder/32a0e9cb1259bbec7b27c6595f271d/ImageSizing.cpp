@@ -3,8 +3,8 @@
 System::Void ImageProcessor::MyForm::dimensionChange_Click(System::Object^  sender, System::EventArgs^  e) {
 	int oldWidth = currentImage->Image->Width;
 	int oldHeight = currentImage->Image->Height;
-	this->currentWidthValue->Text = "Current Width: " + System::Convert::ToString(oldWidth);
-	this->currentHeightValue->Text = "Current Height: " + System::Convert::ToString(oldHeight);
+	this->currentWidthValue->Text += System::Convert::ToString(oldWidth);
+	this->currentHeightValue->Text += System::Convert::ToString(oldHeight);
 
 	this->dimensionChange->Hide();
 	this->stretchShrink->Hide();
