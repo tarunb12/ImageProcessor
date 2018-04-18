@@ -3,8 +3,6 @@
 #include "MyForm.h"
 
 System::Void ImageProcessor::MyForm::hueSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
-	changes->push(bitmap);
 	this->hueTimer->Enabled = true;
 }
 
@@ -12,8 +10,6 @@ System::Void ImageProcessor::MyForm::hueSlider_MouseUp(System::Object^  sender, 
 	this->hueTimer->Enabled = false;
 	this->hueTimer->Enabled = true;
 	this->hueTimer->Enabled = false;
-	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
-	changes->push(bitmap);
 }
 
 System::Void ImageProcessor::MyForm::hueSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -26,8 +22,6 @@ System::Void ImageProcessor::MyForm::hueValue_KeyDown(System::Object^  sender, S
 		int hueVal;
 		if (System::Int32::TryParse(this->hueValue->Text, hueVal)) {
 			int newVal = hueVal;
-			System::Drawing::Bitmap^ prevBitmap = gcnew Bitmap(currentImage->Image);
-			changes->push(prevBitmap);
 			if (hueVal > 360) {
 				while (newVal > 360) {
 					newVal -= 360;
@@ -55,9 +49,9 @@ System::Void ImageProcessor::MyForm::hueSlider_ValueChange() {
 	System::Drawing::Bitmap^ tempBitmap = changes->bitmapPeek();
 
 	const float wedge = 120.0f / 360;
-	float degrees = this->hueSlider->Value;
+	float degrees = (float)this->hueSlider->Value;
 	float value = degrees / 360;
-	float hueDegree = std::fmod((-1 * value), 1);
+	float hueDegree = (float)std::fmod((-1.0f * value), 1);
 	if (hueDegree < 1) {
 		hueDegree++;
 	}
@@ -67,7 +61,7 @@ System::Void ImageProcessor::MyForm::hueSlider_ValueChange() {
 	System::Drawing::Imaging::ColorMatrix^ colorMatrix = gcnew System::Drawing::Imaging::ColorMatrix();
 
 	if (hueDegree <= wedge) {
-		float theta = (hueDegree / wedge) * (Math::PI / 2);
+		float theta = (float)((hueDegree / wedge) * (Math::PI / 2));
 		float c = (float)Math::Cos(theta);
 		float s = (float)Math::Sin(theta);
 
@@ -114,7 +108,7 @@ System::Void ImageProcessor::MyForm::hueSlider_ValueChange() {
 		// Matrix which will manipulate the hue of the image
 	}
 	else if (hueDegree <= wedge * 2) {
-		float theta = ((hueDegree - wedge) / wedge) * (Math::PI / 2);
+		float theta = (float)(((hueDegree - wedge) / wedge) * (Math::PI / 2));
 		float c = (float)Math::Cos(theta);
 		float s = (float)Math::Sin(theta);
 
@@ -161,7 +155,7 @@ System::Void ImageProcessor::MyForm::hueSlider_ValueChange() {
 		// Matrix which will manipulate the hue of the image
 	}
 	else {
-		float theta = ((hueDegree - (2 * wedge)) / wedge) * (Math::PI / 2);
+		float theta = (float)(((hueDegree - (2 * wedge)) / wedge) * (Math::PI / 2));
 		float c = (float)Math::Cos(theta);
 		float s = (float)Math::Sin(theta);
 

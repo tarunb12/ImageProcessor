@@ -133,6 +133,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ImageSizing.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="ImageOrientation.cpp" />
     <ClCompile Include="Coloring.cpp" />

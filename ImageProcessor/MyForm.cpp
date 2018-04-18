@@ -123,6 +123,10 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->vMirror->Hide();
 	this->rotateC->Hide();
 	this->rotateCC->Hide();
+	this->dimensionChange->Hide();
+	this->stretchShrink->Hide();
+	this->applyDimensionChange->Hide();
+	this->cancelDimensionChange->Hide();
 
 	this->percentLabel->Hide();
 	this->degreeLabel->Hide();
@@ -132,6 +136,10 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->highLabel->Hide();
 	this->lowHueDegrees->Hide();
 	this->highHueDegrees->Hide();
+	this->currentWidthValue->Hide();
+	this->currentHeightValue->Hide();
+	this->newWidthLabel->Hide();
+	this->newHeightLabel->Hide();
 
 	this->brightnessSlider->Hide();
 	this->brightnessValue->Hide();
@@ -144,6 +152,9 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 
 	this->hueSlider->Hide();
 	this->hueValue->Hide();
+
+	this->newWidthInput->Hide();
+	this->newHeightInput->Hide();
 }
 
 System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -156,6 +167,7 @@ System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, S
 
 System::Void ImageProcessor::MyForm::rotateImage_Click(System::Object^  sender, System::EventArgs^  e) { // reveal rotate clockwise/counterclockwise buttons
 	if (currentImage->Image) {
+		saveCurrentImage();
 		hideTempObjects();
 		this->rotateC->Show();
 		this->rotateCC->Show();
@@ -164,6 +176,7 @@ System::Void ImageProcessor::MyForm::rotateImage_Click(System::Object^  sender, 
 
 System::Void ImageProcessor::MyForm::mirrorImage_Click(System::Object^  sender, System::EventArgs^  e) { // reveal horizontal/vertical mirror image buttons
 	if (currentImage->Image) {
+		saveCurrentImage();
 		hideTempObjects();
 		this->hMirror->Show();
 		this->vMirror->Show();
@@ -172,18 +185,23 @@ System::Void ImageProcessor::MyForm::mirrorImage_Click(System::Object^  sender, 
 
 System::Void ImageProcessor::MyForm::cropImage_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
+		saveCurrentImage();
 		hideTempObjects();
 	}
 }
 
 System::Void ImageProcessor::MyForm::resizeImage_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
+		saveCurrentImage();
 		hideTempObjects();
+		this->dimensionChange->Show();
+		this->stretchShrink->Show();
 	}
 }
 
 System::Void ImageProcessor::MyForm::invertImage_Click(System::Object^  sender, System::EventArgs^  e) { // calls invert image method (Coloring.cpp)
 	if (currentImage->Image) {
+		saveCurrentImage();
 		hideTempObjects();
 		invertCurrentImage();
 	}
@@ -191,6 +209,7 @@ System::Void ImageProcessor::MyForm::invertImage_Click(System::Object^  sender, 
 
 System::Void ImageProcessor::MyForm::grayscaleImage_Click(System::Object^  sender, System::EventArgs^  e) { // calls grayscale image method (Coloring.cpp)
 	if (currentImage->Image) {
+		saveCurrentImage();
 		hideTempObjects();
 		grayscaleCurrentImage();
 	}
@@ -198,6 +217,7 @@ System::Void ImageProcessor::MyForm::grayscaleImage_Click(System::Object^  sende
 
 System::Void ImageProcessor::MyForm::imageBrightness_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
+		saveCurrentImage();
 		hideTempObjects();
 		this->brightnessSlider->Value = 0;
 		this->brightnessSlider->Show();
@@ -210,6 +230,7 @@ System::Void ImageProcessor::MyForm::imageBrightness_Click(System::Object^  send
 
 System::Void ImageProcessor::MyForm::imageContrast_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
+		saveCurrentImage();
 		hideTempObjects();
 		this->contrastSlider->Value = 0;
 		this->contrastSlider->Show();
@@ -222,6 +243,7 @@ System::Void ImageProcessor::MyForm::imageContrast_Click(System::Object^  sender
 
 System::Void ImageProcessor::MyForm::imageHue_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
+		saveCurrentImage();
 		hideTempObjects();
 		this->hueSlider->Value = 0;
 		this->hueSlider->Show();
@@ -234,6 +256,7 @@ System::Void ImageProcessor::MyForm::imageHue_Click(System::Object^  sender, Sys
 
 System::Void ImageProcessor::MyForm::imageSaturation_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
+		saveCurrentImage();
 		hideTempObjects();
 		this->saturationSlider->Value = 0;
 		this->saturationSlider->Show();
@@ -242,4 +265,9 @@ System::Void ImageProcessor::MyForm::imageSaturation_Click(System::Object^  send
 		this->lowLabel->Show();
 		this->highLabel->Show();
 	}
+}
+
+System::Void ImageProcessor::MyForm::saveCurrentImage() {
+	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
+	changes->push(bitmap);
 }

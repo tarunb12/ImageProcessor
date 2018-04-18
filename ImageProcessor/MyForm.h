@@ -75,6 +75,22 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Label^  highHueDegrees;
 	private: System::Windows::Forms::Timer^  hueTimer;
 	private: System::Windows::Forms::Label^  degreeLabel;
+	private: System::Windows::Forms::Button^  dimensionChange;
+	private: System::Windows::Forms::Button^  stretchShrink;
+	private: System::Windows::Forms::Label^  currentWidthValue;
+	private: System::Windows::Forms::Label^  currentHeightValue;
+
+
+	private: System::Windows::Forms::Label^  newWidthLabel;
+	private: System::Windows::Forms::Label^  newHeightLabel;
+
+
+	private: System::Windows::Forms::TextBox^  newWidthInput;
+	private: System::Windows::Forms::TextBox^  newHeightInput;
+	private: System::Windows::Forms::Button^  applyDimensionChange;
+	private: System::Windows::Forms::Button^  cancelDimensionChange;
+
+
 	private: System::ComponentModel::IContainer^  components;
 
 	protected:
@@ -134,6 +150,16 @@ namespace ImageProcessor {
 			this->highHueDegrees = (gcnew System::Windows::Forms::Label());
 			this->hueTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->degreeLabel = (gcnew System::Windows::Forms::Label());
+			this->dimensionChange = (gcnew System::Windows::Forms::Button());
+			this->stretchShrink = (gcnew System::Windows::Forms::Button());
+			this->currentWidthValue = (gcnew System::Windows::Forms::Label());
+			this->currentHeightValue = (gcnew System::Windows::Forms::Label());
+			this->newWidthLabel = (gcnew System::Windows::Forms::Label());
+			this->newHeightLabel = (gcnew System::Windows::Forms::Label());
+			this->newWidthInput = (gcnew System::Windows::Forms::TextBox());
+			this->newHeightInput = (gcnew System::Windows::Forms::TextBox());
+			this->applyDimensionChange = (gcnew System::Windows::Forms::Button());
+			this->cancelDimensionChange = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -233,7 +259,7 @@ namespace ImageProcessor {
 			// 
 			// cropImage
 			// 
-			this->cropImage->Location = System::Drawing::Point(85, 220);
+			this->cropImage->Location = System::Drawing::Point(85, 200);
 			this->cropImage->Name = L"cropImage";
 			this->cropImage->Size = System::Drawing::Size(233, 71);
 			this->cropImage->TabIndex = 9;
@@ -243,7 +269,7 @@ namespace ImageProcessor {
 			// 
 			// resizeImage
 			// 
-			this->resizeImage->Location = System::Drawing::Point(382, 220);
+			this->resizeImage->Location = System::Drawing::Point(382, 200);
 			this->resizeImage->Name = L"resizeImage";
 			this->resizeImage->Size = System::Drawing::Size(233, 71);
 			this->resizeImage->TabIndex = 10;
@@ -253,7 +279,7 @@ namespace ImageProcessor {
 			// 
 			// invertImage
 			// 
-			this->invertImage->Location = System::Drawing::Point(85, 360);
+			this->invertImage->Location = System::Drawing::Point(85, 320);
 			this->invertImage->Name = L"invertImage";
 			this->invertImage->Size = System::Drawing::Size(233, 71);
 			this->invertImage->TabIndex = 11;
@@ -263,7 +289,7 @@ namespace ImageProcessor {
 			// 
 			// grayscaleImage
 			// 
-			this->grayscaleImage->Location = System::Drawing::Point(382, 360);
+			this->grayscaleImage->Location = System::Drawing::Point(382, 320);
 			this->grayscaleImage->Name = L"grayscaleImage";
 			this->grayscaleImage->Size = System::Drawing::Size(233, 71);
 			this->grayscaleImage->TabIndex = 8;
@@ -273,7 +299,7 @@ namespace ImageProcessor {
 			// 
 			// imageBrightness
 			// 
-			this->imageBrightness->Location = System::Drawing::Point(85, 500);
+			this->imageBrightness->Location = System::Drawing::Point(85, 440);
 			this->imageBrightness->Name = L"imageBrightness";
 			this->imageBrightness->Size = System::Drawing::Size(233, 71);
 			this->imageBrightness->TabIndex = 12;
@@ -283,7 +309,7 @@ namespace ImageProcessor {
 			// 
 			// imageContrast
 			// 
-			this->imageContrast->Location = System::Drawing::Point(382, 500);
+			this->imageContrast->Location = System::Drawing::Point(382, 440);
 			this->imageContrast->Name = L"imageContrast";
 			this->imageContrast->Size = System::Drawing::Size(233, 71);
 			this->imageContrast->TabIndex = 13;
@@ -351,7 +377,7 @@ namespace ImageProcessor {
 			// 
 			// imageHue
 			// 
-			this->imageHue->Location = System::Drawing::Point(85, 640);
+			this->imageHue->Location = System::Drawing::Point(85, 560);
 			this->imageHue->Name = L"imageHue";
 			this->imageHue->Size = System::Drawing::Size(233, 71);
 			this->imageHue->TabIndex = 23;
@@ -361,7 +387,7 @@ namespace ImageProcessor {
 			// 
 			// imageSaturation
 			// 
-			this->imageSaturation->Location = System::Drawing::Point(382, 640);
+			this->imageSaturation->Location = System::Drawing::Point(382, 560);
 			this->imageSaturation->Name = L"imageSaturation";
 			this->imageSaturation->Size = System::Drawing::Size(233, 71);
 			this->imageSaturation->TabIndex = 24;
@@ -412,7 +438,6 @@ namespace ImageProcessor {
 			// hueSlider
 			// 
 			this->hueSlider->Location = System::Drawing::Point(99, 942);
-			this->hueSlider->Minimum = 0;
 			this->hueSlider->Maximum = 360;
 			this->hueSlider->Name = L"hueSlider";
 			this->hueSlider->Size = System::Drawing::Size(504, 90);
@@ -501,17 +526,121 @@ namespace ImageProcessor {
 			// degreeLabel
 			// 
 			this->degreeLabel->AutoSize = true;
-			this->degreeLabel->Location = System::Drawing::Point(370, 995);
+			this->degreeLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->degreeLabel->Location = System::Drawing::Point(368, 995);
 			this->degreeLabel->Name = L"degreeLabel";
-			this->degreeLabel->Size = System::Drawing::Size(20, 25);
+			this->degreeLabel->Size = System::Drawing::Size(28, 37);
 			this->degreeLabel->TabIndex = 45;
 			this->degreeLabel->Text = L"°";
+			// 
+			// dimensionChange
+			// 
+			this->dimensionChange->Location = System::Drawing::Point(99, 949);
+			this->dimensionChange->Name = L"dimensionChange";
+			this->dimensionChange->Size = System::Drawing::Size(220, 71);
+			this->dimensionChange->TabIndex = 46;
+			this->dimensionChange->Text = L"Change Dimensions";
+			this->dimensionChange->UseVisualStyleBackColor = true;
+			this->dimensionChange->Click += gcnew System::EventHandler(this, &MyForm::dimensionChange_Click);
+			// 
+			// stretchShrink
+			// 
+			this->stretchShrink->Location = System::Drawing::Point(383, 949);
+			this->stretchShrink->Name = L"stretchShrink";
+			this->stretchShrink->Size = System::Drawing::Size(220, 71);
+			this->stretchShrink->TabIndex = 47;
+			this->stretchShrink->Text = L"Stretch / Shrink";
+			this->stretchShrink->UseVisualStyleBackColor = true;
+			this->stretchShrink->Click += gcnew System::EventHandler(this, &MyForm::stretchShrink_Click);
+			// 
+			// currentWidthValue
+			// 
+			this->currentWidthValue->AutoSize = true;
+			this->currentWidthValue->Location = System::Drawing::Point(94, 842);
+			this->currentWidthValue->Name = L"currentWidthValue";
+			this->currentWidthValue->Size = System::Drawing::Size(156, 25);
+			this->currentWidthValue->TabIndex = 48;
+			this->currentWidthValue->Text = L"Current Width: ";
+			// 
+			// currentHeightValue
+			// 
+			this->currentHeightValue->AutoSize = true;
+			this->currentHeightValue->Location = System::Drawing::Point(94, 907);
+			this->currentHeightValue->Name = L"currentHeightValue";
+			this->currentHeightValue->Size = System::Drawing::Size(163, 25);
+			this->currentHeightValue->TabIndex = 49;
+			this->currentHeightValue->Text = L"Current Height: ";
+			// 
+			// newWidthLabel
+			// 
+			this->newWidthLabel->AutoSize = true;
+			this->newWidthLabel->Location = System::Drawing::Point(395, 839);
+			this->newWidthLabel->Name = L"newWidthLabel";
+			this->newWidthLabel->Size = System::Drawing::Size(121, 25);
+			this->newWidthLabel->TabIndex = 50;
+			this->newWidthLabel->Text = L"New Width:";
+			// 
+			// newHeightLabel
+			// 
+			this->newHeightLabel->AutoSize = true;
+			this->newHeightLabel->Location = System::Drawing::Point(388, 904);
+			this->newHeightLabel->Name = L"newHeightLabel";
+			this->newHeightLabel->Size = System::Drawing::Size(128, 25);
+			this->newHeightLabel->TabIndex = 51;
+			this->newHeightLabel->Text = L"New Height:";
+			// 
+			// newWidthInput
+			// 
+			this->newWidthInput->Location = System::Drawing::Point(515, 836);
+			this->newWidthInput->Name = L"newWidthInput";
+			this->newWidthInput->Size = System::Drawing::Size(88, 31);
+			this->newWidthInput->TabIndex = 52;
+			this->newWidthInput->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			// 
+			// newHeightInput
+			// 
+			this->newHeightInput->Location = System::Drawing::Point(515, 901);
+			this->newHeightInput->Name = L"newHeightInput";
+			this->newHeightInput->Size = System::Drawing::Size(88, 31);
+			this->newHeightInput->TabIndex = 53;
+			this->newHeightInput->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			// 
+			// applyDimensionChange
+			// 
+			this->applyDimensionChange->Location = System::Drawing::Point(382, 949);
+			this->applyDimensionChange->Name = L"applyDimensionChange";
+			this->applyDimensionChange->Size = System::Drawing::Size(220, 71);
+			this->applyDimensionChange->TabIndex = 54;
+			this->applyDimensionChange->Text = L"Apply";
+			this->applyDimensionChange->UseVisualStyleBackColor = true;
+			this->applyDimensionChange->Click += gcnew System::EventHandler(this, &MyForm::applyDimensionChange_Click);
+			// 
+			// cancelDimensionChange
+			// 
+			this->cancelDimensionChange->Location = System::Drawing::Point(99, 949);
+			this->cancelDimensionChange->Name = L"cancelDimensionChange";
+			this->cancelDimensionChange->Size = System::Drawing::Size(220, 71);
+			this->cancelDimensionChange->TabIndex = 55;
+			this->cancelDimensionChange->Text = L"Cancel";
+			this->cancelDimensionChange->UseVisualStyleBackColor = true;
+			this->cancelDimensionChange->Click += gcnew System::EventHandler(this, &MyForm::cancelDimensionChange_Click);
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1949, 1091);
+			this->Controls->Add(this->cancelDimensionChange);
+			this->Controls->Add(this->applyDimensionChange);
+			this->Controls->Add(this->newHeightInput);
+			this->Controls->Add(this->newWidthInput);
+			this->Controls->Add(this->newHeightLabel);
+			this->Controls->Add(this->newWidthLabel);
+			this->Controls->Add(this->currentHeightValue);
+			this->Controls->Add(this->currentWidthValue);
+			this->Controls->Add(this->stretchShrink);
+			this->Controls->Add(this->dimensionChange);
 			this->Controls->Add(this->degreeLabel);
 			this->Controls->Add(this->highHueDegrees);
 			this->Controls->Add(this->lowHueDegrees);
@@ -572,6 +701,7 @@ namespace ImageProcessor {
 
 		BitmapStack^ changes = gcnew BitmapStack(); // Stack object, holds previous versions of the current image
 		System::Void undoChange_Click(System::Object^  sender, System::EventArgs^  e); // reverts a single change
+		System::Void saveCurrentImage();
 
 		System::Void rotateImage_Click(System::Object^  sender, System::EventArgs^  e); // shows rotatec/rotatecc buttons
 		System::Void rotateC_Click(System::Object^  sender, System::EventArgs^  e); // rotates image clockwise
@@ -583,7 +713,13 @@ namespace ImageProcessor {
 
 		System::Void cropImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
 
+		int newWidth = -1;
+		int newHeight = -1;
 		System::Void resizeImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
+		System::Void dimensionChange_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void applyDimensionChange_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void cancelDimensionChange_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void stretchShrink_Click(System::Object^  sender, System::EventArgs^  e);
 
 		System::Void invertImage_Click(System::Object^  sender, System::EventArgs^  e); // inverts current image
 		System::Void invertCurrentImage(); // inversion function (direct rgb manipulation)
@@ -613,7 +749,7 @@ namespace ImageProcessor {
 		System::Void hueSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e);
 		System::Void hueValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
 		System::Void hueTimer_Tick(System::Object^  sender, System::EventArgs^  e);
-		System::Void hueSlider_ValueChange();
+		System::Void hueSlider_ValueChange(); // hue function (color matrix rotation manipulation)
 
 		System::Void imageSaturation_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void saturationSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);

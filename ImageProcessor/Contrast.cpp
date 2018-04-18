@@ -1,8 +1,6 @@
 #include "MyForm.h"
 
 System::Void ImageProcessor::MyForm::contrastSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
-	changes->push(bitmap);
 	this->contrastTimer->Enabled = true;
 }
 
@@ -10,8 +8,6 @@ System::Void ImageProcessor::MyForm::contrastSlider_MouseUp(System::Object^  sen
 	this->contrastTimer->Enabled = false;
 	this->contrastTimer->Enabled = true;
 	this->contrastTimer->Enabled = false;
-	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
-	changes->push(bitmap);
 }
 
 System::Void ImageProcessor::MyForm::contrastSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -23,8 +19,6 @@ System::Void ImageProcessor::MyForm::contrastValue_KeyDown(System::Object^  send
 	if (e->KeyCode == Keys::Enter) {
 		double contrastVal;
 		if (System::Double::TryParse(this->contrastValue->Text, contrastVal)) {
-			System::Drawing::Bitmap^ prevBitmap = gcnew Bitmap(currentImage->Image);
-			changes->push(prevBitmap);
 			if (contrastVal > 100) {
 				this->contrastSlider->Value = 255;
 			}
