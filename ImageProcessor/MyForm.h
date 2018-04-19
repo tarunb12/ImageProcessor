@@ -115,9 +115,8 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Timer^  tintIntensityTimer;
 	private: System::Windows::Forms::Button^  tintColor;
 	private: Color fillColor;
-	protected:
-
-	protected:
+	private: System::Windows::Forms::Label^  currentColorbox;
+	private: Color tintColorSelect;
 
 	private:
 		/// <summary>
@@ -210,6 +209,7 @@ namespace ImageProcessor {
 			this->tintIntensityValue = (gcnew System::Windows::Forms::TextBox());
 			this->tintIntensityTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->tintColor = (gcnew System::Windows::Forms::Button());
+			this->currentColorbox = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -922,6 +922,7 @@ namespace ImageProcessor {
 			// tintIntensityTimer
 			// 
 			this->tintIntensityTimer->Interval = 300;
+			this->tintIntensityTimer->Tick += gcnew System::EventHandler(this, &MyForm::tintIntensityTimer_Tick);
 			// 
 			// tintColor
 			// 
@@ -933,11 +934,24 @@ namespace ImageProcessor {
 			this->tintColor->UseVisualStyleBackColor = true;
 			this->tintColor->Click += gcnew System::EventHandler(this, &MyForm::tintColor_Click);
 			// 
+			// currentColorbox
+			// 
+			this->currentColorbox->AutoSize = true;
+			this->currentColorbox->BackColor = System::Drawing::Color::Transparent;
+			this->currentColorbox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.875F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->currentColorbox->Location = System::Drawing::Point(478, 870);
+			this->currentColorbox->Name = L"currentColorbox";
+			this->currentColorbox->Size = System::Drawing::Size(38, 42);
+			this->currentColorbox->TabIndex = 74;
+			this->currentColorbox->Text = L"  ";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1949, 1091);
+			this->Controls->Add(this->currentColorbox);
 			this->Controls->Add(this->tintColor);
 			this->Controls->Add(this->tintIntensityValue);
 			this->Controls->Add(this->tintIntensitySlider);

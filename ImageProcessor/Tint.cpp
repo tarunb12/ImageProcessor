@@ -78,7 +78,7 @@ System::Void ImageProcessor::MyForm::redValue_KeyDown(System::Object^  sender, S
 
 System::Void ImageProcessor::MyForm::redSlider_ValueChange() {
 	int redIntensity = this->redSlider->Value;
-	System::Drawing::Bitmap^ tintMap = grayscaleBitmap;
+	System::Drawing::Bitmap^ tintMap = (this->greenSlider->Value == 0 && this->blueSlider->Value == 0) ? gcnew Bitmap(grayscaleBitmap) : gcnew Bitmap(currentImage->Image);
 	System::Drawing::Rectangle rect = Rectangle(0, 0, tintMap->Width, tintMap->Height); // new rectangle object w/ same image dimensions
 	System::Drawing::Imaging::BitmapData^ bitmapData = tintMap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, tintMap->PixelFormat); // locks bitmap
 	IntPtr ptr = bitmapData->Scan0; // idk scans bitmap data
@@ -132,7 +132,7 @@ System::Void ImageProcessor::MyForm::greenValue_KeyDown(System::Object^  sender,
 
 System::Void ImageProcessor::MyForm::greenSlider_ValueChange() {
 	int greenIntensity = this->greenSlider->Value;
-	System::Drawing::Bitmap^ tintMap = grayscaleBitmap;
+	System::Drawing::Bitmap^ tintMap = (this->redSlider->Value == 0 && this->blueSlider->Value == 0) ? gcnew Bitmap(grayscaleBitmap) : gcnew Bitmap(currentImage->Image);
 	System::Drawing::Rectangle rect = Rectangle(0, 0, tintMap->Width, tintMap->Height); // new rectangle object w/ same image dimensions
 	System::Drawing::Imaging::BitmapData^ bitmapData = tintMap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, tintMap->PixelFormat); // locks bitmap
 	IntPtr ptr = bitmapData->Scan0; // idk scans bitmap data
@@ -186,7 +186,7 @@ System::Void ImageProcessor::MyForm::blueValue_KeyDown(System::Object^  sender, 
 
 System::Void ImageProcessor::MyForm::blueSlider_ValueChange() {
 	int blueIntensity = this->blueSlider->Value;
-	System::Drawing::Bitmap^ tintMap = grayscaleBitmap;
+	System::Drawing::Bitmap^ tintMap = (this->redSlider->Value == 0 && this->greenSlider->Value == 0) ? gcnew Bitmap(grayscaleBitmap) : gcnew Bitmap(currentImage->Image);
 	System::Drawing::Rectangle rect = Rectangle(0, 0, tintMap->Width, tintMap->Height); // new rectangle object w/ same image dimensions
 	System::Drawing::Imaging::BitmapData^ bitmapData = tintMap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, tintMap->PixelFormat); // locks bitmap
 	IntPtr ptr = bitmapData->Scan0; // idk scans bitmap data
@@ -209,30 +209,110 @@ System::Void ImageProcessor::MyForm::customTint_Click(System::Object^  sender, S
 }
 
 System::Void ImageProcessor::MyForm::tintColor_Click(System::Object^  sender, System::EventArgs^  e) {
-	this->tintIntensitySlider->Show();
-	this->tintIntensityValue->Show();
+	System::Windows::Forms::ColorDialog^ tintColors = gcnew ColorDialog();
+	tintColors->AllowFullOpen = true;
+	tintColors->ShowHelp = true;
+
+	if (tintColors->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+		tintColorSelect = tintColors->Color;
+		currentColorbox->BackColor = tintColorSelect;
+		this->tintIntensitySlider->Show();
+		this->tintIntensityValue->Show();
+	}
 }
 
 System::Void ImageProcessor::MyForm::tintIntensitySlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-
+	this->tintIntensityTimer->Enabled = true;
 }
 
 System::Void ImageProcessor::MyForm::tintIntensitySlider_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-
+	this->tintIntensityTimer->Enabled = false;
+	this->tintIntensityTimer->Enabled = true;
+	this->tintIntensityTimer->Enabled = false;
 }
 
 System::Void ImageProcessor::MyForm::tintIntensitySlider_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	int percentage = (this->tintIntensitySlider->Value * 100) / 255;
+	this->tintIntensityValue->Text = System::Convert::ToString(percentage);
+}
 
+System::Void ImageProcessor::MyForm::tintIntensityValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e) {
+	if (e->KeyCode == Keys::Enter) {
+		int tintIntensityVal;
+		if (System::Int32::TryParse(this->tintIntensityValue->Text, tintIntensityVal)) {
+			if (tintIntensityVal > 100) {
+				this->tintIntensitySlider->Value = 255;
+			}
+			else if (tintIntensityVal < 0) {
+				this->tintIntensitySlider->Value = 0;
+			}
+			else {
+				this->tintIntensitySlider->Value = (tintIntensityVal * 255) / 100;
+			}
+			tintIntensitySlider_ValueChange();
+		}
+	}
 }
 
 System::Void ImageProcessor::MyForm::tintIntensityTimer_Tick(System::Object^  sender, System::EventArgs^  e) {
 	tintIntensitySlider_ValueChange();
 }
 
-System::Void ImageProcessor::MyForm::tintIntensityValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e) {
-
-}
-
 System::Void ImageProcessor::MyForm::tintIntensitySlider_ValueChange() {
+	System::Drawing::Bitmap^ tempBitmap = changes->bitmapPeek();
+	float intensity = this->tintIntensitySlider->Value / 255.0f;
+	System::Drawing::Bitmap^ newBitmap = gcnew Bitmap(tempBitmap->Width, tempBitmap->Height);
+	System::Drawing::Graphics^ newGraphics = System::Drawing::Graphics::FromImage(newBitmap);
+	System::Drawing::Imaging::ColorMatrix^ colorMatrix = gcnew System::Drawing::Imaging::ColorMatrix();
 
+	float r = (tintColorSelect.R / 255.0f) * intensity;
+	float g = (tintColorSelect.G / 255.0f) * intensity;
+	float b = (tintColorSelect.B / 255.0f) * intensity;
+
+	// [ 1 ] [ 0 ] [ 0 ] [ 0 ] [ 0 ]
+	colorMatrix->Matrix00 = 1;
+	colorMatrix->Matrix01 = 0;
+	colorMatrix->Matrix02 = 0;
+	colorMatrix->Matrix03 = 0;
+	colorMatrix->Matrix04 = 0;
+
+	// [ 0 ] [ 1 ] [ 0 ] [ 0 ] [ 0 ]
+	colorMatrix->Matrix10 = 0;
+	colorMatrix->Matrix11 = 1;
+	colorMatrix->Matrix12 = 0;
+	colorMatrix->Matrix13 = 0;
+	colorMatrix->Matrix14 = 0;
+
+	// [ 0 ] [ 0 ] [ 1 ] [ 0 ] [ 0 ]
+	colorMatrix->Matrix20 = 0;
+	colorMatrix->Matrix21 = 0;
+	colorMatrix->Matrix22 = 1;
+	colorMatrix->Matrix23 = 0;
+	colorMatrix->Matrix24 = 0;
+
+	// [ 0 ] [ 0 ] [ 0 ] [ 1 ] [ 0 ]
+	colorMatrix->Matrix30 = 0;
+	colorMatrix->Matrix31 = 0;
+	colorMatrix->Matrix32 = 0;
+	colorMatrix->Matrix33 = 1;
+	colorMatrix->Matrix34 = 0;
+
+	// [ r ] [ g ] [ b ] [ 0 ] [ 1 ]
+	colorMatrix->Matrix40 = r;
+	colorMatrix->Matrix41 = g;
+	colorMatrix->Matrix42 = b;
+	colorMatrix->Matrix43 = 0;
+	colorMatrix->Matrix44 = 1;
+
+	// [ 1 ] [ 0 ] [ 0 ] [ 0 ] [ 0 ]
+	// [ 0 ] [ 1 ] [ 0 ] [ 0 ] [ 0 ]
+	// [ 0 ] [ 0 ] [ 1 ] [ 0 ] [ 0 ]
+	// [ 0 ] [ 0 ] [ 0 ] [ 1 ] [ 0 ]
+	// [ b ] [ b ] [ b ] [ 0 ] [ 1 ]
+	// Matrix which will manipulate the tint of the image
+
+	System::Drawing::Imaging::ImageAttributes^ attributes = gcnew System::Drawing::Imaging::ImageAttributes();
+	attributes->SetColorMatrix(colorMatrix);
+	newGraphics->DrawImage(tempBitmap, Rectangle(0, 0, tempBitmap->Width, tempBitmap->Height), 0, 0, tempBitmap->Width, tempBitmap->Height, GraphicsUnit::Pixel, attributes);
+	currentImage->Image = newBitmap;
 }
