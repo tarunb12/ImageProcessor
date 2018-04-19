@@ -16,6 +16,11 @@ System::Void ImageProcessor::MyForm::invertCurrentImage() { // unsafe? invert by
 	array<Byte>^ rgbValues = gcnew array<Byte>(bytes); // byte array to hold rgb values
 	System::Runtime::InteropServices::Marshal::Copy(ptr, rgbValues, 0, bytes); // copies values to rgb array
 	for (int i = 0; i < rgbValues->Length; i += 4) { // inversion rgb alg
+		/*
+		rgbValues[i] = (rgbValues[i] * 0.393) + (rgbValues[i + 1] * 0.769) + (rgbValues[i + 2] * 0.189); // finds inverse of red pixel
+		rgbValues[i + 1] = (rgbValues[i] * 0.349) + (rgbValues[i + 1] * 0.686) + (rgbValues[i + 2] * 0.168); // finds inverse of green pixel
+		rgbValues[i + 2] = (rgbValues[i] * 0.272) + (rgbValues[i + 1] * 0.534) + (rgbValues[i + 2] * 0.131); // finds inverse of blue pixel
+		*/
 		rgbValues[i] = 255 - rgbValues[i]; // finds inverse of red pixel
 		rgbValues[i + 1] = 255 - rgbValues[i + 1]; // finds inverse of green pixel
 		rgbValues[i + 2] = 255 - rgbValues[i + 2]; // finds inverse of blue pixel

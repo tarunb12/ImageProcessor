@@ -142,6 +142,7 @@
     <ClCompile Include="Contrast.cpp" />
     <ClCompile Include="Hue.cpp" />
     <ClCompile Include="Saturation.cpp" />
+    <ClCompile Include="Tint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">

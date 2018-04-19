@@ -103,6 +103,27 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Label^ boxY2;
 	private: System::Windows::Forms::Button^ fillBoxLoad;
 	private: System::Windows::Forms::Button^ colorSelector;
+
+
+	private: System::Windows::Forms::TrackBar^  greenSlider;
+	private: System::Windows::Forms::TrackBar^  redSlider;
+	private: System::Windows::Forms::TrackBar^  blueSlider;
+	private: System::Windows::Forms::Timer^  greenTimer;
+	private: System::Windows::Forms::Timer^  redTimer;
+	private: System::Windows::Forms::Timer^  blueTimer;
+	private: System::Windows::Forms::TextBox^  blueValue;
+	private: System::Windows::Forms::TextBox^  greenValue;
+	private: System::Windows::Forms::TextBox^  redValue;
+	private: System::Windows::Forms::Button^  tintImage;
+	private: System::Windows::Forms::Label^  redLabel;
+	private: System::Windows::Forms::Label^  blueLabel;
+	private: System::Windows::Forms::Label^  greenLabel;
+	private: System::Windows::Forms::Button^  rgbTint;
+	private: System::Windows::Forms::Button^  customTint;
+
+
+
+
 	private: Color fillColor;
 	protected:
 
@@ -180,6 +201,21 @@ namespace ImageProcessor {
 			this->boxY2 = (gcnew System::Windows::Forms::Label());
 			this->colorSelector = (gcnew System::Windows::Forms::Button());
 			this->fillBoxLoad = (gcnew System::Windows::Forms::Button());
+			this->greenSlider = (gcnew System::Windows::Forms::TrackBar());
+			this->redSlider = (gcnew System::Windows::Forms::TrackBar());
+			this->blueSlider = (gcnew System::Windows::Forms::TrackBar());
+			this->greenTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->redTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->blueTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->blueValue = (gcnew System::Windows::Forms::TextBox());
+			this->greenValue = (gcnew System::Windows::Forms::TextBox());
+			this->redValue = (gcnew System::Windows::Forms::TextBox());
+			this->tintImage = (gcnew System::Windows::Forms::Button());
+			this->redLabel = (gcnew System::Windows::Forms::Label());
+			this->blueLabel = (gcnew System::Windows::Forms::Label());
+			this->greenLabel = (gcnew System::Windows::Forms::Label());
+			this->rgbTint = (gcnew System::Windows::Forms::Button());
+			this->customTint = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -189,6 +225,9 @@ namespace ImageProcessor {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fillBoxStartY))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fillBoxEndX))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fillBoxEndY))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->greenSlider))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->redSlider))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->blueSlider))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// currentImage
@@ -632,7 +671,7 @@ namespace ImageProcessor {
 			// 
 			// cancelDimensionChange
 			// 
-			this->cancelDimensionChange->Location = System::Drawing::Point(99, 949);
+			this->cancelDimensionChange->Location = System::Drawing::Point(0, 0);
 			this->cancelDimensionChange->Name = L"cancelDimensionChange";
 			this->cancelDimensionChange->Size = System::Drawing::Size(220, 71);
 			this->cancelDimensionChange->TabIndex = 55;
@@ -652,7 +691,6 @@ namespace ImageProcessor {
 			// fillBoxStartX
 			// 
 			this->fillBoxStartX->Location = System::Drawing::Point(185, 870);
-			this->fillBoxStartX->Minimum = 0;
 			this->fillBoxStartX->Name = L"fillBoxStartX";
 			this->fillBoxStartX->Size = System::Drawing::Size(100, 31);
 			this->fillBoxStartX->TabIndex = 47;
@@ -660,7 +698,6 @@ namespace ImageProcessor {
 			// fillBoxStartY
 			// 
 			this->fillBoxStartY->Location = System::Drawing::Point(185, 910);
-			this->fillBoxStartY->Minimum = 0;
 			this->fillBoxStartY->Name = L"fillBoxStartY";
 			this->fillBoxStartY->Size = System::Drawing::Size(100, 31);
 			this->fillBoxStartY->TabIndex = 48;
@@ -668,7 +705,6 @@ namespace ImageProcessor {
 			// fillBoxEndX
 			// 
 			this->fillBoxEndX->Location = System::Drawing::Point(385, 870);
-			this->fillBoxEndX->Minimum = 0;
 			this->fillBoxEndX->Name = L"fillBoxEndX";
 			this->fillBoxEndX->Size = System::Drawing::Size(100, 31);
 			this->fillBoxEndX->TabIndex = 49;
@@ -676,7 +712,6 @@ namespace ImageProcessor {
 			// fillBoxEndY
 			// 
 			this->fillBoxEndY->Location = System::Drawing::Point(385, 910);
-			this->fillBoxEndY->Minimum = 0;
 			this->fillBoxEndY->Name = L"fillBoxEndY";
 			this->fillBoxEndY->Size = System::Drawing::Size(100, 31);
 			this->fillBoxEndY->TabIndex = 50;
@@ -735,11 +770,158 @@ namespace ImageProcessor {
 			this->fillBoxLoad->Text = L"Fill";
 			this->fillBoxLoad->Click += gcnew System::EventHandler(this, &MyForm::fillBoxLoad_Click);
 			// 
+			// greenSlider
+			// 
+			this->greenSlider->Location = System::Drawing::Point(99, 876);
+			this->greenSlider->Maximum = 255;
+			this->greenSlider->Name = L"greenSlider";
+			this->greenSlider->Size = System::Drawing::Size(431, 90);
+			this->greenSlider->TabIndex = 59;
+			this->greenSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::greenSlider_ValueChanged);
+			this->greenSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::greenSlider_MouseDown);
+			this->greenSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::greenSlider_MouseUp);
+			// 
+			// redSlider
+			// 
+			this->redSlider->Location = System::Drawing::Point(99, 780);
+			this->redSlider->Maximum = 255;
+			this->redSlider->Name = L"redSlider";
+			this->redSlider->Size = System::Drawing::Size(431, 90);
+			this->redSlider->TabIndex = 60;
+			this->redSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::redSlider_ValueChanged);
+			this->redSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::redSlider_MouseDown);
+			this->redSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::redSlider_MouseUp);
+			// 
+			// blueSlider
+			// 
+			this->blueSlider->Location = System::Drawing::Point(98, 972);
+			this->blueSlider->Maximum = 255;
+			this->blueSlider->Name = L"blueSlider";
+			this->blueSlider->Size = System::Drawing::Size(432, 90);
+			this->blueSlider->TabIndex = 61;
+			this->blueSlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::blueSlider_ValueChanged);
+			this->blueSlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::blueSlider_MouseDown);
+			this->blueSlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::blueSlider_MouseUp);
+			// 
+			// greenTimer
+			// 
+			this->greenTimer->Interval = 300;
+			this->greenTimer->Tick += gcnew System::EventHandler(this, &MyForm::greenTimer_Tick);
+			// 
+			// redTimer
+			// 
+			this->redTimer->Interval = 300;
+			this->redTimer->Tick += gcnew System::EventHandler(this, &MyForm::redTimer_Tick);
+			// 
+			// blueTimer
+			// 
+			this->blueTimer->Interval = 300;
+			this->blueTimer->Tick += gcnew System::EventHandler(this, &MyForm::blueTimer_Tick);
+			// 
+			// blueValue
+			// 
+			this->blueValue->Location = System::Drawing::Point(536, 989);
+			this->blueValue->Name = L"blueValue";
+			this->blueValue->Size = System::Drawing::Size(50, 31);
+			this->blueValue->TabIndex = 62;
+			this->blueValue->Text = L"0";
+			this->blueValue->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->blueValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::blueValue_KeyDown);
+			// 
+			// greenValue
+			// 
+			this->greenValue->Location = System::Drawing::Point(536, 889);
+			this->greenValue->Name = L"greenValue";
+			this->greenValue->Size = System::Drawing::Size(50, 31);
+			this->greenValue->TabIndex = 63;
+			this->greenValue->Text = L"0";
+			this->greenValue->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->greenValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::greenValue_KeyDown);
+			// 
+			// redValue
+			// 
+			this->redValue->Location = System::Drawing::Point(536, 799);
+			this->redValue->Name = L"redValue";
+			this->redValue->Size = System::Drawing::Size(50, 31);
+			this->redValue->TabIndex = 64;
+			this->redValue->Text = L"0";
+			this->redValue->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			this->redValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::redValue_KeyDown);
+			// 
+			// tintImage
+			// 
+			this->tintImage->Location = System::Drawing::Point(382, 680);
+			this->tintImage->Name = L"tintImage";
+			this->tintImage->Size = System::Drawing::Size(233, 71);
+			this->tintImage->TabIndex = 65;
+			this->tintImage->Text = L"Tint";
+			this->tintImage->UseVisualStyleBackColor = true;
+			this->tintImage->Click += gcnew System::EventHandler(this, &MyForm::tintImage_Click);
+			// 
+			// redLabel
+			// 
+			this->redLabel->AutoSize = true;
+			this->redLabel->Location = System::Drawing::Point(42, 799);
+			this->redLabel->Name = L"redLabel";
+			this->redLabel->Size = System::Drawing::Size(51, 25);
+			this->redLabel->TabIndex = 66;
+			this->redLabel->Text = L"Red";
+			// 
+			// blueLabel
+			// 
+			this->blueLabel->AutoSize = true;
+			this->blueLabel->Location = System::Drawing::Point(38, 989);
+			this->blueLabel->Name = L"blueLabel";
+			this->blueLabel->Size = System::Drawing::Size(55, 25);
+			this->blueLabel->TabIndex = 67;
+			this->blueLabel->Text = L"Blue";
+			// 
+			// greenLabel
+			// 
+			this->greenLabel->AutoSize = true;
+			this->greenLabel->Location = System::Drawing::Point(22, 889);
+			this->greenLabel->Name = L"greenLabel";
+			this->greenLabel->Size = System::Drawing::Size(71, 25);
+			this->greenLabel->TabIndex = 68;
+			this->greenLabel->Text = L"Green";
+			// 
+			// rgbTint
+			// 
+			this->rgbTint->Location = System::Drawing::Point(99, 949);
+			this->rgbTint->Name = L"rgbTint";
+			this->rgbTint->Size = System::Drawing::Size(220, 71);
+			this->rgbTint->TabIndex = 69;
+			this->rgbTint->Text = L"RGB Tint";
+			this->rgbTint->UseVisualStyleBackColor = true;
+			this->rgbTint->Click += gcnew System::EventHandler(this, &MyForm::rgbTint_Click);
+			// 
+			// customTint
+			// 
+			this->customTint->Location = System::Drawing::Point(383, 949);
+			this->customTint->Name = L"customTint";
+			this->customTint->Size = System::Drawing::Size(220, 71);
+			this->customTint->TabIndex = 70;
+			this->customTint->Text = L"Custom Tint";
+			this->customTint->UseVisualStyleBackColor = true;
+			this->customTint->Click += gcnew System::EventHandler(this, &MyForm::customTint_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1949, 1091);
+			this->Controls->Add(this->customTint);
+			this->Controls->Add(this->rgbTint);
+			this->Controls->Add(this->greenLabel);
+			this->Controls->Add(this->blueLabel);
+			this->Controls->Add(this->redLabel);
+			this->Controls->Add(this->tintImage);
+			this->Controls->Add(this->redValue);
+			this->Controls->Add(this->greenValue);
+			this->Controls->Add(this->blueValue);
+			this->Controls->Add(this->blueSlider);
+			this->Controls->Add(this->redSlider);
+			this->Controls->Add(this->greenSlider);
 			this->Controls->Add(this->cancelDimensionChange);
 			this->Controls->Add(this->applyDimensionChange);
 			this->Controls->Add(this->newHeightInput);
@@ -806,6 +988,9 @@ namespace ImageProcessor {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fillBoxStartY))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fillBoxEndX))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->fillBoxEndY))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->greenSlider))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->redSlider))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->blueSlider))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -835,7 +1020,7 @@ namespace ImageProcessor {
 
 		System::Void cropImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
 		bool mouseActive = false;
-		Point originalPoint = Point();
+		Point originalPoint = Point( );
 		Point lastPoint = Point();
 		System::Drawing::Rectangle rectArea;
 		System::Void currentImage_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
@@ -887,9 +1072,35 @@ namespace ImageProcessor {
 		System::Void saturationTimer_Tick(System::Object^  sender, System::EventArgs^  e);
 		System::Void saturationSlider_ValueChange(); // saturation function (color matrix manipulation)
 
-		System::Void fillBox_Click(System::Object^ sender, System::EventArgs^ e); 
-		System::Void fillBoxLoad_Click(System::Object^ sender, System::EventArgs^ e);
-		System::Void colorSelector_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void fillBox_Click(System::Object^ sender, System::EventArgs^  e); 
+		System::Void fillBoxLoad_Click(System::Object^ sender, System::EventArgs^  e);
+		System::Void colorSelector_Click(System::Object^ sender, System::EventArgs^  e);
+
+		System::Void tintImage_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void rgbTint_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void customTint_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Drawing::Bitmap^ grayscaleBitmap;
+
+		System::Void greenSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void greenSlider_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void greenSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e);
+		System::Void greenTimer_Tick(System::Object^  sender, System::EventArgs^  e);
+		System::Void greenValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
+		System::Void greenSlider_ValueChange(); 
+
+		System::Void redSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void redSlider_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void redSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e);
+		System::Void redTimer_Tick(System::Object^  sender, System::EventArgs^  e);
+		System::Void redValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
+		System::Void redSlider_ValueChange(); 
+
+		System::Void blueSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void blueSlider_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void blueSlider_ValueChanged(System::Object^  sender,  System::EventArgs^  e);
+        System::Void blueTimer_Tick(System::Object^  sender, System::EventArgs^  e);
+		System::Void blueValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
+		System::Void blueSlider_ValueChange(); 
 
 		System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e); // hide objects on form launch
 };

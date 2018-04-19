@@ -122,6 +122,11 @@ System::Void ImageProcessor::MyForm::currentImage_Click(System::Object^  sender,
 	}
 }
 
+System::Void ImageProcessor::MyForm::saveCurrentImage() {
+	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
+	changes->push(bitmap);
+}
+
 System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects not displayed on initial launch
 	this->hMirror->Hide();
 	this->vMirror->Hide();
@@ -168,6 +173,21 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->boxY1->Hide();
 	this->boxY2->Hide();
 	this->colorSelector->Hide();
+
+	this->rgbTint->Hide();
+	this->customTint->Hide();
+
+	this->redSlider->Hide();
+	this->redValue->Hide();
+	this->redLabel->Hide();
+
+	this->greenSlider->Hide();
+	this->greenValue->Hide();
+	this->greenLabel->Hide();
+
+	this->blueSlider->Hide();
+	this->blueValue->Hide();
+	this->blueLabel->Hide();
 }
 
 System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -283,13 +303,9 @@ System::Void ImageProcessor::MyForm::imageSaturation_Click(System::Object^  send
 	}
 }
 
-System::Void ImageProcessor::MyForm::saveCurrentImage() {
-	System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image);
-	changes->push(bitmap);
-}
-
 System::Void ImageProcessor::MyForm::fillBox_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (currentImage->Image) {
+		saveCurrentImage();
 		hideTempObjects();
 		this->fillBoxEndX->Maximum = this->currentImage->Image->Width;
 		this->fillBoxEndY->Maximum = this->currentImage->Image->Height;
@@ -305,12 +321,18 @@ System::Void ImageProcessor::MyForm::fillBox_Click(System::Object^ sender, Syste
 		this->boxY1->Show();
 		this->boxY2->Show();
 		this->colorSelector->Show();
-
-		
 	}
 }
 
-System::Void ImageProcessor::MyForm::colorSelector_Click(System::Object^ sender, System::EventArgs^ e) {
+System::Void ImageProcessor::MyForm::tintImage_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (currentImage->Image) {
+		hideTempObjects();
+		this->rgbTint->Show();
+		this->customTint->Show();
+	}
+}
+
+System::Void ImageProcessor::MyForm::colorSelector_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		ColorDialog^ MyDialog = gcnew ColorDialog;
 		// Keeps the user from selecting a custom color.
@@ -330,7 +352,6 @@ System::Void ImageProcessor::MyForm::colorSelector_Click(System::Object^ sender,
 
 System::Void ImageProcessor::MyForm::fillBoxLoad_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (currentImage->Image) {
-
 		System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // image before being changed
 		changes->push(bitmap); // push pre-change bitmap
 		System::Drawing::Bitmap^ changedBitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current image
@@ -341,6 +362,5 @@ System::Void ImageProcessor::MyForm::fillBoxLoad_Click(System::Object^ sender, S
 		bitmapGraphics->FillRectangle(brush, static_cast<int>(fillBoxStartX->Value), static_cast<int>(fillBoxStartY->Value), width, height);
 		bitmapGraphics->~Graphics();
 		currentImage->Image = changedBitmap; // current image set to new bitmap
-
 	}
 }
