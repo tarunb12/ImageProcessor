@@ -685,28 +685,28 @@ namespace ImageProcessor {
 			// 
 			// fillBoxStartX
 			// 
-			this->fillBoxStartX->Location = System::Drawing::Point(185, 870);
+			this->fillBoxStartX->Location = System::Drawing::Point(151, 800);
 			this->fillBoxStartX->Name = L"fillBoxStartX";
 			this->fillBoxStartX->Size = System::Drawing::Size(100, 31);
 			this->fillBoxStartX->TabIndex = 47;
 			// 
 			// fillBoxStartY
 			// 
-			this->fillBoxStartY->Location = System::Drawing::Point(185, 910);
+			this->fillBoxStartY->Location = System::Drawing::Point(151, 850);
 			this->fillBoxStartY->Name = L"fillBoxStartY";
 			this->fillBoxStartY->Size = System::Drawing::Size(100, 31);
 			this->fillBoxStartY->TabIndex = 48;
 			// 
 			// fillBoxEndX
 			// 
-			this->fillBoxEndX->Location = System::Drawing::Point(385, 870);
+			this->fillBoxEndX->Location = System::Drawing::Point(448, 800);
 			this->fillBoxEndX->Name = L"fillBoxEndX";
 			this->fillBoxEndX->Size = System::Drawing::Size(100, 31);
 			this->fillBoxEndX->TabIndex = 49;
 			// 
 			// fillBoxEndY
 			// 
-			this->fillBoxEndY->Location = System::Drawing::Point(385, 910);
+			this->fillBoxEndY->Location = System::Drawing::Point(448, 850);
 			this->fillBoxEndY->Name = L"fillBoxEndY";
 			this->fillBoxEndY->Size = System::Drawing::Size(100, 31);
 			this->fillBoxEndY->TabIndex = 50;
@@ -714,42 +714,42 @@ namespace ImageProcessor {
 			// boxX1
 			// 
 			this->boxX1->AutoSize = true;
-			this->boxX1->Location = System::Drawing::Point(295, 870);
+			this->boxX1->Location = System::Drawing::Point(255, 807);
 			this->boxX1->Name = L"boxX1";
 			this->boxX1->Size = System::Drawing::Size(35, 25);
 			this->boxX1->TabIndex = 51;
-			this->boxX1->Text = L"x1";
+			this->boxX1->Text = L"X1";
 			// 
 			// boxX2
 			// 
 			this->boxX2->AutoSize = true;
-			this->boxX2->Location = System::Drawing::Point(495, 870);
+			this->boxX2->Location = System::Drawing::Point(553, 807);
 			this->boxX2->Name = L"boxX2";
 			this->boxX2->Size = System::Drawing::Size(35, 25);
 			this->boxX2->TabIndex = 52;
-			this->boxX2->Text = L"x2";
+			this->boxX2->Text = L"X2";
 			// 
 			// boxY1
 			// 
 			this->boxY1->AutoSize = true;
-			this->boxY1->Location = System::Drawing::Point(295, 910);
+			this->boxY1->Location = System::Drawing::Point(255, 857);
 			this->boxY1->Name = L"boxY1";
 			this->boxY1->Size = System::Drawing::Size(35, 25);
 			this->boxY1->TabIndex = 53;
-			this->boxY1->Text = L"y1";
+			this->boxY1->Text = L"Y1";
 			// 
 			// boxY2
 			// 
 			this->boxY2->AutoSize = true;
-			this->boxY2->Location = System::Drawing::Point(495, 910);
+			this->boxY2->Location = System::Drawing::Point(553, 857);
 			this->boxY2->Name = L"boxY2";
 			this->boxY2->Size = System::Drawing::Size(35, 25);
 			this->boxY2->TabIndex = 54;
-			this->boxY2->Text = L"y2";
+			this->boxY2->Text = L"Y2";
 			// 
 			// colorSelector
 			// 
-			this->colorSelector->Location = System::Drawing::Point(135, 950);
+			this->colorSelector->Location = System::Drawing::Point(85, 930);
 			this->colorSelector->Name = L"colorSelector";
 			this->colorSelector->Size = System::Drawing::Size(233, 71);
 			this->colorSelector->TabIndex = 56;
@@ -758,7 +758,7 @@ namespace ImageProcessor {
 			// 
 			// fillBoxLoad
 			// 
-			this->fillBoxLoad->Location = System::Drawing::Point(385, 950);
+			this->fillBoxLoad->Location = System::Drawing::Point(382, 930);
 			this->fillBoxLoad->Name = L"fillBoxLoad";
 			this->fillBoxLoad->Size = System::Drawing::Size(233, 71);
 			this->fillBoxLoad->TabIndex = 55;
