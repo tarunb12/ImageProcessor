@@ -203,7 +203,14 @@ System::Void ImageProcessor::MyForm::blueSlider_ValueChange() {
 
 System::Void ImageProcessor::MyForm::customTint_Click(System::Object^  sender, System::EventArgs^  e) {
 	saveCurrentImage();
+	this->rgbTint->Hide();
+	this->customTint->Hide();
+	this->tintColor->Show();
+}
 
+System::Void ImageProcessor::MyForm::tintColor_Click(System::Object^  sender, System::EventArgs^  e) {
+	this->tintIntensitySlider->Show();
+	this->tintIntensityValue->Show();
 }
 
 System::Void ImageProcessor::MyForm::tintIntensitySlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
@@ -216,6 +223,10 @@ System::Void ImageProcessor::MyForm::tintIntensitySlider_MouseUp(System::Object^
 
 System::Void ImageProcessor::MyForm::tintIntensitySlider_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 
+}
+
+System::Void ImageProcessor::MyForm::tintIntensityTimer_Tick(System::Object^  sender, System::EventArgs^  e) {
+	tintIntensitySlider_ValueChange();
 }
 
 System::Void ImageProcessor::MyForm::tintIntensityValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e) {

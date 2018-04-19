@@ -188,6 +188,10 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->blueSlider->Hide();
 	this->blueValue->Hide();
 	this->blueLabel->Hide();
+
+	this->tintColor->Hide();
+	this->tintIntensitySlider->Hide();
+	this->tintIntensityValue->Hide();
 }
 
 System::Void ImageProcessor::MyForm::undoChange_Click(System::Object^  sender, System::EventArgs^  e) {

@@ -113,6 +113,7 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::TrackBar^  tintIntensitySlider;
 	private: System::Windows::Forms::TextBox^  tintIntensityValue;
 	private: System::Windows::Forms::Timer^  tintIntensityTimer;
+	private: System::Windows::Forms::Button^  tintColor;
 	private: Color fillColor;
 	protected:
 
@@ -208,6 +209,7 @@ namespace ImageProcessor {
 			this->tintIntensitySlider = (gcnew System::Windows::Forms::TrackBar());
 			this->tintIntensityValue = (gcnew System::Windows::Forms::TextBox());
 			this->tintIntensityTimer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->tintColor = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -921,11 +923,22 @@ namespace ImageProcessor {
 			// 
 			this->tintIntensityTimer->Interval = 300;
 			// 
+			// tintColor
+			// 
+			this->tintColor->Location = System::Drawing::Point(110, 858);
+			this->tintColor->Name = L"tintColor";
+			this->tintColor->Size = System::Drawing::Size(220, 71);
+			this->tintColor->TabIndex = 73;
+			this->tintColor->Text = L"Choose Color";
+			this->tintColor->UseVisualStyleBackColor = true;
+			this->tintColor->Click += gcnew System::EventHandler(this, &MyForm::tintColor_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1949, 1091);
+			this->Controls->Add(this->tintColor);
 			this->Controls->Add(this->tintIntensityValue);
 			this->Controls->Add(this->tintIntensitySlider);
 			this->Controls->Add(this->customTint);
@@ -1096,10 +1109,9 @@ namespace ImageProcessor {
 		System::Void colorSelector_Click(System::Object^ sender, System::EventArgs^  e);
 
 		System::Void tintImage_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void rgbTint_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Void customTint_Click(System::Object^  sender, System::EventArgs^  e);
-		System::Drawing::Bitmap^ grayscaleBitmap;
 
+		System::Void rgbTint_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Drawing::Bitmap^ grayscaleBitmap;
 		System::Void greenSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 		System::Void greenSlider_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 		System::Void greenSlider_ValueChanged(System::Object^  sender, System::EventArgs^  e);
@@ -1121,9 +1133,12 @@ namespace ImageProcessor {
 		System::Void blueValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
 		System::Void blueSlider_ValueChange(); 
 
+		System::Void customTint_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void tintColor_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Void tintIntensitySlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 		System::Void tintIntensitySlider_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 		System::Void tintIntensitySlider_ValueChanged(System::Object^  sender, System::EventArgs^  e);
+		System::Void tintIntensityTimer_Tick(System::Object^  sender, System::EventArgs^  e);
 		System::Void tintIntensityValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
 		System::Void tintIntensitySlider_ValueChange();
 
