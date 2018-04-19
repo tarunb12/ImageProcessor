@@ -112,6 +112,7 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Button^  customTint;
 	private: System::Windows::Forms::TrackBar^  tintIntensitySlider;
 	private: System::Windows::Forms::TextBox^  tintIntensityValue;
+	private: System::Windows::Forms::Timer^  tintIntensityTimer;
 	private: Color fillColor;
 	protected:
 
@@ -206,6 +207,7 @@ namespace ImageProcessor {
 			this->customTint = (gcnew System::Windows::Forms::Button());
 			this->tintIntensitySlider = (gcnew System::Windows::Forms::TrackBar());
 			this->tintIntensityValue = (gcnew System::Windows::Forms::TextBox());
+			this->tintIntensityTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -903,6 +905,9 @@ namespace ImageProcessor {
 			this->tintIntensitySlider->Name = L"tintIntensitySlider";
 			this->tintIntensitySlider->Size = System::Drawing::Size(504, 90);
 			this->tintIntensitySlider->TabIndex = 71;
+			this->tintIntensitySlider->ValueChanged += gcnew System::EventHandler(this, &MyForm::tintIntensitySlider_ValueChanged);
+			this->tintIntensitySlider->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::tintIntensitySlider_MouseDown);
+			this->tintIntensitySlider->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::tintIntensitySlider_MouseUp);
 			// 
 			// tintIntensityValue
 			// 
@@ -910,6 +915,11 @@ namespace ImageProcessor {
 			this->tintIntensityValue->Name = L"tintIntensityValue";
 			this->tintIntensityValue->Size = System::Drawing::Size(50, 31);
 			this->tintIntensityValue->TabIndex = 72;
+			this->tintIntensityValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::tintIntensityValue_KeyDown);
+			// 
+			// tintIntensityTimer
+			// 
+			this->tintIntensityTimer->Interval = 300;
 			// 
 			// MyForm
 			// 
@@ -1110,6 +1120,12 @@ namespace ImageProcessor {
         System::Void blueTimer_Tick(System::Object^  sender, System::EventArgs^  e);
 		System::Void blueValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
 		System::Void blueSlider_ValueChange(); 
+
+		System::Void tintIntensitySlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void tintIntensitySlider_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void tintIntensitySlider_ValueChanged(System::Object^  sender, System::EventArgs^  e);
+		System::Void tintIntensityValue_KeyDown(System::Object^  sender, System::Windows::Forms::PreviewKeyDownEventArgs^  e);
+		System::Void tintIntensitySlider_ValueChange();
 
 		System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e); // hide objects on form launch
 };
