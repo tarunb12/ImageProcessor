@@ -75,22 +75,14 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Label^  highHueDegrees;
 	private: System::Windows::Forms::Timer^  hueTimer;
 	private: System::Windows::Forms::Label^  degreeLabel;
-
-
 	private: System::Windows::Forms::Label^  currentWidthValue;
 	private: System::Windows::Forms::Label^  currentHeightValue;
-
-
 	private: System::Windows::Forms::Label^  newWidthLabel;
 	private: System::Windows::Forms::Label^  newHeightLabel;
-
-
 	private: System::Windows::Forms::TextBox^  newWidthInput;
 	private: System::Windows::Forms::TextBox^  newHeightInput;
 	private: System::Windows::Forms::Button^  applyDimensionChange;
 	private: System::Windows::Forms::Button^  cancelDimensionChange;
-
-
 	private: System::ComponentModel::IContainer^  components;
 	private: System::Windows::Forms::Button^ fillBox;
 	private: System::Windows::Forms::NumericUpDown^ fillBoxStartX;		 
@@ -103,8 +95,6 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Label^ boxY2;
 	private: System::Windows::Forms::Button^ fillBoxLoad;
 	private: System::Windows::Forms::Button^ colorSelector;
-
-
 	private: System::Windows::Forms::TrackBar^  greenSlider;
 	private: System::Windows::Forms::TrackBar^  redSlider;
 	private: System::Windows::Forms::TrackBar^  blueSlider;
@@ -120,10 +110,8 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Label^  greenLabel;
 	private: System::Windows::Forms::Button^  rgbTint;
 	private: System::Windows::Forms::Button^  customTint;
-
-
-
-
+	private: System::Windows::Forms::TrackBar^  tintIntensitySlider;
+	private: System::Windows::Forms::TextBox^  tintIntensityValue;
 	private: Color fillColor;
 	protected:
 
@@ -216,6 +204,8 @@ namespace ImageProcessor {
 			this->greenLabel = (gcnew System::Windows::Forms::Label());
 			this->rgbTint = (gcnew System::Windows::Forms::Button());
 			this->customTint = (gcnew System::Windows::Forms::Button());
+			this->tintIntensitySlider = (gcnew System::Windows::Forms::TrackBar());
+			this->tintIntensityValue = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -228,6 +218,7 @@ namespace ImageProcessor {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->greenSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->redSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->blueSlider))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tintIntensitySlider))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// currentImage
@@ -905,11 +896,28 @@ namespace ImageProcessor {
 			this->customTint->UseVisualStyleBackColor = true;
 			this->customTint->Click += gcnew System::EventHandler(this, &MyForm::customTint_Click);
 			// 
+			// tintIntensitySlider
+			// 
+			this->tintIntensitySlider->Location = System::Drawing::Point(99, 942);
+			this->tintIntensitySlider->Maximum = 255;
+			this->tintIntensitySlider->Name = L"tintIntensitySlider";
+			this->tintIntensitySlider->Size = System::Drawing::Size(504, 90);
+			this->tintIntensitySlider->TabIndex = 71;
+			// 
+			// tintIntensityValue
+			// 
+			this->tintIntensityValue->Location = System::Drawing::Point(314, 1001);
+			this->tintIntensityValue->Name = L"tintIntensityValue";
+			this->tintIntensityValue->Size = System::Drawing::Size(50, 31);
+			this->tintIntensityValue->TabIndex = 72;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1949, 1091);
+			this->Controls->Add(this->tintIntensityValue);
+			this->Controls->Add(this->tintIntensitySlider);
 			this->Controls->Add(this->customTint);
 			this->Controls->Add(this->rgbTint);
 			this->Controls->Add(this->greenLabel);
@@ -991,6 +999,7 @@ namespace ImageProcessor {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->greenSlider))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->redSlider))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->blueSlider))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->tintIntensitySlider))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

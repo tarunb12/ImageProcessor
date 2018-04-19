@@ -39,7 +39,7 @@ System::Void ImageProcessor::MyForm::brightnessTimer_Tick(System::Object^  sende
 
 System::Void ImageProcessor::MyForm::brightnessSlider_ValueChange() {
 	System::Drawing::Bitmap^ tempBitmap = changes->bitmapPeek();
-	float b = (float)this->brightnessSlider->Value / 255.0f;
+	float b = this->brightnessSlider->Value / 255.0f;
 	System::Drawing::Bitmap^ newBitmap = gcnew Bitmap(tempBitmap->Width, tempBitmap->Height);
 	System::Drawing::Graphics^ newGraphics = System::Drawing::Graphics::FromImage(newBitmap);
 	System::Drawing::Imaging::ColorMatrix^ colorMatrix = gcnew System::Drawing::Imaging::ColorMatrix();

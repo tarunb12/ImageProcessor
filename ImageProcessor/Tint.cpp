@@ -77,7 +77,7 @@ System::Void ImageProcessor::MyForm::redValue_KeyDown(System::Object^  sender, S
 }
 
 System::Void ImageProcessor::MyForm::redSlider_ValueChange() {
-	float redIntensity = this->redSlider->Value / 255.0f;
+	int redIntensity = this->redSlider->Value;
 	System::Drawing::Bitmap^ tintMap = grayscaleBitmap;
 	System::Drawing::Rectangle rect = Rectangle(0, 0, tintMap->Width, tintMap->Height); // new rectangle object w/ same image dimensions
 	System::Drawing::Imaging::BitmapData^ bitmapData = tintMap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, tintMap->PixelFormat); // locks bitmap
@@ -86,7 +86,7 @@ System::Void ImageProcessor::MyForm::redSlider_ValueChange() {
 	array<Byte>^ rgbValues = gcnew array<Byte>(bytes); // byte array to hold rgb values
 	System::Runtime::InteropServices::Marshal::Copy(ptr, rgbValues, 0, bytes); // copies values to rgb array
 	for (int i = 0; i < rgbValues->Length; i += 4) {
-		rgbValues[i] *= redIntensity;
+		rgbValues[i + 2] = redIntensity + rgbValues[i + 2] > 255 ? 255 : redIntensity + rgbValues[i + 2];
 	}
 	System::Runtime::InteropServices::Marshal::Copy(rgbValues, 0, ptr, bytes); // copies rgb values to bitmap data
 	tintMap->UnlockBits(bitmapData); // transfers bitmap data back to bitmap & unlocks bitmap
@@ -131,7 +131,20 @@ System::Void ImageProcessor::MyForm::greenValue_KeyDown(System::Object^  sender,
 }
 
 System::Void ImageProcessor::MyForm::greenSlider_ValueChange() {
-
+	int greenIntensity = this->greenSlider->Value;
+	System::Drawing::Bitmap^ tintMap = grayscaleBitmap;
+	System::Drawing::Rectangle rect = Rectangle(0, 0, tintMap->Width, tintMap->Height); // new rectangle object w/ same image dimensions
+	System::Drawing::Imaging::BitmapData^ bitmapData = tintMap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, tintMap->PixelFormat); // locks bitmap
+	IntPtr ptr = bitmapData->Scan0; // idk scans bitmap data
+	int bytes = Math::Abs(bitmapData->Stride) * tintMap->Height; // rgb values converted into byte value
+	array<Byte>^ rgbValues = gcnew array<Byte>(bytes); // byte array to hold rgb values
+	System::Runtime::InteropServices::Marshal::Copy(ptr, rgbValues, 0, bytes); // copies values to rgb array
+	for (int i = 0; i < rgbValues->Length; i += 4) {
+		rgbValues[i + 1] = greenIntensity + rgbValues[i + 1] > 255 ? 255 : greenIntensity + rgbValues[i + 1];
+	}
+	System::Runtime::InteropServices::Marshal::Copy(rgbValues, 0, ptr, bytes); // copies rgb values to bitmap data
+	tintMap->UnlockBits(bitmapData); // transfers bitmap data back to bitmap & unlocks bitmap
+	currentImage->Image = tintMap; // current picturebox image set to bitmap
 }
 
 System::Void ImageProcessor::MyForm::blueSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
@@ -172,7 +185,20 @@ System::Void ImageProcessor::MyForm::blueValue_KeyDown(System::Object^  sender, 
 }
 
 System::Void ImageProcessor::MyForm::blueSlider_ValueChange() {
-
+	int blueIntensity = this->blueSlider->Value;
+	System::Drawing::Bitmap^ tintMap = grayscaleBitmap;
+	System::Drawing::Rectangle rect = Rectangle(0, 0, tintMap->Width, tintMap->Height); // new rectangle object w/ same image dimensions
+	System::Drawing::Imaging::BitmapData^ bitmapData = tintMap->LockBits(rect, System::Drawing::Imaging::ImageLockMode::ReadOnly, tintMap->PixelFormat); // locks bitmap
+	IntPtr ptr = bitmapData->Scan0; // idk scans bitmap data
+	int bytes = Math::Abs(bitmapData->Stride) * tintMap->Height; // rgb values converted into byte value
+	array<Byte>^ rgbValues = gcnew array<Byte>(bytes); // byte array to hold rgb values
+	System::Runtime::InteropServices::Marshal::Copy(ptr, rgbValues, 0, bytes); // copies values to rgb array
+	for (int i = 0; i < rgbValues->Length; i += 4) {
+		rgbValues[i] = blueIntensity + rgbValues[i] > 255 ? 255 : blueIntensity + rgbValues[i];
+	}
+	System::Runtime::InteropServices::Marshal::Copy(rgbValues, 0, ptr, bytes); // copies rgb values to bitmap data
+	tintMap->UnlockBits(bitmapData); // transfers bitmap data back to bitmap & unlocks bitmap
+	currentImage->Image = tintMap; // current picturebox image set to bitmap
 }
 
 System::Void ImageProcessor::MyForm::customTint_Click(System::Object^  sender, System::EventArgs^  e) {
