@@ -174,7 +174,7 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->boxY2->Hide();
 	this->colorSelector->Hide();
 
-	this->rgbTint->Hide();
+	this->monochromeTint->Hide();
 	this->customTint->Hide();
 
 	this->redSlider->Hide();
@@ -331,7 +331,7 @@ System::Void ImageProcessor::MyForm::fillBox_Click(System::Object^ sender, Syste
 System::Void ImageProcessor::MyForm::tintImage_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		hideTempObjects();
-		this->rgbTint->Show();
+		this->monochromeTint->Show();
 		this->customTint->Show();
 	}
 }
