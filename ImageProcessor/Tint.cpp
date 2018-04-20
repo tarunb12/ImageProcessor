@@ -1,9 +1,9 @@
 #include "MyForm.h"
 
-System::Void ImageProcessor::MyForm::rgbTint_Click(System::Object^  sender, System::EventArgs^  e) {
+System::Void ImageProcessor::MyForm::monochromeTint_Click(System::Object^  sender, System::EventArgs^  e) {
 	saveCurrentImage();
 
-	this->rgbTint->Hide();
+	this->monochromeTint->Hide();
 	this->customTint->Hide();
 	this->redSlider->Value = 0;
 	this->greenSlider->Value = 0;
@@ -203,7 +203,7 @@ System::Void ImageProcessor::MyForm::blueSlider_ValueChange() {
 
 System::Void ImageProcessor::MyForm::customTint_Click(System::Object^  sender, System::EventArgs^  e) {
 	saveCurrentImage();
-	this->rgbTint->Hide();
+	this->monochromeTint->Hide();
 	this->customTint->Hide();
 	this->tintColor->Show();
 }
