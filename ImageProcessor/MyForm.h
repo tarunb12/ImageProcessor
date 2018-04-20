@@ -108,14 +108,13 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Label^  redLabel;
 	private: System::Windows::Forms::Label^  blueLabel;
 	private: System::Windows::Forms::Label^  greenLabel;
-	private: System::Windows::Forms::Button^  rgbTint;
+	private: System::Windows::Forms::Button^  monochromeTint;
 	private: System::Windows::Forms::Button^  customTint;
 	private: System::Windows::Forms::TrackBar^  tintIntensitySlider;
 	private: System::Windows::Forms::TextBox^  tintIntensityValue;
 	private: System::Windows::Forms::Timer^  tintIntensityTimer;
 	private: System::Windows::Forms::Button^  tintColor;
 	private: Color fillColor;
-	private: System::Windows::Forms::Label^  currentColorbox;
 	private: Color tintColorSelect;
 
 	private:
@@ -203,13 +202,12 @@ namespace ImageProcessor {
 			this->redLabel = (gcnew System::Windows::Forms::Label());
 			this->blueLabel = (gcnew System::Windows::Forms::Label());
 			this->greenLabel = (gcnew System::Windows::Forms::Label());
-			this->rgbTint = (gcnew System::Windows::Forms::Button());
+			this->monochromeTint = (gcnew System::Windows::Forms::Button());
 			this->customTint = (gcnew System::Windows::Forms::Button());
 			this->tintIntensitySlider = (gcnew System::Windows::Forms::TrackBar());
 			this->tintIntensityValue = (gcnew System::Windows::Forms::TextBox());
 			this->tintIntensityTimer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->tintColor = (gcnew System::Windows::Forms::Button());
-			this->currentColorbox = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -716,7 +714,7 @@ namespace ImageProcessor {
 			this->boxX1->AutoSize = true;
 			this->boxX1->Location = System::Drawing::Point(255, 807);
 			this->boxX1->Name = L"boxX1";
-			this->boxX1->Size = System::Drawing::Size(35, 25);
+			this->boxX1->Size = System::Drawing::Size(38, 25);
 			this->boxX1->TabIndex = 51;
 			this->boxX1->Text = L"X1";
 			// 
@@ -725,7 +723,7 @@ namespace ImageProcessor {
 			this->boxX2->AutoSize = true;
 			this->boxX2->Location = System::Drawing::Point(553, 807);
 			this->boxX2->Name = L"boxX2";
-			this->boxX2->Size = System::Drawing::Size(35, 25);
+			this->boxX2->Size = System::Drawing::Size(38, 25);
 			this->boxX2->TabIndex = 52;
 			this->boxX2->Text = L"X2";
 			// 
@@ -734,7 +732,7 @@ namespace ImageProcessor {
 			this->boxY1->AutoSize = true;
 			this->boxY1->Location = System::Drawing::Point(255, 857);
 			this->boxY1->Name = L"boxY1";
-			this->boxY1->Size = System::Drawing::Size(35, 25);
+			this->boxY1->Size = System::Drawing::Size(39, 25);
 			this->boxY1->TabIndex = 53;
 			this->boxY1->Text = L"Y1";
 			// 
@@ -743,7 +741,7 @@ namespace ImageProcessor {
 			this->boxY2->AutoSize = true;
 			this->boxY2->Location = System::Drawing::Point(553, 857);
 			this->boxY2->Name = L"boxY2";
-			this->boxY2->Size = System::Drawing::Size(35, 25);
+			this->boxY2->Size = System::Drawing::Size(39, 25);
 			this->boxY2->TabIndex = 54;
 			this->boxY2->Text = L"Y2";
 			// 
@@ -880,15 +878,15 @@ namespace ImageProcessor {
 			this->greenLabel->TabIndex = 68;
 			this->greenLabel->Text = L"Green";
 			// 
-			// rgbTint
+			// monochromeTint
 			// 
-			this->rgbTint->Location = System::Drawing::Point(99, 949);
-			this->rgbTint->Name = L"rgbTint";
-			this->rgbTint->Size = System::Drawing::Size(220, 71);
-			this->rgbTint->TabIndex = 69;
-			this->rgbTint->Text = L"RGB Tint";
-			this->rgbTint->UseVisualStyleBackColor = true;
-			this->rgbTint->Click += gcnew System::EventHandler(this, &MyForm::rgbTint_Click);
+			this->monochromeTint->Location = System::Drawing::Point(99, 949);
+			this->monochromeTint->Name = L"monochromeTint";
+			this->monochromeTint->Size = System::Drawing::Size(220, 71);
+			this->monochromeTint->TabIndex = 69;
+			this->monochromeTint->Text = L"RGB Tint";
+			this->monochromeTint->UseVisualStyleBackColor = true;
+			this->monochromeTint->Click += gcnew System::EventHandler(this, &MyForm::monochromeTint_Click);
 			// 
 			// customTint
 			// 
@@ -917,6 +915,7 @@ namespace ImageProcessor {
 			this->tintIntensityValue->Name = L"tintIntensityValue";
 			this->tintIntensityValue->Size = System::Drawing::Size(50, 31);
 			this->tintIntensityValue->TabIndex = 72;
+			this->tintIntensityValue->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			this->tintIntensityValue->PreviewKeyDown += gcnew System::Windows::Forms::PreviewKeyDownEventHandler(this, &MyForm::tintIntensityValue_KeyDown);
 			// 
 			// tintIntensityTimer
@@ -934,29 +933,16 @@ namespace ImageProcessor {
 			this->tintColor->UseVisualStyleBackColor = true;
 			this->tintColor->Click += gcnew System::EventHandler(this, &MyForm::tintColor_Click);
 			// 
-			// currentColorbox
-			// 
-			this->currentColorbox->AutoSize = true;
-			this->currentColorbox->BackColor = System::Drawing::Color::Transparent;
-			this->currentColorbox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.875F, System::Drawing::FontStyle::Regular,
-				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->currentColorbox->Location = System::Drawing::Point(478, 870);
-			this->currentColorbox->Name = L"currentColorbox";
-			this->currentColorbox->Size = System::Drawing::Size(38, 42);
-			this->currentColorbox->TabIndex = 74;
-			this->currentColorbox->Text = L"  ";
-			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1949, 1091);
-			this->Controls->Add(this->currentColorbox);
 			this->Controls->Add(this->tintColor);
 			this->Controls->Add(this->tintIntensityValue);
 			this->Controls->Add(this->tintIntensitySlider);
 			this->Controls->Add(this->customTint);
-			this->Controls->Add(this->rgbTint);
+			this->Controls->Add(this->monochromeTint);
 			this->Controls->Add(this->greenLabel);
 			this->Controls->Add(this->blueLabel);
 			this->Controls->Add(this->redLabel);
@@ -1124,7 +1110,7 @@ namespace ImageProcessor {
 
 		System::Void tintImage_Click(System::Object^  sender, System::EventArgs^  e);
 
-		System::Void rgbTint_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void monochromeTint_Click(System::Object^  sender, System::EventArgs^  e);
 		System::Drawing::Bitmap^ grayscaleBitmap;
 		System::Void greenSlider_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 		System::Void greenSlider_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);

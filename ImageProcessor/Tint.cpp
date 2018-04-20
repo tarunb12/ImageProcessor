@@ -215,9 +215,12 @@ System::Void ImageProcessor::MyForm::tintColor_Click(System::Object^  sender, Sy
 
 	if (tintColors->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 		tintColorSelect = tintColors->Color;
-		currentColorbox->BackColor = tintColorSelect;
+		this->tintIntensityValue->Text = "0";
+		tintIntensityValue->ForeColor = ((tintColorSelect.R + tintColorSelect.G + tintColorSelect.B) / 3 < 127.5) ? Color::White : Color::Black;
+		this->tintIntensityValue->BackColor = tintColorSelect;
 		this->tintIntensitySlider->Show();
 		this->tintIntensityValue->Show();
+		this->percentLabel->Show();
 	}
 }
 
