@@ -44,7 +44,10 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Button^  mirrorImage;
 	private: System::Windows::Forms::Button^  hMirror;
 	private: System::Windows::Forms::Button^  vMirror;
-	private: System::Windows::Forms::Button^  cropImage;
+	private: System::Windows::Forms::Button^  filterImage;
+
+
+
 	private: System::Windows::Forms::Button^  resizeImage;
 	private: System::Windows::Forms::Button^  saveImage;
 	private: System::Windows::Forms::Button^  invertImage;
@@ -105,6 +108,11 @@ namespace ImageProcessor {
 	private: System::Drawing::Color fillColor;
 	private: System::Windows::Forms::Button^  chooseMonoTint;
 	private: System::Windows::Forms::Button^  chooseMonoTintColor;
+	private: System::Windows::Forms::Label^  percentLabelTint;
+	private: System::Windows::Forms::Button^  blackWhiteFilter;
+	private: System::Windows::Forms::Button^  sepiaFilter;
+	private: System::Windows::Forms::Button^  rgbToBgr;
+
 
 
 	private: Color tintColorSelect;
@@ -132,7 +140,7 @@ namespace ImageProcessor {
 			this->mirrorImage = (gcnew System::Windows::Forms::Button());
 			this->hMirror = (gcnew System::Windows::Forms::Button());
 			this->vMirror = (gcnew System::Windows::Forms::Button());
-			this->cropImage = (gcnew System::Windows::Forms::Button());
+			this->filterImage = (gcnew System::Windows::Forms::Button());
 			this->resizeImage = (gcnew System::Windows::Forms::Button());
 			this->invertImage = (gcnew System::Windows::Forms::Button());
 			this->grayscaleImage = (gcnew System::Windows::Forms::Button());
@@ -190,6 +198,10 @@ namespace ImageProcessor {
 			this->tintColor = (gcnew System::Windows::Forms::Button());
 			this->chooseMonoTint = (gcnew System::Windows::Forms::Button());
 			this->chooseMonoTintColor = (gcnew System::Windows::Forms::Button());
+			this->percentLabelTint = (gcnew System::Windows::Forms::Label());
+			this->blackWhiteFilter = (gcnew System::Windows::Forms::Button());
+			this->sepiaFilter = (gcnew System::Windows::Forms::Button());
+			this->rgbToBgr = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -291,19 +303,19 @@ namespace ImageProcessor {
 			this->vMirror->UseVisualStyleBackColor = true;
 			this->vMirror->Click += gcnew System::EventHandler(this, &MyForm::vMirror_Click);
 			// 
-			// cropImage
+			// filterImage
 			// 
-			this->cropImage->Location = System::Drawing::Point(85, 200);
-			this->cropImage->Name = L"cropImage";
-			this->cropImage->Size = System::Drawing::Size(233, 71);
-			this->cropImage->TabIndex = 9;
-			this->cropImage->Text = L"Crop";
-			this->cropImage->UseVisualStyleBackColor = true;
-			this->cropImage->Click += gcnew System::EventHandler(this, &MyForm::cropImage_Click);
+			this->filterImage->Location = System::Drawing::Point(85, 200);
+			this->filterImage->Name = L"filterImage";
+			this->filterImage->Size = System::Drawing::Size(233, 71);
+			this->filterImage->TabIndex = 9;
+			this->filterImage->Text = L"Filters";
+			this->filterImage->UseVisualStyleBackColor = true;
+			this->filterImage->Click += gcnew System::EventHandler(this, &MyForm::filterImage_Click);
 			// 
 			// resizeImage
 			// 
-			this->resizeImage->Location = System::Drawing::Point(382, 200);
+			this->resizeImage->Location = System::Drawing::Point(382, 680);
 			this->resizeImage->Name = L"resizeImage";
 			this->resizeImage->Size = System::Drawing::Size(233, 71);
 			this->resizeImage->TabIndex = 10;
@@ -744,7 +756,7 @@ namespace ImageProcessor {
 			// 
 			// tintImage
 			// 
-			this->tintImage->Location = System::Drawing::Point(382, 680);
+			this->tintImage->Location = System::Drawing::Point(382, 200);
 			this->tintImage->Name = L"tintImage";
 			this->tintImage->Size = System::Drawing::Size(233, 71);
 			this->tintImage->TabIndex = 65;
@@ -826,11 +838,55 @@ namespace ImageProcessor {
 			this->chooseMonoTintColor->UseVisualStyleBackColor = true;
 			this->chooseMonoTintColor->Click += gcnew System::EventHandler(this, &MyForm::chooseMonoTintColor_Click);
 			// 
+			// percentLabelTint
+			// 
+			this->percentLabelTint->AutoSize = true;
+			this->percentLabelTint->Location = System::Drawing::Point(370, 886);
+			this->percentLabelTint->Name = L"percentLabelTint";
+			this->percentLabelTint->Size = System::Drawing::Size(31, 25);
+			this->percentLabelTint->TabIndex = 76;
+			this->percentLabelTint->Text = L"%";
+			this->percentLabelTint->Visible = false;
+			// 
+			// blackWhiteFilter
+			// 
+			this->blackWhiteFilter->Location = System::Drawing::Point(85, 806);
+			this->blackWhiteFilter->Name = L"blackWhiteFilter";
+			this->blackWhiteFilter->Size = System::Drawing::Size(170, 71);
+			this->blackWhiteFilter->TabIndex = 77;
+			this->blackWhiteFilter->Text = L"Black / White";
+			this->blackWhiteFilter->UseVisualStyleBackColor = true;
+			this->blackWhiteFilter->Click += gcnew System::EventHandler(this, &MyForm::blackWhiteFilter_Click);
+			// 
+			// sepiaFilter
+			// 
+			this->sepiaFilter->Location = System::Drawing::Point(265, 806);
+			this->sepiaFilter->Name = L"sepiaFilter";
+			this->sepiaFilter->Size = System::Drawing::Size(170, 71);
+			this->sepiaFilter->TabIndex = 78;
+			this->sepiaFilter->Text = L"Sepia";
+			this->sepiaFilter->UseVisualStyleBackColor = true;
+			this->sepiaFilter->Click += gcnew System::EventHandler(this, &MyForm::sepiaFilter_Click);
+			// 
+			// rgbToBgr
+			// 
+			this->rgbToBgr->Location = System::Drawing::Point(445, 806);
+			this->rgbToBgr->Name = L"rgbToBgr";
+			this->rgbToBgr->Size = System::Drawing::Size(170, 71);
+			this->rgbToBgr->TabIndex = 79;
+			this->rgbToBgr->Text = L"RGB -> BGR";
+			this->rgbToBgr->UseVisualStyleBackColor = true;
+			this->rgbToBgr->Click += gcnew System::EventHandler(this, &MyForm::rgbToBgr_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1949, 1091);
+			this->Controls->Add(this->rgbToBgr);
+			this->Controls->Add(this->sepiaFilter);
+			this->Controls->Add(this->blackWhiteFilter);
+			this->Controls->Add(this->percentLabelTint);
 			this->Controls->Add(this->chooseMonoTintColor);
 			this->Controls->Add(this->chooseMonoTint);
 			this->Controls->Add(this->tintColor);
@@ -872,7 +928,7 @@ namespace ImageProcessor {
 			this->Controls->Add(this->invertImage);
 			this->Controls->Add(this->saveImage);
 			this->Controls->Add(this->resizeImage);
-			this->Controls->Add(this->cropImage);
+			this->Controls->Add(this->filterImage);
 			this->Controls->Add(this->mirrorImage);
 			this->Controls->Add(this->hMirror);
 			this->Controls->Add(this->vMirror);
@@ -933,14 +989,10 @@ namespace ImageProcessor {
 		System::Void hMirror_Click(System::Object^  sender, System::EventArgs^  e); // mirrors image horizontally
 		System::Void vMirror_Click(System::Object^  sender, System::EventArgs^  e); // mirrors image vertically
 
-		System::Void cropImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
-		bool mouseActive = false;
-		Point originalPoint = Point( );
-		Point lastPoint = Point();
-		System::Drawing::Rectangle rectArea;
-		System::Void currentImage_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
-		System::Void currentImage_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
-		System::Void currentImage_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
+		System::Void filterImage_Click(System::Object^  sender, System::EventArgs^  e); // not implemented yet
+		System::Void blackWhiteFilter_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void sepiaFilter_Click(System::Object^  sender, System::EventArgs^  e);
+		System::Void rgbToBgr_Click(System::Object^  sender, System::EventArgs^  e);
 
 		int newWidth = -1;
 		int newHeight = -1;

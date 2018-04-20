@@ -60,7 +60,7 @@ System::Void ImageProcessor::MyForm::tintColor_Click(System::Object^  sender, Sy
 		this->tintIntensityValue->BackColor = tintColorSelect;
 		this->tintIntensitySlider->Show();
 		this->tintIntensityValue->Show();
-		this->percentLabel->Show();
+		this->percentLabelTint->Show();
 		changes->push(gcnew Bitmap(currentImage->Image));
 	}
 }

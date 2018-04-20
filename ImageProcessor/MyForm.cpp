@@ -147,6 +147,11 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->currentHeightValue->Hide();
 	this->newWidthLabel->Hide();
 	this->newHeightLabel->Hide();
+	this->percentLabelTint->Hide();
+	
+	this->blackWhiteFilter->Hide();
+	this->sepiaFilter->Hide();
+	this->rgbToBgr->Hide();
 
 	this->brightnessSlider->Hide();
 	this->brightnessValue->Hide();
@@ -212,13 +217,13 @@ System::Void ImageProcessor::MyForm::mirrorImage_Click(System::Object^  sender, 
 	}
 }
 
-System::Void ImageProcessor::MyForm::cropImage_Click(System::Object^  sender, System::EventArgs^  e) {
+System::Void ImageProcessor::MyForm::filterImage_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
 		saveCurrentImage();
 		hideTempObjects();
-		this->currentImage->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::currentImage_MouseDown);
-		this->currentImage->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::currentImage_MouseMove);
-		this->currentImage->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::currentImage_MouseUp);
+		this->blackWhiteFilter->Show();
+		this->sepiaFilter->Show();
+		this->rgbToBgr->Show();
 	}
 }
 
