@@ -664,7 +664,7 @@ namespace ImageProcessor {
 			// 
 			// cancelDimensionChange
 			// 
-			this->cancelDimensionChange->Location = System::Drawing::Point(0, 0);
+			this->cancelDimensionChange->Location = System::Drawing::Point(99, 949);
 			this->cancelDimensionChange->Name = L"cancelDimensionChange";
 			this->cancelDimensionChange->Size = System::Drawing::Size(220, 71);
 			this->cancelDimensionChange->TabIndex = 55;
