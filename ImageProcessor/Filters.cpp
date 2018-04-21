@@ -1,6 +1,7 @@
 #include "MyForm.h"
 
 System::Void ImageProcessor::MyForm::blackWhiteFilter_Click(System::Object^  sender, System::EventArgs^  e) {
+	saveCurrentImage();
 	System::Drawing::Bitmap^ tempBitmap = gcnew Bitmap(currentImage->Image);
 	System::Drawing::Bitmap^ newBitmap = gcnew Bitmap(tempBitmap->Width, tempBitmap->Height);
 	System::Drawing::Graphics^ newGraphics = System::Drawing::Graphics::FromImage(newBitmap);
@@ -47,20 +48,20 @@ System::Void ImageProcessor::MyForm::blackWhiteFilter_Click(System::Object^  sen
 
 	// [ a ] [ a ] [ a ] [ 0 ] [ 0 ]
 	// [ b ] [ b ] [ b ] [ 0 ] [ 0 ]
-	// [ 0 ] [ c ] [ c ] [ 0 ] [ 0 ]
+	// [ c ] [ c ] [ c ] [ 0 ] [ 0 ]
 	// [ 0 ] [ 0 ] [ 0 ] [ 1 ] [ 0 ]
 	// [ 0 ] [ 0 ] [ 0 ] [ 0 ] [ 1 ]
 	// Matrix which will make the image black and white
 
 	System::Drawing::Imaging::ImageAttributes^ attributes = gcnew System::Drawing::Imaging::ImageAttributes();
-	attributes->SetThreshold(0.5);
+	attributes->SetThreshold(0.55);
 	attributes->SetColorMatrix(colorMatrix);
 	newGraphics->DrawImage(tempBitmap, Rectangle(0, 0, tempBitmap->Width, tempBitmap->Height), 0, 0, tempBitmap->Width, tempBitmap->Height, GraphicsUnit::Pixel, attributes);
-	changes->push(newBitmap);
 	currentImage->Image = newBitmap;
 }
 
 System::Void ImageProcessor::MyForm::sepiaFilter_Click(System::Object^  sender, System::EventArgs^  e) {
+	saveCurrentImage();
 	System::Drawing::Bitmap^ tempBitmap = gcnew Bitmap(currentImage->Image);
 	System::Drawing::Bitmap^ newBitmap = gcnew Bitmap(tempBitmap->Width, tempBitmap->Height);
 	System::Drawing::Graphics^ newGraphics = System::Drawing::Graphics::FromImage(newBitmap);
@@ -121,11 +122,11 @@ System::Void ImageProcessor::MyForm::sepiaFilter_Click(System::Object^  sender, 
 	System::Drawing::Imaging::ImageAttributes^ attributes = gcnew System::Drawing::Imaging::ImageAttributes();
 	attributes->SetColorMatrix(colorMatrix);
 	newGraphics->DrawImage(tempBitmap, Rectangle(0, 0, tempBitmap->Width, tempBitmap->Height), 0, 0, tempBitmap->Width, tempBitmap->Height, GraphicsUnit::Pixel, attributes);
-	changes->push(newBitmap);
 	currentImage->Image = newBitmap;
 }
 
 System::Void ImageProcessor::MyForm::rgbToBgr_Click(System::Object^  sender, System::EventArgs^  e) {
+	saveCurrentImage();
 	System::Drawing::Bitmap^ tempBitmap = gcnew Bitmap(currentImage->Image);
 	System::Drawing::Bitmap^ newBitmap = gcnew Bitmap(tempBitmap->Width, tempBitmap->Height);
 	System::Drawing::Graphics^ newGraphics = System::Drawing::Graphics::FromImage(newBitmap);
@@ -177,6 +178,5 @@ System::Void ImageProcessor::MyForm::rgbToBgr_Click(System::Object^  sender, Sys
 	System::Drawing::Imaging::ImageAttributes^ attributes = gcnew System::Drawing::Imaging::ImageAttributes();
 	attributes->SetColorMatrix(colorMatrix);
 	newGraphics->DrawImage(tempBitmap, Rectangle(0, 0, tempBitmap->Width, tempBitmap->Height), 0, 0, tempBitmap->Width, tempBitmap->Height, GraphicsUnit::Pixel, attributes);
-	changes->push(newBitmap);
 	currentImage->Image = newBitmap;
 }
