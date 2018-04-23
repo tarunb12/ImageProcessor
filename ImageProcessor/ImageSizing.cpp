@@ -3,8 +3,8 @@
 System::Void ImageProcessor::MyForm::dimensionChange() {
 	int oldWidth = currentImage->Image->Width;
 	int oldHeight = currentImage->Image->Height;
-	this->currentWidthValue->Text = "Current Width: " + System::Convert::ToString(oldWidth);
-	this->currentHeightValue->Text = "Current Height: " + System::Convert::ToString(oldHeight);
+	this->currentWidthValue->Text = "Current Width: " + System::Convert::ToString(oldWidth) + " px";
+	this->currentHeightValue->Text = "Current Height: " + System::Convert::ToString(oldHeight) + " px";
 
 	this->currentWidthValue->Show();
 	this->currentHeightValue->Show();
@@ -16,7 +16,9 @@ System::Void ImageProcessor::MyForm::dimensionChange() {
 	this->cancelDimensionChange->Show();
 
 	this->newWidthInput->Text = "";
+	this->pixel1->Show();
 	this->newHeightInput->Text = "";
+	this->pixel2->Show();
 }
 
 System::Void ImageProcessor::MyForm::applyDimensionChange_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -58,6 +60,8 @@ System::Void ImageProcessor::MyForm::applyDimensionChange_Click(System::Object^ 
 		this->newHeightInput->Hide();
 		this->applyDimensionChange->Hide();
 		this->cancelDimensionChange->Hide();
+		this->pixel1->Hide();
+		this->pixel2->Hide();
 
 		currentImage->Image = newBitmap;
 	}
@@ -72,5 +76,7 @@ System::Void ImageProcessor::MyForm::cancelDimensionChange_Click(System::Object^
 	this->newHeightInput->Hide();
 	this->applyDimensionChange->Hide();
 	this->cancelDimensionChange->Hide();
+	this->pixel1->Hide();
+	this->pixel2->Hide();
 }
 

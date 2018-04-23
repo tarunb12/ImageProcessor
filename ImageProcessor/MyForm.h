@@ -112,6 +112,10 @@ namespace ImageProcessor {
 	private: System::Windows::Forms::Button^  blackWhiteFilter;
 	private: System::Windows::Forms::Button^  sepiaFilter;
 	private: System::Windows::Forms::Button^  rgbToBgr;
+	private: System::Windows::Forms::Label^  pixel2;
+	private: System::Windows::Forms::Label^  pixel1;
+
+
 
 
 
@@ -202,6 +206,8 @@ namespace ImageProcessor {
 			this->blackWhiteFilter = (gcnew System::Windows::Forms::Button());
 			this->sepiaFilter = (gcnew System::Windows::Forms::Button());
 			this->rgbToBgr = (gcnew System::Windows::Forms::Button());
+			this->pixel2 = (gcnew System::Windows::Forms::Label());
+			this->pixel1 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->currentImage))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->brightnessSlider))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->contrastSlider))->BeginInit();
@@ -878,11 +884,29 @@ namespace ImageProcessor {
 			this->rgbToBgr->UseVisualStyleBackColor = true;
 			this->rgbToBgr->Click += gcnew System::EventHandler(this, &MyForm::rgbToBgr_Click);
 			// 
+			// pixel2
+			// 
+			this->pixel2->Location = System::Drawing::Point(609, 910);
+			this->pixel2->Name = L"pixel2";
+			this->pixel2->Size = System::Drawing::Size(40, 25);
+			this->pixel2->TabIndex = 0;
+			this->pixel2->Text = L"px";
+			// 
+			// pixel1
+			// 
+			this->pixel1->Location = System::Drawing::Point(609, 842);
+			this->pixel1->Name = L"pixel1";
+			this->pixel1->Size = System::Drawing::Size(40, 25);
+			this->pixel1->TabIndex = 80;
+			this->pixel1->Text = L"px";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1949, 1091);
+			this->Controls->Add(this->pixel1);
+			this->Controls->Add(this->pixel2);
 			this->Controls->Add(this->rgbToBgr);
 			this->Controls->Add(this->sepiaFilter);
 			this->Controls->Add(this->blackWhiteFilter);

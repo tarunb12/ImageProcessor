@@ -148,6 +148,8 @@ System::Void ImageProcessor::MyForm::hideTempObjects() { // hides all objects no
 	this->newWidthLabel->Hide();
 	this->newHeightLabel->Hide();
 	this->percentLabelTint->Hide();
+	this->pixel1->Hide();
+	this->pixel2->Hide();
 	
 	this->blackWhiteFilter->Hide();
 	this->sepiaFilter->Hide();
