@@ -307,7 +307,6 @@ System::Void ImageProcessor::MyForm::imageSaturation_Click(System::Object^  send
 
 System::Void ImageProcessor::MyForm::fillBox_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (currentImage->Image) {
-		saveCurrentImage();
 		hideTempObjects();
 		this->fillBoxEndX->Maximum = this->currentImage->Image->Width;
 		this->fillBoxEndY->Maximum = this->currentImage->Image->Height;
@@ -354,8 +353,7 @@ System::Void ImageProcessor::MyForm::colorSelector_Click(System::Object^  sender
 
 System::Void ImageProcessor::MyForm::fillBoxLoad_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (currentImage->Image) {
-		System::Drawing::Bitmap^ bitmap = gcnew Bitmap(currentImage->Image); // image before being changed
-		changes->push(bitmap); // push pre-change bitmap
+		saveCurrentImage();
 		System::Drawing::Bitmap^ changedBitmap = gcnew Bitmap(currentImage->Image); // new bitmap of current image
 		Graphics^ bitmapGraphics = Graphics::FromImage(changedBitmap);
 		System::Drawing::Brush^ brush = (gcnew System::Drawing::SolidBrush(fillColor));

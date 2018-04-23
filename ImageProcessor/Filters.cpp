@@ -54,7 +54,7 @@ System::Void ImageProcessor::MyForm::blackWhiteFilter_Click(System::Object^  sen
 	// Matrix which will make the image black and white
 
 	System::Drawing::Imaging::ImageAttributes^ attributes = gcnew System::Drawing::Imaging::ImageAttributes();
-	attributes->SetThreshold(0.55);
+	attributes->SetThreshold(0.52);
 	attributes->SetColorMatrix(colorMatrix);
 	newGraphics->DrawImage(tempBitmap, Rectangle(0, 0, tempBitmap->Width, tempBitmap->Height), 0, 0, tempBitmap->Width, tempBitmap->Height, GraphicsUnit::Pixel, attributes);
 	currentImage->Image = newBitmap;
