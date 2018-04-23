@@ -852,7 +852,7 @@ namespace ImageProcessor {
 			// 
 			this->blackWhiteFilter->Location = System::Drawing::Point(85, 806);
 			this->blackWhiteFilter->Name = L"blackWhiteFilter";
-			this->blackWhiteFilter->Size = System::Drawing::Size(170, 71);
+			this->blackWhiteFilter->Size = System::Drawing::Size(220, 71);
 			this->blackWhiteFilter->TabIndex = 77;
 			this->blackWhiteFilter->Text = L"Black / White";
 			this->blackWhiteFilter->UseVisualStyleBackColor = true;
@@ -860,9 +860,9 @@ namespace ImageProcessor {
 			// 
 			// sepiaFilter
 			// 
-			this->sepiaFilter->Location = System::Drawing::Point(265, 806);
+			this->sepiaFilter->Location = System::Drawing::Point(395, 806);
 			this->sepiaFilter->Name = L"sepiaFilter";
-			this->sepiaFilter->Size = System::Drawing::Size(170, 71);
+			this->sepiaFilter->Size = System::Drawing::Size(220, 71);
 			this->sepiaFilter->TabIndex = 78;
 			this->sepiaFilter->Text = L"Sepia";
 			this->sepiaFilter->UseVisualStyleBackColor = true;
@@ -870,9 +870,9 @@ namespace ImageProcessor {
 			// 
 			// rgbToBgr
 			// 
-			this->rgbToBgr->Location = System::Drawing::Point(445, 806);
+			this->rgbToBgr->Location = System::Drawing::Point(231, 926);
 			this->rgbToBgr->Name = L"rgbToBgr";
-			this->rgbToBgr->Size = System::Drawing::Size(170, 71);
+			this->rgbToBgr->Size = System::Drawing::Size(220, 71);
 			this->rgbToBgr->TabIndex = 79;
 			this->rgbToBgr->Text = L"RGB -> BGR";
 			this->rgbToBgr->UseVisualStyleBackColor = true;

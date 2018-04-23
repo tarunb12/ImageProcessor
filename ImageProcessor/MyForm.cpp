@@ -253,6 +253,7 @@ System::Void ImageProcessor::MyForm::grayscaleImage_Click(System::Object^  sende
 
 System::Void ImageProcessor::MyForm::imageBrightness_Click(System::Object^  sender, System::EventArgs^  e) {
 	if (currentImage->Image) {
+		saveCurrentImage();
 		hideTempObjects();
 		this->brightnessSlider->Value = 0;
 		this->brightnessSlider->Show();
